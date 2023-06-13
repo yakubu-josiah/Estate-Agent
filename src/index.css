@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    margin: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 
 /* HEADER SECTION STYLES */
 .header img {
@@ -16,4 +20,36 @@ header ul li:hover {
     border-bottom: purple solid 3px;
     cursor: pointer;
     transition: ease-in-out 0.3s;
+}
+
+/* AUTHENTICATION PAGES STYLES */
+.auth {
+    background: linear-gradient(to right, #f5e694, #2c0855);
+}
+.auth p {
+    /* font-size: small; */
+    line-height: 0.8em;
+}
+.auth div .form {
+    border-radius: 10px;
+}
+.auth div .form input{
+    font-size: 17px;
+    font-weight: 500;
+    background: linear-gradient(to right, #c7c7c7, #ffffff);
+}
+.auth div .form input::placeholder {
+    letter-spacing: 1px;
+    text-align: start;
+    color: #a09898;
+    font-size: 17px;
+}
+.auth div .form button {
+    text-transform: uppercase;
+    font-size: 17px;
+    /* font-weight: 700; */
+    margin-bottom: 90px;
+    letter-spacing: 3px;
+    /* color: #fff; */
+    background: linear-gradient(to right, #62596d,#f5e694);
 }
