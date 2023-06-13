@@ -17,7 +17,7 @@ export default function Header() {
     <div className='bg-white border-b shadow-md sticky top-0 z-50'>
         <header className='flex justify-between items-center px-3 max-w-6xl mx-auto'>
             <div className="header">
-                <img src={process.env.PUBLIC_URL + '/images/logo.png'} alt="Our Logo" className='cursor-pointer'
+                <img src={process.env.PUBLIC_URL + '/images/logo.png'} alt="Our Logo" className='cursor-pointer py-2'
                     onClick={() => {nav('/')}}
                 />
             </div>
@@ -32,8 +32,8 @@ export default function Header() {
                         onClick={() => {nav('/offers')}}>Offers
                     </li>
                     <li className={`py-3 text-sm fold-semibold text-gray-400 border-b-[3px] border-b-transparent 
-                        ${checkRoute("/sign-in") && "header-active"}`}
-                        onClick={() => {nav('/sign-in')}}>Sign in
+                        ${checkRoute("/auth/sign-in") && "header-active"}`}
+                        onClick={() => {nav('/auth/sign-in')}}>Sign in
                     </li>
                 </ul>
             </div>
