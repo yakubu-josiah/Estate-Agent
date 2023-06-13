@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* HEADER SECTION STYLES */
+.header img {
+    height: 70px;
+}
+.header-active {
+    color: #000;
+    border-bottom: purple solid 3px;
+}
+header ul li:hover {
+    color: #000;
+    border-bottom: purple solid 3px;
+    cursor: pointer;
+}
