@@ -5,9 +5,9 @@ export default function SignIn() {
   const nav = useNavigate();
 
   return (
-  <div className="flex auth flex-wrap">
-    <div className="flex-1 m-auto">
-      <div className="form w-3/5 m-auto p-10 text-green-900 font-semibold border shadow-xl">
+  <div className="flex auth flex-wrap sm:flex-wrap">
+    <div className="lg:flex-1 m-auto md:flex-col w-full">
+      <div className="form w-3/5 m-auto p-10 text-green-900 font-semibold shadow-thick shadow-md min-w-[320px] sm:border-none md:border-none">
         <h1 className="text-3xl pb-3 mt-10">Login Account</h1>
         <p className="text-sm ">Welcome back! Please log in to access your account and manage your preferences.</p>
         <form action="" className="">
@@ -22,8 +22,8 @@ export default function SignIn() {
       </div>
     </div>
 
-    <div className="flex-1">
-      <img src={process.env.PUBLIC_URL + '/images/login.jpeg'} alt="" className="w-full h-full"/>
+    <div className="lg:flex-1 lg:h-full flex-col-reverse md:w-full md:h-[500px] ">
+      <img src={process.env.PUBLIC_URL + '/images/login.jpeg'} alt="" className="object-cover w-full h-full"/>
     </div>
   </div>
   );

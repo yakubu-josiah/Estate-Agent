@@ -24,11 +24,18 @@ header ul li:hover {
 
 /* AUTHENTICATION PAGES STYLES */
 .auth {
+    display: flex;
     background: linear-gradient(to right, #f5e694, #2c0855);
 }
+/* .auth .col1 {
+    flex-direction: column;
+}
+.auth .col1:nth-child(even) {
+    flex-direction: column-reverse;
+} */
 .auth p {
     /* font-size: small; */
-    line-height: 0.8em;
+    line-height: 0.9em;
 }
 .auth div .form {
     border-radius: 10px;
@@ -52,4 +59,15 @@ header ul li:hover {
     letter-spacing: 3px;
     /* color: #fff; */
     background: linear-gradient(to right, #62596d,#f5e694);
+}
+.shadow-thick {
+    --tw-shadow: 0 11px 28px 26px rgba(85, 0, 0, 0.1), 0 15px 43px 27px rgba(0, 0, 1, 0.06);
+}
+
+@media (max-width: 600px){
+/* 
+    .auth div{
+        width: 400px;
+        flex-direction: column-reverse;
+    } */
 }
