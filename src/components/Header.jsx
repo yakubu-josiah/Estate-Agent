@@ -22,7 +22,7 @@ export default function Header() {
                 />
             </div>
             <div className="">
-                <ul className='flex lg:space-x-10 space-x-5'>
+                <ul className='flex space-x-4 md:space-x-7 lg:space-x-10'>
                     <li className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
                         ${checkRoute("/") && "header-active"}`}
                         onClick={() => {nav('/')}}>Home

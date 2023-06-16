@@ -1,8 +1,23 @@
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { RiEyeCloseLine  } from "react-icons/ri";
+import { TiEyeOutline } from "react-icons/ti";
 
 export default function SignIn() {
+  const [viewPassword, setViewPassword] = useState(false);
   const nav = useNavigate();
+  const [formData, setformData] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = formData;
+  function handleChange(e) {
+    setformData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
 
   return (
   <div className="flex auth flex-wrap sm:flex-wrap">
@@ -11,8 +26,23 @@ export default function SignIn() {
         <h1 className="text-3xl pb-3 mt-10">Login Account</h1>
         <p className="text-sm ">Welcome back! Please log in to access your account and manage your preferences.</p>
         <form action="" className="">
-          <input type="email" className="border p-2 pl-12 w-full mt-10 rounded-full" placeholder="Email"/>
-          <input type="password" className="border p-2 pl-12 w-full mt-3 rounded-full" placeholder="Password"/>
+          <input type="email" id="email" className="p-2 pl-12 w-full mt-10 rounded-full" 
+            value={email}
+            onChange={handleChange}
+            placeholder="Email Address" 
+          />
+
+          <div className="relative">
+            <input id="password" className="p-2 pl-12 w-full mt-3 rounded-full" 
+              type={viewPassword ? "text" : "password"}
+              placeholder="Password" 
+              value={password} 
+              onChange={handleChange}
+            />
+            <span className="absolute right-5 bottom-3 text-xl cursor-pointer"
+              onClick={() => setViewPassword((prevVisible) => !prevVisible)}
+            >{ viewPassword ? <TiEyeOutline /> : <RiEyeCloseLine /> }</span>
+          </div>
           <div className="text-end mt-2">
             <p onClick={() => {nav('/auth/forgot-password')}} className="text-sm cursor-pointer">Forgot Password?</p>
             {/* <a onClick={() => {nav('/auth/forgot-password')}} className="text-sm">Forgot Password?</a> */}
