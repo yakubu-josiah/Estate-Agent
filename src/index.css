@@ -27,12 +27,6 @@ header ul li:hover {
     display: flex;
     background: linear-gradient(to right, #f5e694, #2c0855);
 }
-/* .auth .col1 {
-    flex-direction: column;
-}
-.auth .col1:nth-child(even) {
-    flex-direction: column-reverse;
-} */
 .auth p {
     /* font-size: small; */
     line-height: 0.9em;
@@ -56,7 +50,7 @@ header ul li:hover {
     text-transform: uppercase;
     font-size: 17px;
     /* font-weight: 700; */
-    margin-bottom: 90px;
+    margin-bottom: 30px;
     letter-spacing: 3px;
     /* color: #fff; */
     background: linear-gradient(to right, #62596d,#f5e694);
