@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiEyeCloseLine  } from "react-icons/ri";
 import { TiEyeOutline } from "react-icons/ti";
+import { HiMail } from "react-icons/hi";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 export default function SignIn() {
   const [viewPassword, setViewPassword] = useState(false);
@@ -26,13 +28,17 @@ export default function SignIn() {
         <h1 className="text-3xl pb-3 mt-10">Login Account</h1>
         <p className="text-sm ">Welcome back! Please log in to access your account and manage your preferences.</p>
         <form action="" className="">
-          <input type="email" id="email" className="p-2 pl-12 w-full mt-10 rounded-full" 
-            value={email}
-            onChange={handleChange}
-            placeholder="Email Address" 
-          />
+          <div className="relative">
+          <span className="absolute left-5 bottom-3 text-xl"> <HiMail /> </span>
+            <input type="email" id="email" className="p-2 pl-12 w-full mt-10 rounded-full" 
+              value={email}
+              onChange={handleChange}
+              placeholder="Email Address" 
+            />
+          </div>
 
           <div className="relative">
+            <span className="absolute left-5 bottom-3 text-xl"> <RiLockPasswordFill /> </span>
             <input id="password" className="p-2 pl-12 w-full mt-3 rounded-full" 
               type={viewPassword ? "text" : "password"}
               placeholder="Password" 
@@ -40,12 +46,12 @@ export default function SignIn() {
               onChange={handleChange}
             />
             <span className="absolute right-5 bottom-3 text-xl cursor-pointer"
-              onClick={() => setViewPassword((prevVisible) => !prevVisible)}
-            >{ viewPassword ? <TiEyeOutline /> : <RiEyeCloseLine /> }</span>
+              onClick={() => setViewPassword((prevVisible) => !prevVisible)} >
+              { viewPassword ? <TiEyeOutline /> : <RiEyeCloseLine /> }
+            </span>
           </div>
-          <div className="text-end mt-2">
-            <p onClick={() => {nav('/auth/forgot-password')}} className="text-sm cursor-pointer">Forgot Password?</p>
-            {/* <a onClick={() => {nav('/auth/forgot-password')}} className="text-sm">Forgot Password?</a> */}
+          <div className="text-end mt-1">
+            <Link to="/auth/forgot-password" className="text-sm cursor-pointer">Forgot Password</Link>
           </div>
           <button className="border p-2 w-full mt-10 mb-5 rounded-full">Login</button>
         </form>
