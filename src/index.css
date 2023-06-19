@@ -49,20 +49,58 @@ header ul li:hover {
 .auth div .form button {
     text-transform: uppercase;
     font-size: 17px;
-    /* font-weight: 700; */
     margin-bottom: 30px;
     letter-spacing: 3px;
-    /* color: #fff; */
     background: linear-gradient(to right, #62596d,#f5e694);
 }
 .shadow-thick {
     --tw-shadow: 0 11px 28px 26px rgba(85, 0, 0, 0.1), 0 15px 43px 27px rgba(0, 0, 1, 0.06);
 }
-
-@media (max-width: 600px){
-/* 
-    .auth div{
-        width: 400px;
+@media (min-width: 769px){
+    .auth .formCont {
+        display: flex;
+        align-items: center;
+    }
+    .auth .formCont .form{
+        margin: 50px auto;
+        width: 80%;
+    }
+    .auth .imgCont {
+        height: auto;
+    }
+}
+@media (max-width: 768px) {
+    .auth {
+        display: flex;
         flex-direction: column-reverse;
-    } */
+    }
+    .auth .formCont {
+        display: flex;
+    }
+    .auth .formCont .form {
+        width: 80%;
+    }
+    .auth .imgCont {
+        height: 250px;
+    }
+}
+@media (max-width: 480px) {
+    .auth {
+        display: flex;
+        flex-direction: column;
+    }
+    .auth .formCont {
+        padding: 0;
+        margin: auto;
+    }
+    .auth .formCont .form {
+        width: 100%;
+    }
+    .auth div form span {
+        font-size: 15px;
+        line-height: 28px;
+    }
+    .auth div .form input::placeholder {
+        font-size: 12px;
+    }
 }

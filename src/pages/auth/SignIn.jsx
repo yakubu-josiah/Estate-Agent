@@ -23,9 +23,9 @@ export default function SignIn() {
 
 
   return (
-  <div className="flex auth flex-wrap sm:flex-wrap">
-    <div className="lg:flex-1 m-auto md:flex-col w-full">
-      <div className="form w-3/5 m-auto p-10 text-green-900 font-semibold shadow-thick shadow-md min-w-[320px]">
+  <div className="flex auth">
+    <div className="lg:flex-1 mx-auto md:flex-col w-full my-5 formCont">
+      <div className="form w-3/5 p-7 mx-auto text-green-900 font-semibold shadow-thick shadow-md min-w-[280px]">
         <h1 className="text-3xl pb-3 mt-10">Login Account</h1>
         <p className="text-sm ">Welcome back! Please log in to access your account and manage your preferences.</p>
         <form action="" className="">
@@ -63,7 +63,7 @@ export default function SignIn() {
          after:border-t after:border-flex-1 after:border-red-700">
           <p className="text-center text-sm">Or continue using</p>
         </div>
-        <div className="mb-16">
+        <div className="mb-10">
           <OAuth />
         </div>
         <div className="text-center">
@@ -72,10 +72,10 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-
-    <div className="lg:flex-1 lg:h-full flex-col-reverse md:w-full md:h-[500px] ">
+    <div className="lg:flex-1 imgCont">
       <img src={process.env.PUBLIC_URL + '/images/login.jpeg'} alt="" className="object-cover w-full h-full"/>
     </div>
+
   </div>
   );
 }
