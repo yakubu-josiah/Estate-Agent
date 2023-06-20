@@ -8,6 +8,17 @@
 }
 
 /* HEADER SECTION STYLES */
+.headbar {
+    background: #fff7d1;
+    transition: transform 0.3s;
+}  
+.showNav {
+    display: block;
+}
+  
+.hideNav {
+    display: none;
+}
 .header img {
     height: 70px;
 }

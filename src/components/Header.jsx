@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function Header() {
@@ -10,11 +11,34 @@ export default function Header() {
         }
     }
 
+    const [showNavbar, setShowNavbar] = useState(true);
+    const [isNavbarAtTop, setIsNavbarAtTop] = useState(true);
+    const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+        
+    const handleScroll = () => {
+        const currentScrollPos = window.scrollY;
+        setIsNavbarAtTop(currentScrollPos <= 0);
+
+        if (currentScrollPos > prevScrollPos) {
+            setShowNavbar(currentScrollPos > -100% + window.innerHeight);
+          } else {
+            setShowNavbar(false);
+        }
+
+        setPrevScrollPos(currentScrollPos);
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
 
 
     return (
-    <div className='bg-transparent border-b shadow-md sticky top-0 z-50'>
+    <div className={`${showNavbar ? 'sticky' : 'hide'} ${isNavbarAtTop ? 'headbar' : 'bg-transparent'} border-b shadow-md top-0 z-50`}>
         <header className='flex justify-between items-center px-3 max-w-6xl mx-auto'>
             <div className="header">
                 <img src={process.env.PUBLIC_URL + '/images/logo.png'} alt="Our Logo" className='cursor-pointer py-2'
