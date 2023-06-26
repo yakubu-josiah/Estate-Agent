@@ -4,6 +4,9 @@ import { RiEyeCloseLine, RiLockPasswordFill } from "react-icons/ri";
 import { TiEyeOutline, TiPhone } from "react-icons/ti";
 import { HiMail, HiUser } from "react-icons/hi";
 import OAuth from "../../components/OAuth";
+import { db } from "../../firebaseConfig";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import validator from "react";
 
 export default function SignUp() {
   const [viewPassword, setViewPassword] = useState(false);
@@ -14,6 +17,7 @@ export default function SignUp() {
     password: "",
     confirmPassword: ""
   });
+
   const { username, email, number, password, confirmPassword } = formData;
   function handleChange(e) {
     setformData((prevState) => ({
@@ -22,6 +26,23 @@ export default function SignUp() {
     }));
   }
 
+  async function submitForm(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const updateProfile = {
+        displayName: username,
+        phoneNumber: number,
+        array: [],
+      }
+      updateProfile(auth.currentUser, updateProfile);
+      console.log(userCredential.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <div className="flex auth">
@@ -29,7 +50,7 @@ export default function SignUp() {
       <div className="form w-3/5 p-7 mx-auto text-green-900 font-semibold shadow-thick shadow-md min-w-[280px]">
         <h1 className="text-3xl pb-3 mt-10">Create an account</h1>
         <p className="text-sm ">Become a member today and access premium content and resources.</p>
-        <form action="" className="">
+        <form onSubmit={submitForm} className="">
           <div className="relative">
             <span className="absolute left-5 bottom-3 text-xl"> <HiUser /> </span>
             <input type="text" id="username" className="sm:text-[12px] p-2 pl-12 w-full mt-10 rounded-full" 
@@ -82,7 +103,7 @@ export default function SignUp() {
               className="text-sm text-red-600 hover:text-red-800 transition duration-200">Forgot Password?
             </Link>
           </div>
-          <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">Register</button>
+          <button type="submit" className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">Register</button>
         </form>
         <div className="items-center my-4 
          before:border-t before:border-flex-1 before:border-red-700
