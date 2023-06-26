@@ -36,7 +36,7 @@ header ul li:hover {
 /* AUTHENTICATION PAGES STYLES */
 .auth {
     display: flex;
-    background: linear-gradient(to right, #f5e694, #2c0855);
+    background: linear-gradient(to right, #f5e694, #370372c7);
 }
 .auth p {
     /* font-size: small; */
