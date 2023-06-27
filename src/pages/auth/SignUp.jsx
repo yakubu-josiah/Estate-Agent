@@ -5,38 +5,38 @@ import { TiEyeOutline, TiPhone } from "react-icons/ti";
 import { HiMail, HiUser } from "react-icons/hi";
 import OAuth from "../../components/OAuth";
 import { db } from "../../firebaseConfig";
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import validator from "react";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, updatePhoneNumber } from "firebase/auth";
 
 export default function SignUp() {
   const [viewPassword, setViewPassword] = useState(false);
   const [formData, setformData] = useState({
     username: "",
     email: "",
-    number: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: ""
   });
 
-  const { username, email, number, password, confirmPassword } = formData;
+  const { username, email, phoneNumber, password, confirmPassword } = formData;
   function handleChange(e) {
     setformData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   }
-
+  
   async function submitForm(e) {
     e.preventDefault();
     try {
       const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const updateProfile = {
+      
+      updateProfile(auth.currentUser, {
         displayName: username,
-        phoneNumber: number,
-        array: [],
-      }
-      updateProfile(auth.currentUser, updateProfile);
+      });
+      updatePhoneNumber(auth.currentUser, {
+        phoneNumber: phoneNumber,
+      })
       console.log(userCredential.user);
     } catch (error) {
       console.log(error);
@@ -70,8 +70,8 @@ export default function SignUp() {
           <div className="relative">
             <span className="absolute left-5 bottom-3 text-xl"> <TiPhone /> </span>
             {/* <span className="country-code bottom-2 left-10 absolute">+1</span> */}
-            <input type="number" id="number" className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full" 
-              value={number}
+            <input type="number" id="phoneNumber" className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full" 
+              value={phoneNumber}
               placeholder="(+234) Phone Number"
               onChange={handleChange} 
             />
@@ -88,14 +88,14 @@ export default function SignUp() {
           <div className="relative">
             <span className="absolute left-5 bottom-3 text-xl"> <RiLockPasswordFill /> </span>
             <input id="confirmPassword" className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full" 
-              type={viewPassword ? "text" : "password"}
+              type={viewPassword ? "password" : "text"}
               placeholder="Confirm Password" 
-              value={confirmPassword} 
+              value={ password } 
               onChange={handleChange}
             />
-            <span className="absolute right-5 bottom-3 text-xl cursor-pointer"
+            <span className="absolute right-5 bottom-3 text-2xl cursor-pointer"
               onClick={() => setViewPassword((prevVisible) => !prevVisible)} >
-              { viewPassword ? <TiEyeOutline /> : <RiEyeCloseLine /> }
+              { viewPassword ? <RiEyeCloseLine /> : <TiEyeOutline /> }
             </span>
           </div>
           <div className="text-end mt-1">
