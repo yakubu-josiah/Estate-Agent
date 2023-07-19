@@ -1,20 +1,24 @@
 import React from "react";
 import OAuth from "../../components/OAuth";
 import { Link } from "react-router-dom";
-import { HiMail, HiUser } from "react-icons/hi";
+import { HiUser } from "react-icons/hi";
 
 export default function ForgotPassword() {
+  const forgot = (e) => {
+    e.preventDefault();
+    console.log("Cart Witnessing !!");
+  };
+
   return (
     <div className="flex auth">
       <div className="lg:flex-1 mx-auto md:flex-col w-full my-5 formCont">
         <div className="form w-3/5 p-7 mx-auto text-green-900 font-semibold shadow-thick shadow-md min-w-[280px]">
-          <h1 className="text-3xl pb-3 mt-10">Forgot Password</h1>
+          <h1 className="text-3xl pb-3 mt-10">Forgot Password?</h1>
           <p className="text-sm ">
-            Forgot your password? No problem. Just let us know your email
-            address and we will email you a password reset link that will allow
-            you to choose a new one.
+            No problem. Just let us know your email address and we will email
+            you a password reset link that will allow you to choose a new one.
           </p>
-          <form className="">
+          <form onClick={forgot}>
             <div className="relative">
               <span className="absolute left-5 bottom-3 text-xl">
                 <HiUser />
@@ -26,15 +30,6 @@ export default function ForgotPassword() {
                 placeholder="Enter Email Address"
               />
             </div>
-
-            {/* <div className="text-end mt-1">
-              <Link
-                to="/auth/forgot-password"
-                className="text-sm text-red-600 hover:text-red-800 transition duration-200"
-              >
-                Forgot Password?
-              </Link>
-            </div> */}
             <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">
               Reset Password
             </button>
