@@ -3,15 +3,26 @@ import OAuth from "../../components/OAuth";
 import { Link } from "react-router-dom";
 import { HiUser } from "react-icons/hi";
 import { MdVerifiedUser } from "react-icons/md";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function ForgotPassword() {
   const [form, setForm] = useState(true);
+  const [email, setEmail] = useState("");
+  function handleChage(e) {
+    setEmail(e.target.value);
+  }
   const [formSuccess, setformSuccess] = useState(false);
+  const auth = getAuth();
   const forgot = async (e) => {
     e.preventDefault();
-
-    setForm(false);
-    setformSuccess(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setForm(false);
+      setformSuccess(true);
+      console.log("Email Sent!!");
+    } catch (error) {
+      console.log("Couldn't send reset password");
+    }
     console.log("Cart Witnessing !!");
   };
 
@@ -34,6 +45,8 @@ export default function ForgotPassword() {
                   type="email"
                   id="email"
                   className="p-2 pl-12 w-full mt-10 rounded-full"
+                  value={email}
+                  onChange={handleChage}
                   placeholder="Enter Email Address"
                 />
               </div>
