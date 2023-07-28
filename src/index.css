@@ -3,118 +3,168 @@
 @tailwind utilities;
 
 * {
-    margin: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-/* HEADER SECTION STYLES */
+/* ============= HEADER SECTION STYLES ============= */
 .headbar {
-    background: #fff7d1;
-    transition: transform 0.3s;
-}  
-.showNav {
-    display: block;
+  background: #fff7d1;
+  transition: transform 0.3s;
 }
-  
+.showNav {
+  display: block;
+}
+
 .hideNav {
-    display: none;
+  display: none;
 }
 .header img {
-    height: 70px;
+  height: 70px;
 }
 .header-active {
-    color: #000;
-    border-bottom: purple solid 3px;
+  color: #000;
+  border-bottom: purple solid 3px;
 }
 header ul li:hover {
-    color: #000;
-    border-bottom: purple solid 3px;
-    cursor: pointer;
-    transition: ease-in-out 0.3s;
+  color: #000;
+  border-bottom: purple solid 3px;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
 }
+/* ============= HEADER SECTION STYLES ============= */
 
-/* AUTHENTICATION PAGES STYLES */
+/* ============= AUTHENTICATION PAGES STYLES ============= */
 .auth {
-    display: flex;
-    background: linear-gradient(to right, #f5e694, #370372c7);
+  display: flex;
+  background: linear-gradient(to right, #f5e694, #370372c7);
 }
 .auth p {
-    /* font-size: small; */
-    line-height: 0.9em;
+  /* font-size: small; */
+  line-height: 0.9em;
 }
 .auth div .form {
-    border-radius: 10px;
+  border-radius: 10px;
 }
-.auth div .form input{
-    font-size: 17px;
-    font-weight: 500;
-    background: linear-gradient(to right, #c7c7c7, #ffffff);
-    transition: ease-in-out 0.3s;
+.auth div .form input {
+  font-size: 17px;
+  font-weight: 500;
+  background: linear-gradient(to right, #c7c7c7, #ffffff);
+  transition: ease-in-out 0.3s;
 }
 .auth div .form input::placeholder {
-    letter-spacing: 1px;
-    text-align: start;
-    color: #a09898;
-    font-size: 17px;
+  letter-spacing: 1px;
+  text-align: start;
+  color: #a09898;
+  font-size: 17px;
 }
-.auth .formCont .form input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+.auth .formCont .form input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
 .auth div .form button {
-    text-transform: uppercase;
-    font-size: 17px;
-    margin-bottom: 30px;
-    letter-spacing: 3px;
-    background: linear-gradient(to right, #62596d,#f5e694);
+  text-transform: uppercase;
+  font-size: 17px;
+  margin-bottom: 30px;
+  letter-spacing: 3px;
+  background: linear-gradient(to right, #62596d, #f5e694);
 }
 .shadow-thick {
-    --tw-shadow: 0 11px 28px 26px rgba(85, 0, 0, 0.1), 0 15px 43px 27px rgba(0, 0, 1, 0.06);
+  --tw-shadow: 0 11px 28px 26px rgba(85, 0, 0, 0.1),
+    0 15px 43px 27px rgba(0, 0, 1, 0.06);
 }
-@media (min-width: 850px){
-    .auth .formCont {
-        display: flex;
-        align-items: center;
-    }
-    .auth .formCont .form{
-        margin: 50px auto;
-        width: 80%;
-    }
-    .auth .imgCont {
-        height: auto;
-    }
+/* ============= AUTHENTICATION PAGES STYLES ============= */
+
+/* ============= PROFILE PAGE STYLES ============ */
+.profileCont {
+  width: 100%;
+}
+
+.profileCont .imgCont {
+  position: relative;
+  background-color: #3a3a3a;
+  margin-bottom: 120px;
+}
+
+.profileCont .imgCont .image {
+  position: absolute;
+}
+
+/* ============= PROFILE PAGE STYLES ============ */
+
+/* ============= MEDIA MEDIA MEDIA MEDIA MEDIA ============= */
+
+@media (min-width: 850px) {
+  .auth .formCont {
+    display: flex;
+    align-items: center;
+  }
+  .auth .formCont .form {
+    margin: 50px auto;
+    width: 80%;
+  }
+  .auth .imgCont {
+    height: auto;
+  }
 }
 @media (max-width: 850px) {
-    .auth {
-        display: flex;
-        flex-direction: column-reverse;
-    }
-    .auth .formCont {
-        display: flex;
-    }
-    .auth .formCont .form {
-        width: 80%;
-    }
-    .auth .imgCont {
-        height: 250px;
-    }
+  .auth {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .auth .formCont {
+    display: flex;
+  }
+  .auth .formCont .form {
+    width: 80%;
+  }
+  .auth .imgCont {
+    height: 250px;
+  }
 }
 @media (max-width: 480px) {
-    .auth {
-        display: flex;
-        flex-direction: column;
-    }
-    .auth .formCont {
-        padding: 0;
-        margin: auto;
-    }
-    .auth .formCont .form {
-        width: 100%;
-    }
-    .auth div form span {
-        font-size: 15px;
-        line-height: 28px;
-    }
-    .auth div .form input::placeholder {
-        font-size: 12px;
-    }
+  /* ============= AUTHENTICATION PAGES STYLES ============= */
+  .auth {
+    display: flex;
+    flex-direction: column;
+  }
+  .auth .formCont {
+    padding: 0;
+    margin: auto;
+  }
+  .auth .formCont .form {
+    width: 100%;
+  }
+  .auth div form span {
+    font-size: 15px;
+    line-height: 28px;
+  }
+  .auth div .form input::placeholder {
+    font-size: 12px;
+  }
+
+  /* ============= PROFILE PAGE STYLES ============ */
+
+  .profileCont .imgCont .image {
+    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 0 auto;
+  }
+  .profileCont .imgCont .image #img {
+    width: 150px;
+    height: 150px;
+    margin-top: 9px;
+    margin-right: 0;
+  }
+  .profileCont .imgCont .image .text-white {
+    margin-top: 24px;
+  }
+  .profileCont .imgCont .image h5 {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
 }
