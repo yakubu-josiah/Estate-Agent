@@ -1,28 +1,36 @@
+import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
+import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
+  const auth = getAuth;
   const [editMode, setEditMode] = useState(true);
-  // const [showForm, setShowForm] = useState(false);
+  const [formData, setformData] = useState({
+    name: auth.currentUser.displayName,
+    email: auth.currentUser.email,
+  });
 
+  const { name, email } = formData;
   const editForm = (e) => {
-    e.stopPropagation();
     setEditMode(false);
     console.log("Clicked!!");
   };
   const saveForm = (e) => {
-    e.stopPropagation();
     setEditMode(true);
   };
   const submitName = (e) => {
     e.preventDefault();
-    e.stopPropagation();
   };
   return (
     <div className="profileCont">
       <div className="">
         <div className="imgCont h-[200px] w-full">
-          <div className="">
+          <div className="relative">
+            <span className="absolute sm:right-5 right-1 sm:top-40 top-5 text-3xl text-white hover:cursor-pointer hover:bg-red-500">
+              {" "}
+              <MdLogout />{" "}
+            </span>
             <form action="" onSubmit={submitName}>
               <div className="image ml-9 mt-12 flex ">
                 <div
@@ -49,17 +57,18 @@ export default function Profile() {
                 </div>
                 <div className="text-white rounded-md mt-15 flex flex-col items-center justify-center">
                   {editMode ? (
-                    <h5 className="text-4xl">Alfie Solomon</h5>
+                    <h5 className="text-4xl">Alfie Solomons</h5>
                   ) : (
                     <input
                       type="text"
                       name="name"
-                      placeholder="Alfie Solomons"
+                      // value={name}
+                      placeholder="Enter a username"
                       className="text-[26px] text-center p-1 max-w-[210px] text-black rounded-full"
                     />
                   )}
 
-                  <p>alfie@solomon.edu</p>
+                  <p>email</p>
                 </div>
               </div>
             </form>
