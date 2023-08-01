@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdLogout } from "react-icons/md";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthStatus } from "../hooks/useAuthStatus";
 import { getAuth, signOut } from "firebase/auth";
 
@@ -8,13 +8,8 @@ export default function Profile() {
   const nav = useNavigate();
   const auth = getAuth();
   const [editMode, setEditMode] = useState(true);
-  // const [formData, setFormData] = useState({
-  //   username: auth.currentUser.displayName || "",
-  //   email: auth.currentUser.email || "",
-  // });
 
-  const { isLoggedIn, user } = useAuthStatus();
-  // const { username, email } = formData;
+  const { user } = useAuthStatus();
   const username = user ? user.displayName : "Unknown User";
   const email = user ? user.email : "Unknown User";
   const editForm = (e) => {
@@ -33,7 +28,6 @@ export default function Profile() {
       await signOut(auth);
       console.log("user logged out");
       nav("/");
-      // <Navigate to="/auth/sign-in" />;
     } catch (error) {
       console.log("Error occurred during logout:", error);
     }
@@ -44,10 +38,11 @@ export default function Profile() {
         <div className="imgCont h-[200px] w-full">
           <div className="relative">
             <span
-              className="absolute sm:right-5 right-1 sm:top-40 top-5 text-3xl text-white hover:cursor-pointer hover:bg-red-500"
+              className="absolute sm:right-5 right-1 sm:top-40 top-5 text-xs text-white hover:cursor-pointer hover:bg-red-500"
               onClick={onSignOut}
             >
               {" "}
+              sign out
               <MdLogout />{" "}
             </span>
             <form onSubmit={submitName}>
