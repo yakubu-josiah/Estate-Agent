@@ -18,8 +18,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          <Route path="/" element={<AuthGuard />}>
-            <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<AuthGuard />}>
+            <Route index element={<Profile />} />
           </Route>
 
           <Route path="/offers" element={<Offers />} />

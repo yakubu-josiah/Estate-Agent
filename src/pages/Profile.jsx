@@ -1,17 +1,22 @@
-import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuthStatus } from "../hooks/useAuthStatus";
+import { getAuth, signOut } from "firebase/auth";
 
 export default function Profile() {
-  const auth = getAuth;
+  const nav = useNavigate();
+  const auth = getAuth();
   const [editMode, setEditMode] = useState(true);
-  const [formData, setformData] = useState({
-    name: auth.currentUser.username,
-    email: auth.currentUser.email,
-  });
+  // const [formData, setFormData] = useState({
+  //   username: auth.currentUser.displayName || "",
+  //   email: auth.currentUser.email || "",
+  // });
 
-  const { name, email } = formData;
+  const { isLoggedIn, user } = useAuthStatus();
+  // const { username, email } = formData;
+  const username = user ? user.displayName : "Unknown User";
+  const email = user ? user.email : "Unknown User";
   const editForm = (e) => {
     setEditMode(false);
     console.log("Clicked!!");
@@ -22,16 +27,30 @@ export default function Profile() {
   const submitName = (e) => {
     e.preventDefault();
   };
+
+  const onSignOut = async () => {
+    try {
+      await signOut(auth);
+      console.log("user logged out");
+      nav("/");
+      // <Navigate to="/auth/sign-in" />;
+    } catch (error) {
+      console.log("Error occurred during logout:", error);
+    }
+  };
   return (
     <div className="profileCont">
       <div className="">
         <div className="imgCont h-[200px] w-full">
           <div className="relative">
-            <span className="absolute sm:right-5 right-1 sm:top-40 top-5 text-3xl text-white hover:cursor-pointer hover:bg-red-500">
+            <span
+              className="absolute sm:right-5 right-1 sm:top-40 top-5 text-3xl text-white hover:cursor-pointer hover:bg-red-500"
+              onClick={onSignOut}
+            >
               {" "}
               <MdLogout />{" "}
             </span>
-            <form action="" onSubmit={submitName}>
+            <form onSubmit={submitName}>
               <div className="image ml-9 mt-12 flex ">
                 <div
                   id="img"
@@ -46,29 +65,28 @@ export default function Profile() {
                       Edit
                     </button>
                   ) : (
-                    <button
+                    <input
                       className="border-2 border-green-500 text-green-500 hover:bg-green-600 hover:text-white font-bold py-1 w-full rounded transition duration-300 ease-in-out"
                       type="submit"
                       onClick={saveForm}
-                    >
-                      Save Changes
-                    </button>
+                      value="Save Changes"
+                    />
                   )}
                 </div>
                 <div className="text-white rounded-md mt-15 flex flex-col items-center justify-center">
                   {editMode ? (
-                    <h5 className="text-4xl">Alfie Solomons</h5>
+                    <h5 className="text-4xl">{username}</h5>
                   ) : (
                     <input
                       type="text"
                       name="name"
-                      // value={name}
+                      value={username}
                       placeholder="Enter a username"
                       className="text-[26px] text-center p-1 max-w-[210px] text-black rounded-full"
                     />
                   )}
 
-                  <p>email</p>
+                  <p>{email}</p>
                 </div>
               </div>
             </form>
