@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import OAuth from "../../components/OAuth";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { HiUser } from "react-icons/hi";
 import { MdVerifiedUser } from "react-icons/md";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
@@ -13,7 +13,7 @@ export default function ForgotPassword() {
   }
   const [formSuccess, setformSuccess] = useState(false);
   const auth = getAuth();
-  const forgot = async (e) => {
+  const onForgot = async (e) => {
     e.preventDefault();
     try {
       await sendPasswordResetEmail(auth, email);
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
               No problem. Just let us know your email address and we will email
               you a password reset link that will allow you to choose a new one.
             </p>
-            <form onClick={forgot}>
+            <form onClick={onForgot}>
               <div className="relative">
                 <span className="absolute left-5 bottom-3 text-xl">
                   <HiUser />
@@ -101,7 +101,6 @@ export default function ForgotPassword() {
           src={process.env.PUBLIC_URL + "/images/forgot-password.jpeg"}
           alt=""
           className="object-cover w-full h-full"
-          onClick={forgot}
         />
       </div>
     </div>

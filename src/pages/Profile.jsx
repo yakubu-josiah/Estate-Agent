@@ -7,7 +7,7 @@ export default function Profile() {
   const auth = getAuth;
   const [editMode, setEditMode] = useState(true);
   const [formData, setformData] = useState({
-    name: auth.currentUser.displayName,
+    name: auth.currentUser.username,
     email: auth.currentUser.email,
   });
 

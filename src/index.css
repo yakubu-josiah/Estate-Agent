@@ -140,7 +140,10 @@ header ul li:hover {
     line-height: 28px;
   }
   .auth div .form input::placeholder {
-    font-size: 12px;
+    font-size: 0.875rem;
+  }
+  .auth div .form button {
+    font-size: 15px;
   }
 
   /* ============= PROFILE PAGE STYLES ============ */
