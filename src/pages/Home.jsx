@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Link to="/profile" className="text-red-400">
         Profile link
       </Link>
+      <Loader />
     </div>
   );
 }

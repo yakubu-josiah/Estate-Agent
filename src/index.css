@@ -92,6 +92,33 @@ header ul li:hover {
 
 /* ============= PROFILE PAGE STYLES ============ */
 
+
+
+.loader {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  animation-duration: 2.7s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background-color: transparent;
+  background: linear-gradient(to right, transparent 8%, #9c9999 18%, transparent 33%);
+  background-size: 800px 104px;
+  /* height: auto;
+  position: relative; */
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -800px 0
+  }
+  100% {
+    background-position: 800px 0
+  }
+}
 /* ============= MEDIA MEDIA MEDIA MEDIA MEDIA ============= */
 
 @media (min-width: 850px) {
