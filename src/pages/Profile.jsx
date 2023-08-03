@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStatus } from "../hooks/useAuthStatus";
 import { getAuth, updateProfile } from "firebase/auth";
-import Loader from "../components/Loader";
 
 export default function Profile() {
   const auth = getAuth();
@@ -97,7 +96,6 @@ export default function Profile() {
       </div>
       <div className="">
         <p>Here Goes The Profile Page For Authenticated User...</p>
-        <Loader />
       </div>
       <br />
       <br />
