@@ -13,8 +13,10 @@ export function useAuthStatus() {
         console.log("User is logged in:", user);
         setUser(user);
         setIsLoggedIn(true);
+      } else {
+        console.log("User is not logged in");
+        setIsLoggedIn(false);
       }
-      console.log("User is not logged in");
       setIsLoading(false);
     });
     return () => unsubscribe();

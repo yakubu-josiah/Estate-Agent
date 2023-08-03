@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { MdLogout } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthStatus } from "../hooks/useAuthStatus";
-import { getAuth, signOut, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 
 export default function Profile() {
-  const nav = useNavigate();
   const auth = getAuth();
   const [editMode, setEditMode] = useState(true);
 
@@ -44,16 +42,6 @@ export default function Profile() {
     }
   };
 
-  const onSignOut = async () => {
-    try {
-      await signOut(auth);
-      console.log("user logged out");
-      nav("/");
-    } catch (error) {
-      console.log("Error occurred during logout:", error);
-    }
-  };
-
   useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
@@ -65,14 +53,6 @@ export default function Profile() {
       <div className="">
         <div className="imgCont h-[200px] w-full">
           <div className="relative">
-            <span
-              className="absolute sm:right-5 right-1 sm:top-40 top-5 text-xs text-white hover:cursor-pointer hover:bg-red-500"
-              onClick={onSignOut}
-            >
-              {" "}
-              sign out
-              <MdLogout />{" "}
-            </span>
             <div className="image ml-9 mt-12 flex ">
               <div
                 id="img"

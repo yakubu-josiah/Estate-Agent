@@ -1,6 +1,9 @@
+import { getAuth, signOut } from "firebase/auth";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthStatus } from "../hooks/useAuthStatus";
+import { SlLogout } from "react-icons/sl";
 
 export default function Header() {
   const location = useLocation();
@@ -11,9 +14,21 @@ export default function Header() {
     }
   }
 
+  const auth = getAuth();
+  const { isLoggedIn } = useAuthStatus();
+
   const [showNavbar, setShowNavbar] = useState(true);
   const [isNavbarAtTop, setIsNavbarAtTop] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+  const onSignOut = async () => {
+    try {
+      await signOut(auth);
+      console.log("user logged out");
+      nav("/");
+    } catch (error) {
+      console.log("Error occurred during logout:", error);
+    }
+  };
 
   const handleScroll = () => {
     const currentScrollPos = window.scrollY;
@@ -72,15 +87,38 @@ export default function Header() {
             >
               Offers
             </li>
-            <li
-              className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
+
+            {isLoggedIn ? (
+              <>
+                <li
+                  className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
+                            ${checkRoute("/profile") && "header-active"}`}
+                  onClick={() => {
+                    nav("/profile");
+                  }}
+                >
+                  Profile
+                </li>
+
+                <li
+                  className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
+                          ${checkRoute("/auth/sign-in") && "header-active"}`}
+                  onClick={onSignOut}
+                >
+                  Logout <SlLogout className="mr-1 text-md inline" />
+                </li>
+              </>
+            ) : (
+              <li
+                className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
                         ${checkRoute("/auth/sign-in") && "header-active"}`}
-              onClick={() => {
-                nav("/auth/sign-in");
-              }}
-            >
-              Sign in
-            </li>
+                onClick={() => {
+                  nav("/auth/sign-in");
+                }}
+              >
+                Sign in
+              </li>
+            )}
           </ul>
         </div>
       </header>
