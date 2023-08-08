@@ -90,6 +90,16 @@ header ul li:hover {
   position: absolute;
 }
 
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 /* ============= PROFILE PAGE STYLES ============ */
 
 
