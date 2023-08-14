@@ -108,6 +108,7 @@ export default function SignUp() {
                 id="phoneNumber"
                 className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full"
                 value={phoneNumber}
+                pattern="[0-9]+"
                 inputMode="numeric"
                 placeholder="(+234) Phone Number"
                 onChange={handleChange}
