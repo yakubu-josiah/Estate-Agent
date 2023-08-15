@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStatus } from "../../hooks/useAuthStatus";
 import { getAuth, updateProfile } from "firebase/auth";
+import { RiAddCircleFill } from "react-icons/ri";
 
 export default function Profile() {
   const auth = getAuth();
@@ -49,7 +50,7 @@ export default function Profile() {
     }));
   }, [username]);
   return (
-    <div className="profileCont">
+    <div className="profileCont background mb-0">
       <div className="">
         <div className="imgCont h-[200px] w-full">
           <div className="relative">
@@ -94,14 +95,37 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="">
-        <p>Here Goes The Profile Page For Authenticated User...</p>
+      <div className="portfolio mx-auto flex justify-center">
+        <div className="w-[85%] sm:w-[70%]">
+          <div className="flex justify-center items-center">
+            <h3 className="text-center text-3xl mr-3">Portfolio</h3>
+            <div className="relative">
+              <Link to="/profile/add-new-listing">
+                <RiAddCircleFill className="absolute left-2 top-[10px] text-gray-600 text-lg" />
+                <button className="tracking-tighter pl-7 pr-5 py-2 bg-transparent border-2 text-sm text-gray-600 border-gray-500 ">
+                  ADD MORE
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className="text-center">
+            <Link to="/" className="text-green-300 text-center">
+              Go Back Home
+            </Link>
+          </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+          <div className="h-[50px] "> </div>
+        </div>
       </div>
-      <br />
-      <br />
-      <Link to="/" className="text-red-300">
-        Go Back Home
-      </Link>
     </div>
   );
 }

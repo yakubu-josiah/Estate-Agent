@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthGuard from "./pages/auth/AuthGuard";
+import NewListing from "./pages/user/NewListings";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
 
           <Route path="/profile" element={<AuthGuard />}>
             <Route index element={<Profile />} />
+            <Route path="/profile/add-new-listing" element={<NewListing />} />
           </Route>
 
           <Route path="/offers" element={<Offers />} />

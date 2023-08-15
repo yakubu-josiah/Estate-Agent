@@ -78,6 +78,7 @@ header ul li:hover {
 /* ============= PROFILE PAGE STYLES ============ */
 .profileCont {
   width: 100%;
+  background-color: #faf5de;
 }
 
 .profileCont .imgCont {
@@ -90,6 +91,12 @@ header ul li:hover {
   position: absolute;
 }
 
+.profileCont .portfolio div div div:hover{
+  background: #fff8d7;
+  box-shadow: 0 4px 10px 2px rgba(0,0,0,.17);
+  cursor: pointer;
+  transition: all 3ms ease-out;
+}
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
