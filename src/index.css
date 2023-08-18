@@ -178,7 +178,7 @@ input[type="number"] {
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-  background-color: #222222;
+  background-color: #414141;
   margin-bottom: 10px;
 }
 
@@ -208,7 +208,7 @@ input[type="number"] {
 }
 
 .radio-button:hover {
-  background-color: rgba(255, 255, 255, 0.24);
+  background: #525252;
 }
 
 #one:checked:checked ~ .radio-button .one,
@@ -219,7 +219,7 @@ input[type="number"] {
 
 #one:checked:checked ~ .one .radio-icon,
 #two:checked:checked ~ .two .radio-icon{
-  background: #fff;
+  background: #fff7d1;
 }
 
 #one:checked:checked ~ .one .radio-icon::before,
@@ -231,7 +231,7 @@ input[type="number"] {
 #one:checked:checked ~ .one,
 #two:checked:checked ~ .two{
   color: #fff;
-  background-color: rgba(255, 255, 255, 0.205);
+  background: #525252;
 }
 
 /* ============= NEW LISTING PAGE STYLES ============ */
