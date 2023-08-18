@@ -104,11 +104,137 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.form input::placeholder, 
+.form textarea::placeholder {
+  font-size: 1.2rem;
+}
 input[type="number"] {
   -moz-appearance: textfield;
 }
 /* ============= PROFILE PAGE STYLES ============ */
 
+/* ============= NEW LISTING PAGE STYLES ============ */
+
+.newList {
+  width: 100%;
+  background-color: #faf5de;
+  overflow: auto;
+}
+
+.newList .form {
+  width:100%;
+	height:100%;
+	position:absolute;
+	background:rgba(65, 87, 141, 0.664);
+}
+
+.newList .form .listForm{
+  color: #f1f0f0;
+  max-width: 480px;
+  text-transform: uppercase;
+}
+
+.newList .form .listForm span{
+  display: block;
+  padding-top: 5px;
+  padding-right: 12px;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.newList .form .listForm div input[type="text"] {
+  background: #525252;
+  border: 0px;
+  font-size: 20px;
+  width: 100%;
+  color: rgb(20 83 45 / var(--tw-text-opacity));
+  padding: 7px 30px;
+  margin-bottom: 15px;
+}
+
+.newList .form .listForm div textarea {
+  background: #525252;
+  border: 0px;
+  height: 100px;
+  width: 100%;
+  padding: 10px 30px 10px 30px;
+  font-size: 20px;
+  color: rgb(20 83 45 / var(--tw-text-opacity));
+}
+
+.newList .form .listForm div input[type="submit"] {
+  margin-top: 20px;
+  background: #fff7d1;
+  color: #525252;
+  padding: 9px 2px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 18px;
+  width: 100%;
+}
+
+.radio-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  background-color: #222222;
+  margin-bottom: 10px;
+}
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 7px 30px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.radio-container .radio-button .radio-icon{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #999;
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: background-color 0.3s;
+}
+
+.radio-container input[type="radio"] {  
+  display: none;
+}
+
+.radio-button:hover {
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+#one:checked:checked ~ .radio-button .one,
+#two:checked:checked ~ .radio-button .two{
+  background: rgba(255, 255, 255, 0.575);
+  border-color: rgb(0, 0, 0);
+}
+
+#one:checked:checked ~ .one .radio-icon,
+#two:checked:checked ~ .two .radio-icon{
+  background: #fff;
+}
+
+#one:checked:checked ~ .one .radio-icon::before,
+#two:checked:checked ~ .two .radio-icon::before{
+  opacity: 1;
+  transform: scale(1);
+}
+
+#one:checked:checked ~ .one,
+#two:checked:checked ~ .two{
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.205);
+}
+
+/* ============= NEW LISTING PAGE STYLES ============ */
 
 
 .loader {
@@ -167,6 +293,11 @@ input[type="number"] {
   }
 }
 @media (max-width: 480px) {
+  .form input::placeholder, 
+  .form textarea::placeholder {
+    font-size: 1rem;
+  }
+  
   /* ============= AUTHENTICATION PAGES STYLES ============= */
   .auth {
     display: flex;
@@ -182,10 +313,7 @@ input[type="number"] {
   .auth div form span {
     font-size: 15px;
     line-height: 28px;
-  }
-  .auth div .form input::placeholder {
-    font-size: 0.875rem;
-  }
+  }  
   .auth div .form button {
     font-size: 15px;
   }
@@ -214,4 +342,18 @@ input[type="number"] {
     font-size: 2rem;
     line-height: 2rem;
   }
+
+  /* ============= NEW LISTING PAGE STYLES ============ */
+
+  .newList .form .listForm div span {
+    font-size: 20px;
+    padding-top: 2px;
+    padding-right: 10px;
+  }
+  .newList .form .listForm div input[type=text],
+  .newList .form .listForm div textarea {
+    font-size: 16px;
+    padding: 5px 15px 5px 14px;
+  }
+
 }

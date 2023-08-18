@@ -96,7 +96,7 @@ export default function Profile() {
         </div>
       </div>
       <div className="portfolio mx-auto flex justify-center">
-        <div className="w-[85%] sm:w-[70%]">
+        <div className="">
           <div className="flex justify-center items-center">
             <h3 className="text-center text-3xl mr-3">Portfolio</h3>
             <div className="relative">
