@@ -97,13 +97,6 @@ export default function SignIn() {
               Login
             </button>
           </form>
-          <div
-            className=" items-center my-4 
-         before:border-t before:border-flex-1 before:border-red-700
-         after:border-t after:border-flex-1 after:border-red-700"
-          >
-            <p className="text-center text-sm">Or continue using</p>
-          </div>
           <div className="mb-10">
             <OAuth />
           </div>

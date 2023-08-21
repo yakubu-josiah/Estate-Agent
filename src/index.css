@@ -69,6 +69,11 @@ header ul li:hover {
   letter-spacing: 3px;
   background: linear-gradient(to right, #62596d, #f5e694);
 }
+
+.authhr{
+  border: 1px dotted #cccbcb;
+  box-shadow: 0px 2px 4px rgba(0, 0, 3, 0.6);
+}
 .shadow-thick {
   --tw-shadow: 0 11px 28px 26px rgba(85, 0, 0, 0.1),
     0 15px 43px 27px rgba(0, 0, 1, 0.06);
@@ -291,6 +296,7 @@ input[type="number"] {
   .auth .imgCont {
     height: 250px;
   }
+  
 }
 @media (max-width: 480px) {
   .form input::placeholder, 

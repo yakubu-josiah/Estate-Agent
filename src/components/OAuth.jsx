@@ -65,16 +65,32 @@ export default function OAuth() {
     }
   };
   return (
-    <div className="flex justify-center text-4xl">
-      <FaFacebookF
-        className="rounded-full p-1 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all"
-        onClick={OAuthFacebook}
-      />
-      <FcGoogle
-        className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all"
-        onClick={OAuthGoogle}
-      />
-      <FaTwitter className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all" />
+    <div className="flex justify-center items-center">
+      <div className="w-full">
+        <div className="flex mx-auto items-center my-4 w-[80%] uppercase gap-[7px] whitespace-nowrap">
+          <div className="w-full">
+            <hr className="authhr" />
+          </div>
+
+          <p className="text-center text-[10px] sm:text-sm">
+            Or continue using
+          </p>
+          <div className="w-full">
+            <hr className="authhr" />
+          </div>
+        </div>
+        <div className="flex justify-center text-4xl">
+          <FaFacebookF
+            className="rounded-full p-1 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all"
+            onClick={OAuthFacebook}
+          />
+          <FcGoogle
+            className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all"
+            onClick={OAuthGoogle}
+          />
+          <FaTwitter className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import OAuth from "../../components/OAuth";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HiUser } from "react-icons/hi";
 import { MdVerifiedUser } from "react-icons/md";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
@@ -54,13 +54,6 @@ export default function ForgotPassword() {
                 Reset Password
               </button>
             </form>
-            <div
-              className=" items-center my-4 
-         before:border-t before:border-flex-1 before:border-red-700
-         after:border-t after:border-flex-1 after:border-red-700"
-            >
-              <p className="text-center text-sm">Or continue using</p>
-            </div>
             <div className="mb-10">
               <OAuth />
             </div>
