@@ -135,7 +135,8 @@ input[type="number"] {
 
 .newList .form .listForm{
   color: #f1f0f0;
-  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
   text-transform: uppercase;
 }
 
@@ -144,7 +145,7 @@ input[type="number"] {
   padding-top: 5px;
   padding-right: 12px;
   font-size: 17px;
-  font-weight: 400;
+  font-weight: 900;
 }
 
 .newList .form .listForm div input[type="text"] {
@@ -166,15 +167,14 @@ input[type="number"] {
   color: rgb(20 83 45 / var(--tw-text-opacity));
 }
 
-.newList .form .listForm div input[type="submit"] {
-  margin-top: 20px;
+.newList .form div input[type="submit"] {
   background: #fff7d1;
   color: #525252;
   padding: 9px 2px;
   border-radius: 5px;
   text-transform: uppercase;
   font-size: 18px;
-  width: 100%;
+  width: 60%;
 }
 
 .radio-container {
@@ -183,14 +183,14 @@ input[type="number"] {
   justify-content: space-evenly;
   width: 100%;
   background-color: #414141;
-  /* margin-bottom: 10px; */
+  margin-bottom: 7px;
 }
 
 .radio-button {
   display: flex;
   align-items: center;
   position: relative;
-  padding: 7px 30px;
+  padding: 7px 10px;
   border: 2px solid transparent;
   cursor: pointer;
   text-transform: uppercase;
@@ -254,8 +254,6 @@ input[type="number"] {
   background-color: transparent;
   background: linear-gradient(to right, transparent 8%, #9c9999 18%, transparent 33%);
   background-size: 800px 104px;
-  /* height: auto;
-  position: relative; */
 }
 
 @keyframes placeHolderShimmer {
@@ -265,6 +263,18 @@ input[type="number"] {
   100% {
     background-position: 800px 0
   }
+}
+
+::-webkit-file-upload-button {
+  background: #fff7d1;
+  color: #525252;
+  text-transform: uppercase;
+  padding: 1em;
+  width: 70%;
+  border-radius: 20px;
+  padding: 5px 0;
+  border: 1px solid #fff;
+  margin-top: 5px;
 }
 /* ============= MEDIA MEDIA MEDIA MEDIA MEDIA ============= */
 
