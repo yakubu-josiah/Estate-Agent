@@ -1,6 +1,55 @@
 import React, { useState } from "react";
 
 export default function NewListings() {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "",
+    category: "",
+    description: "",
+    size: "",
+    dimension: "",
+    topography: "",
+    soilType: "",
+    zonning: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    gps: "",
+    sale: "",
+    lease: "",
+    landmark: "",
+    amenities: "",
+  });
+  const {
+    name,
+    type,
+    category,
+    description,
+    size,
+    dimension,
+    topography,
+    soilType,
+    zonning,
+    address,
+    city,
+    state,
+    zipCode,
+    gps,
+    sale,
+    lease,
+    landmark,
+    amenities,
+  } = formData;
+
+  function handleChange(e) {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileChange = (event) => {
@@ -31,7 +80,14 @@ export default function NewListings() {
               <div className="listForm">
                 <div className="col">
                   <span className="label">Property Name</span>
-                  <input type="text" placeholder="Enter name" />
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={name}
+                    onChange={handleChange}
+                    placeholder="Enter name"
+                  />
                 </div>
 
                 <div className="col">
@@ -39,12 +95,23 @@ export default function NewListings() {
                   <input
                     type="text"
                     placeholder="e.g residential, commercial..."
+                    name="type"
+                    id="type"
+                    value={type}
+                    onChange={handleChange}
                   />
                 </div>
 
                 <div className="col">
                   <span className="label">Property Category</span>
-                  <input type="text" placeholder="e.g farm, vacant lot..." />
+                  <input
+                    type="text"
+                    placeholder="e.g farm, vacant lot..."
+                    name="category"
+                    id="category"
+                    value={category}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="flex justify-center mt-5">
@@ -57,7 +124,7 @@ export default function NewListings() {
                     </label>
                     <label htmlFor="two" className="radio-button two w-full">
                       <span className="radio-icon"></span>
-                      Rent
+                      Lease
                     </label>
                   </div>
                 </div>
@@ -65,6 +132,10 @@ export default function NewListings() {
                   <span className="inline-block">Property Description</span>
                   <textarea
                     className="block"
+                    name="description"
+                    id="description"
+                    value={description}
+                    onChange={handleChange}
                     placeholder="Enter your message"
                   ></textarea>
                 </div>
@@ -73,29 +144,71 @@ export default function NewListings() {
               {/* Land Details */}
               <div className="listForm">
                 <div className="col">
-                  <span className="label">Land Size</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <span className="label inline-block">
+                    Land Size
+                    <span className="lowercase text-yellow-200">
+                      (in meters)
+                    </span>
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="e.g 100010"
+                    name="size"
+                    id="size"
+                    value={size}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
-                  <span className="label">Dimensions</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <span className="label">
+                    Dimensions
+                    <span className="lowercase text-yellow-200">
+                      (length, width)
+                    </span>
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="e.g 100010"
+                    name="dimension"
+                    id="dimension"
+                    value={dimension}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
                   <span className="label">Topography</span>
-                  <input type="text" placeholder="e.g flat, sloped...." />
+                  <input
+                    type="text"
+                    placeholder="e.g flat, sloped...."
+                    name="topography"
+                    id="topography"
+                    value={topography}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
                   <span className="label">Soil Type</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <input
+                    type="text"
+                    placeholder=""
+                    name="soilType"
+                    id="soilType"
+                    value={soilType}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
                   <span className="inline-block">Zonning</span>
                   <textarea
+                    name="zonning"
+                    id="zonning"
+                    value={zonning}
                     className="block"
+                    onChange={handleChange}
                     placeholder="Enter regulations"
                   ></textarea>
                 </div>
@@ -105,35 +218,74 @@ export default function NewListings() {
               <div className="listForm">
                 <div className="col">
                   <span className="label">Address</span>
-                  <input type="text" placeholder="Enter address" />
+                  <input
+                    type="text"
+                    placeholder="Enter address"
+                    name="address"
+                    id="address"
+                    value={address}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
                   <span className="label">City</span>
-                  <input type="text" placeholder="Enter city" />
+                  <input
+                    type="text"
+                    name="city"
+                    id="city"
+                    value={city}
+                    onChange={handleChange}
+                    placeholder="Enter city"
+                  />
                 </div>
 
                 <div className="col">
                   <span className="label">State/Province</span>
-                  <input type="text" placeholder="Enter state" />
+                  <input
+                    type="text"
+                    name="state"
+                    id="state"
+                    value={state}
+                    onChange={handleChange}
+                    placeholder="Enter state"
+                  />
                 </div>
 
                 <div className="col">
                   <span className="label">Zip/Postal Code</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <input
+                    type="text"
+                    name="zipCode"
+                    id="zipCode"
+                    value={zipCode}
+                    onChange={handleChange}
+                    placeholder="e.g 100010"
+                  />
                 </div>
 
                 <div className="col">
                   <span className="label">GPS Coordinates</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <input
+                    type="text"
+                    name="gps"
+                    id="gps"
+                    value={gps}
+                    onChange={handleChange}
+                    placeholder="e.g 100010"
+                  />
                 </div>
 
                 <div className="col">
-                  <span className="label">Upload Images</span>
+                  <span className="label">
+                    Upload Images
+                    <span className="lowercase text-yellow-200">(max. 5)</span>
+                  </span>
                   <input
                     type="file"
                     multiple
-                    accept="image/*"
+                    required
+                    accept=".jpg,.png,.jpeg"
                     className="w-full"
                     onChange={handleFileChange}
                   />
@@ -151,18 +303,36 @@ export default function NewListings() {
               {/* Price and Utilities */}
               <div className="listForm">
                 <div className="col">
-                  <span className="label">Sale Price</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <span className="label">Sale Price(₦)</span>
+                  <input
+                    type="text"
+                    name="sale"
+                    id="sale"
+                    value={sale}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
-                  <span className="label">Lease Price</span>
-                  <input type="text" placeholder="e.g 100010" />
+                  <span className="label">Lease Price(₦)</span>
+                  <input
+                    type="text"
+                    name="lease"
+                    id="lease"
+                    value={lease}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
-                  <span className="label">Currency</span>
-                  <input type="text" placeholder="e.g flat, sloped...." />
+                  <span className="label">Close Landmark</span>
+                  <input
+                    type="text"
+                    name="landmark"
+                    id="landmark"
+                    value={landmark}
+                    onChange={handleChange}
+                  />
                 </div>
 
                 <div className="col">
@@ -170,6 +340,10 @@ export default function NewListings() {
                   <textarea
                     className="block"
                     placeholder="List amenities"
+                    name="amenities"
+                    id="amenities"
+                    value={amenities}
+                    onChange={handleChange}
                   ></textarea>
                 </div>
 

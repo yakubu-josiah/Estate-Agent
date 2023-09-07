@@ -148,6 +148,10 @@ input[type="number"] {
   font-weight: 900;
 }
 
+.newList .form .listForm span span {
+  display: inline;
+}
+
 .newList .form .listForm div input[type="text"] {
   background: #525252;
   border: 0px;
@@ -155,6 +159,11 @@ input[type="number"] {
   width: 100%;
   color: rgb(20 83 45 / var(--tw-text-opacity));
   padding: 7px 30px;
+}
+
+.newList .form .listForm div input:focus {
+  border: gray solid 4px;
+  outline: none;
 }
 
 .newList .form .listForm div textarea {
