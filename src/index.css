@@ -224,31 +224,48 @@ input[type="number"] {
   background: #525252;
 }
 
-#one:checked:checked ~ .radio-button .one,
-#two:checked:checked ~ .radio-button .two{
+#sale:checked:checked ~ .radio-button .one,
+#lease:checked:checked ~ .radio-button .two{
   background: rgba(255, 255, 255, 0.575);
   border-color: rgb(0, 0, 0);
 }
 
-#one:checked:checked ~ .one .radio-icon,
-#two:checked:checked ~ .two .radio-icon{
+#sale:checked:checked ~ .one .radio-icon,
+#lease:checked:checked ~ .two .radio-icon{
   background: #fff7d1;
 }
 
-#one:checked:checked ~ .one .radio-icon::before,
-#two:checked:checked ~ .two .radio-icon::before{
+#sale:checked:checked ~ .one .radio-icon::before,
+#lease:checked:checked ~ .two .radio-icon::before{
   opacity: 1;
   transform: scale(1);
 }
 
-#one:checked:checked ~ .one,
-#two:checked:checked ~ .two{
+#sale:checked:checked ~ .one,
+#lease:checked:checked ~ .two{
   color: #fff;
   background: #525252;
 }
 
+
+
 /* ============= NEW LISTING PAGE STYLES ============ */
 
+.spinner {
+  display: inline-block;
+  border: 4px solid #1b25245d; 
+  border-top: 4px solid #3d3c3c; 
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin-left: 6px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 .loader {
   display: block;
@@ -284,6 +301,7 @@ input[type="number"] {
   padding: 5px 0;
   border: 1px solid #fff;
   margin-top: 5px;
+  cursor: pointer;
 }
 /* ============= MEDIA MEDIA MEDIA MEDIA MEDIA ============= */
 
@@ -382,5 +400,7 @@ input[type="number"] {
   .newList .form .listForm div .radio-container label {
     font-size: 14px;
   }
-
+  .newList .form div input[type="submit"] {
+    width: 80%;
+  }
 }

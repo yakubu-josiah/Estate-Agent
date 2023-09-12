@@ -50,15 +50,26 @@ export default function NewListings() {
     }));
   }
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [selectedOption, setSelectedOption] = useState("sale");
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const handleFileChange = (event) => {
-    const files = event.target.files;
+  const handleFileChange = (e) => {
+    const files = e.target.files;
     if (files.length > 5) {
       alert("You can only upload up to five images.");
       return;
     }
     setSelectedFiles(Array.from(files));
+  };
+
+  const submitListing = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
   };
 
   return (
@@ -74,7 +85,7 @@ export default function NewListings() {
           <h3 className="text-center my-10 sm:text-5xl text-3xl text-gray-300">
             CREATE A LISTING
           </h3>
-          <form>
+          <form onSubmit={submitListing}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:mx-auto items-start">
               {/* Property Information */}
               <div className="listForm">
@@ -116,13 +127,27 @@ export default function NewListings() {
 
                 <div className="flex justify-center mt-5">
                   <div className="radio-container">
-                    <input type="radio" name="radio-option" id="one" checked />
-                    <input type="radio" name="radio-option" id="two" />
-                    <label htmlFor="one" className="radio-button one w-full">
+                    <input
+                      type="radio"
+                      name="radio-option"
+                      id="sale"
+                      checked={selectedOption === "sale"}
+                      value="sale"
+                      onChange={handleOptionChange}
+                    />
+                    <input
+                      type="radio"
+                      name="radio-option"
+                      id="lease"
+                      value="lease"
+                      checked={selectedOption === "lease"}
+                      onChange={handleOptionChange}
+                    />
+                    <label htmlFor="sale" className="radio-button one w-full">
                       <span className="radio-icon"></span>
                       Sale
                     </label>
-                    <label htmlFor="two" className="radio-button two w-full">
+                    <label htmlFor="lease" className="radio-button two w-full">
                       <span className="radio-icon"></span>
                       Lease
                     </label>
@@ -284,7 +309,7 @@ export default function NewListings() {
                   <input
                     type="file"
                     multiple
-                    required
+                    // required
                     accept=".jpg,.png,.jpeg"
                     className="w-full"
                     onChange={handleFileChange}
@@ -361,7 +386,22 @@ export default function NewListings() {
             </div>
 
             <div className="flex justify-center mt-20">
-              <input type="submit" value="Create" className="my-10" />
+              {isLoading ? (
+                <div className="flex justify-center items-center relative w-full opacity-60">
+                  <input
+                    type="submit"
+                    value="Saving"
+                    className="sm:text-[15px] my-10 cursor-not-allowed"
+                  />
+                  <span className="spinner cursor-not-allowed absolute left-[63%] sm:left-[55%]"></span>
+                </div>
+              ) : (
+                <input
+                  type="submit"
+                  value="Create"
+                  className="my-10 cursor-pointer"
+                />
+              )}
             </div>
           </form>
         </div>
