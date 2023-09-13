@@ -9,8 +9,13 @@
 }
 
 /* ============= HEADER SECTION STYLES ============= */
+.head {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
 .headbar {
-  background: #fff7d1;
+  background: hsl(50, 100%, 91%);
   transition: transform 0.3s;
 }
 .showNav {
@@ -122,7 +127,6 @@ input[type="number"] {
 
 .newList {
   width: 100%;
-  background-color: #faf5de;
   overflow: auto;
 }
 

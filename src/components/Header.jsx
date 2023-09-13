@@ -56,7 +56,7 @@ export default function Header() {
         isNavbarAtTop
           ? "headbar border-b shadow-md top-0 z-50"
           : "bg-transparent border-b shadow-md top-0 z-50"
-      } border-b shadow-md top-0 z-50 transition duration-500 ease-in-out`}
+      } head border-b shadow-md top-0 z-50 transition duration-500 ease-in-out`}
     >
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
         <div className="header">
