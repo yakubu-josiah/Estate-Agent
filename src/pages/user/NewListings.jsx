@@ -15,8 +15,8 @@ export default function NewListings() {
     address: "",
     city: "",
     state: "",
-    zipCode: "",
-    gps: "",
+    latitude: "",
+    longitude: "",
     sale: "",
     lease: "",
     landmark: "",
@@ -35,8 +35,8 @@ export default function NewListings() {
     address,
     city,
     state,
-    zipCode,
-    gps,
+    latitude,
+    longitude,
     sale,
     lease,
     landmark,
@@ -49,6 +49,8 @@ export default function NewListings() {
       [e.target.id]: e.target.value,
     }));
   }
+
+  const [geoPoint, setGeoPoint] = useState(true);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -69,6 +71,7 @@ export default function NewListings() {
 
   const submitListing = (e) => {
     e.preventDefault();
+
     setIsLoading(true);
   };
 
@@ -277,27 +280,30 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
-                  <span className="label">Zip/Postal Code</span>
+                <div className="col mt-2 w-full">
+                  <span className="label"> GPS Coordinates</span>
                   <input
-                    type="text"
-                    name="zipCode"
-                    id="zipCode"
-                    value={zipCode}
+                    type="number"
+                    name="latitude"
+                    id="latitude"
+                    value={latitude}
+                    min="-90"
+                    max="90"
                     onChange={handleChange}
-                    placeholder="e.g 100010"
+                    placeholder="Latitude"
                   />
                 </div>
 
-                <div className="col">
-                  <span className="label">GPS Coordinates</span>
+                <div className="col mt-1 mb-2">
                   <input
-                    type="text"
-                    name="gps"
-                    id="gps"
-                    value={gps}
+                    type="number"
+                    name="longitude"
+                    id="longitude"
+                    value={longitude}
+                    min="-180"
+                    max="180"
                     onChange={handleChange}
-                    placeholder="e.g 100010"
+                    placeholder="Longitude"
                   />
                 </div>
 

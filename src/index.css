@@ -156,7 +156,7 @@ input[type="number"] {
   display: inline;
 }
 
-.newList .form .listForm div input[type="text"] {
+.newList .form .listForm div input[type="text"], .newList .form .listForm div input[type="number"] {
   background: #525252;
   border: 0px;
   font-size: 20px;
@@ -166,7 +166,7 @@ input[type="number"] {
 }
 
 .newList .form .listForm div input:focus {
-  border: gray solid 4px;
+  border: gray solid 1px;
   outline: none;
 }
 
