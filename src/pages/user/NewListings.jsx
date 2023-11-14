@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getAuth } from "firebase/auth";
+import { addDoc, collection, serverTimeStamp } from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -7,9 +8,13 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+import { db } from "../../firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 export default function NewListings() {
   const auth = getAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -79,6 +84,8 @@ export default function NewListings() {
     setSelectedFiles(Array.from(files));
   };
 
+  // FORM SUBMITTING FUNCTION
+
   async function submitListing(e) {
     e.preventDefault();
     setIsLoading(true);
@@ -99,7 +106,7 @@ export default function NewListings() {
       //   } else {
       //     setIsLoading(false);
       //     // Handle the case when geocoding fails
-      //     // For example, display an error message to the user.
+      //     // Display an error message to the user.
       //     // setError("Geocoding failed. Please enter a valid address.");
       //     return;
       //   }
@@ -161,6 +168,18 @@ export default function NewListings() {
       // Handle the image upload error by displaying a message to the user.
       // setError("Image upload failed. Please try again later.");
     }
+
+    const formDataCopy = {
+      ...formData,
+      imageUrls,
+      geolocation,
+      timestamp: serverTimeStamp(),
+    };
+    delete formDataCopy.images;
+    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    setIsLoading(false);
+    toast.success("Listing has been created successfully!");
+    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   }
 
   // Component Rendering
