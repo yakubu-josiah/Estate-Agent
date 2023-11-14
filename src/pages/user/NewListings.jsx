@@ -174,6 +174,7 @@ export default function NewListings() {
       imageUrls,
       geolocation,
       timestamp: serverTimeStamp(),
+      userRef: auth.currentUser.uid,
     };
     delete formDataCopy.images;
     const docRef = await addDoc(collection(db, "listings"), formDataCopy);
