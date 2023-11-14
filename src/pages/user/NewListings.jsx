@@ -87,26 +87,27 @@ export default function NewListings() {
       lng: -122.4194,
     };
     try {
-      if (geoPoint) {
-        const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
-        );
-        const data = await response.json();
+      // if (geoPoint) {
+      //   const response = await fetch(
+      //     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
+      //   );
+      //   const data = await response.json();
 
-        if (data.status === "OK") {
-          geolocation.lat = data.results[0].geometry.location.lat;
-          geolocation.lng = data.results[0].geometry.location.lng;
-        } else {
-          setIsLoading(false);
-          // Handle the case when geocoding fails
-          // For example, display an error message to the user.
-          // setError("Geocoding failed. Please enter a valid address.");
-          return;
-        }
-      } else {
-        geolocation.lat = latitude;
-        geolocation.lng = longitude;
-      }
+      //   if (data.status === "OK") {
+      //     geolocation.lat = data.results[0].geometry.location.lat;
+      //     geolocation.lng = data.results[0].geometry.location.lng;
+      //   } else {
+      //     setIsLoading(false);
+      //     // Handle the case when geocoding fails
+      //     // For example, display an error message to the user.
+      //     // setError("Geocoding failed. Please enter a valid address.");
+      //     return;
+      //   }
+      //}
+      //  else {
+      //   geolocation.lat = latitude;
+      //   geolocation.lng = longitude;
+      // }
 
       if (selectedFiles.length > 0) {
         await uploadImages(selectedFiles, geolocation);
