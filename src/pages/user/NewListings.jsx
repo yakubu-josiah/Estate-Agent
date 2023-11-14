@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { getAuth } from "firebase/auth";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export default function NewListings() {
-
+  const auth = getAuth();
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -21,6 +29,7 @@ export default function NewListings() {
     lease: "",
     landmark: "",
     amenities: "",
+    images: "",
   });
   const {
     name,
@@ -41,40 +50,119 @@ export default function NewListings() {
     lease,
     landmark,
     amenities,
+    images,
   } = formData;
 
-  function handleChange(e) {
+  const [geoPoint, setGeoPoint] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("sale");
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  // Event Handlers
+  const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
-  }
+  };
 
-  const [geoPoint, setGeoPoint] = useState(true);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [selectedOption, setSelectedOption] = useState("sale");
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
   };
-  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileChange = (e) => {
     const files = e.target.files;
     if (files.length > 5) {
-      alert("You can only upload up to five images.");
+      alert("You can only upload up to five images."); //error will come in here later..
       return;
     }
     setSelectedFiles(Array.from(files));
   };
 
-  const submitListing = (e) => {
+  async function submitListing(e) {
     e.preventDefault();
-
     setIsLoading(true);
-  };
+    let geolocation = {
+      lat: 37.7749, // Replace with desired latitude
+      lng: -122.4194,
+    };
+    try {
+      if (geoPoint) {
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
+        );
+        const data = await response.json();
 
+        if (data.status === "OK") {
+          geolocation.lat = data.results[0].geometry.location.lat;
+          geolocation.lng = data.results[0].geometry.location.lng;
+        } else {
+          setIsLoading(false);
+          // Handle the case when geocoding fails
+          // For example, display an error message to the user.
+          // setError("Geocoding failed. Please enter a valid address.");
+          return;
+        }
+      } else {
+        geolocation.lat = latitude;
+        geolocation.lng = longitude;
+      }
+
+      if (selectedFiles.length > 0) {
+        await uploadImages(selectedFiles, geolocation);
+      }
+    } catch (error) {
+      setIsLoading(false);
+    }
+  }
+
+  // Image Upload Functions
+  async function uploadImages(files, geolocation) {
+    try {
+      const storage = getStorage();
+      const imageUrls = [];
+
+      for (const file of files) {
+        const filename = `${auth.currentUser.uid}-${file.name}-${uuidv4()}`;
+        const storageRef = ref(storage, filename);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+              const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log("Upload is " + progress + "% done");
+            },
+            (error) => {
+              reject(error);
+            },
+            async () => {
+              try {
+                const downloadURL = await getDownloadURL(
+                  uploadTask.snapshot.ref
+                );
+                imageUrls.push(downloadURL);
+                resolve();
+              } catch (error) {
+                reject(error);
+              }
+            }
+          );
+        });
+      }
+
+      console.log("Image URLs:", imageUrls);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      // Handle the image upload error by displaying a message to the user.
+      // setError("Image upload failed. Please try again later.");
+    }
+  }
+
+  // Component Rendering
   return (
     <div className="newList flex justify-center relative">
       <img
@@ -314,6 +402,7 @@ export default function NewListings() {
                   </span>
                   <input
                     type="file"
+                    name="images"
                     multiple
                     // required
                     accept=".jpg,.png,.jpeg"
@@ -385,7 +474,7 @@ export default function NewListings() {
                     multiple
                     accept="video/*"
                     className="w-full"
-                    onChange={handleFileChange}
+                    // onChange={handleFileChange}
                   />
                 </div>
               </div>
