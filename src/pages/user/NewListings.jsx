@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { addDoc, collection, serverTimeStamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -121,6 +121,7 @@ export default function NewListings() {
       }
     } catch (error) {
       setIsLoading(false);
+      return;
     }
   }
 
@@ -162,25 +163,28 @@ export default function NewListings() {
       }
 
       console.log("Image URLs:", imageUrls);
+
+      const formDataCopy = {
+        ...formData,
+        images: imageUrls,
+        geolocation,
+        timestamp: serverTimestamp(),
+        userRef: auth.currentUser.uid,
+      };
+      console.log("got here");
+      const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+      console.log("Document added:", docRef);
       setIsLoading(false);
+      toast.success("Listing has been created successfully!");
+      navigate("/profile");
+      // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
     } catch (error) {
       setIsLoading(false);
-      // Handle the image upload error by displaying a message to the user.
+      console.error("Error creating listing:", error);
+      throw error;
+      // Handle the image upload error by displaying a message to the user later.
       // setError("Image upload failed. Please try again later.");
     }
-
-    const formDataCopy = {
-      ...formData,
-      imageUrls,
-      geolocation,
-      timestamp: serverTimeStamp(),
-      userRef: auth.currentUser.uid,
-    };
-    delete formDataCopy.images;
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
-    setIsLoading(false);
-    toast.success("Listing has been created successfully!");
-    navigate(`/category/${formDataCopy.type}/${docRef.id}`);
   }
 
   // Component Rendering
