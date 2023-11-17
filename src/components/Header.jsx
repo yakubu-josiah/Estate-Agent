@@ -58,7 +58,7 @@ export default function Header() {
           : "bg-transparent border-b shadow-md top-0 z-50"
       } head border-b shadow-md top-0 z-50 transition duration-500 ease-in-out`}
     >
-      <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
+      <header className="flex justify-between items-center px-2 max-w-6xl mx-auto">
         <div className="header">
           <img
             src={process.env.PUBLIC_URL + "/images/logo.png"}
@@ -70,7 +70,7 @@ export default function Header() {
           />
         </div>
         <div className="">
-          <ul className="flex space-x-4 md:space-x-7 lg:space-x-10">
+          <ul className="flex space-x-2 md:space-x-7 lg:space-x-10">
             <li
               className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
                         ${checkRoute("/") && "header-active"}`}
