@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import { useAuthStatus } from "../../hooks/useAuthStatus";
 import { getAuth, updateProfile } from "firebase/auth";
 import { RiAddCircleFill } from "react-icons/ri";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { db } from "../../firebaseConfig";
+import ListingItem from "../../components/ListingItem";
 
 export default function Profile() {
   const auth = getAuth();
   const [editMode, setEditMode] = useState(true);
+  const [listings, setListings] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
 
   const { user } = useAuthStatus();
   const username = user ? user.displayName : "Unknown User";
@@ -48,7 +53,26 @@ export default function Profile() {
       ...prevState,
       formUsername: username,
     }));
-  }, [username]);
+    async function fetchListings() {
+      const listingRef = collection(db, "listings");
+      const q = query(
+        listingRef,
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timestamp", "desc")
+      );
+      const querySnap = await getDocs(q);
+      let listings = [];
+      querySnap.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+      setListings(listings);
+      setisLoading(false);
+    }
+    fetchListings();
+  }, [username, auth.currentUser.uid]);
   return (
     <div className="profileCont background mb-0">
       <div className="">
@@ -97,23 +121,40 @@ export default function Profile() {
       </div>
       <div className="portfolio mx-auto flex justify-center">
         <div className="">
-          <div className="flex justify-center items-center">
-            <h3 className="text-center text-3xl mr-3">Portfolio</h3>
+          <div className="flex justify-center items-center mt-4">
+            <h3 className="text-center lg:text-3xl text-2xl mr-3">
+              All Listings
+            </h3>
             <div className="relative">
               <Link to="/profile/add-new-listing">
-                <RiAddCircleFill className="absolute left-2 top-[10px] text-gray-600 text-lg" />
-                <button className="tracking-tighter pl-7 pr-5 py-2 bg-transparent border-2 text-sm text-gray-600 border-gray-500 ">
+                <RiAddCircleFill className="absolute left-2 top-[8px] text-gray-600 text-lg" />
+                <button className="tracking-tighter rounded-lg pl-7 pr-5 py-1 bg-transparent border-2 text-sm sm:text-base text-gray-600 border-gray-500 ">
                   ADD MORE
                 </button>
               </Link>
             </div>
+          </div>
+          <div className="listing">
+            {" "}
+            {!isLoading && listings.length > 0 && (
+              <>
+                <ul>
+                  {listings.map((listing) => (
+                    <ListingItem
+                      key={listing.id}
+                      id={listing.id}
+                      listing={listing.data}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
           <div className="text-center">
             <Link to="/" className="text-green-300 text-center">
               Go Back Home
             </Link>
           </div>
-          <div className="h-[50px] "> </div>
           <div className="h-[50px] "> </div>
           <div className="h-[50px] "> </div>
           <div className="h-[50px] "> </div>
