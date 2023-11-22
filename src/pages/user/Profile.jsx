@@ -100,9 +100,9 @@ export default function Profile() {
                   />
                 )}
               </div>
-              <div className="text-white rounded-md mt-15 flex flex-col items-center justify-center">
+              <div className="text-gray-300 rounded-md flex flex-col items-center justify-center pt-3">
                 {editMode ? (
-                  <h5 className="text-4xl">{username}</h5>
+                  <h5 className="text-4xl mb-0">{username}</h5>
                 ) : (
                   <input
                     type="text"
@@ -110,7 +110,7 @@ export default function Profile() {
                     value={formData.formUsername}
                     onChange={handleChange}
                     placeholder="Enter a username"
-                    className="text-[26px] text-center p-1 max-w-[210px] text-black rounded-full"
+                    className="text-[26px] text-center p-1 max-w-[210px] text-gray-600 rounded-full"
                   />
                 )}
                 <p>{email}</p>
@@ -122,7 +122,7 @@ export default function Profile() {
       <div className="portfolio mx-auto flex justify-center">
         <div className="">
           <div className="flex justify-center items-center mt-4">
-            <h3 className="text-center lg:text-3xl text-2xl mr-3">
+            <h3 className="text-center text-purple-800 font-bold lg:text-3xl text-2xl mr-3">
               All Listings
             </h3>
             <div className="relative">
@@ -134,11 +134,50 @@ export default function Profile() {
               </Link>
             </div>
           </div>
-          <div className="listing">
+          <div className="">
             {" "}
             {!isLoading && listings.length > 0 && (
               <>
-                <ul>
+                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                  {listings.map((listing) => (
+                    <ListingItem
+                      key={listing.id}
+                      id={listing.id}
+                      listing={listing.data}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}{" "}
+            {!isLoading && listings.length > 0 && (
+              <>
+                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                  {listings.map((listing) => (
+                    <ListingItem
+                      key={listing.id}
+                      id={listing.id}
+                      listing={listing.data}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}{" "}
+            {!isLoading && listings.length > 0 && (
+              <>
+                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                  {listings.map((listing) => (
+                    <ListingItem
+                      key={listing.id}
+                      id={listing.id}
+                      listing={listing.data}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}{" "}
+            {!isLoading && listings.length > 0 && (
+              <>
+                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
                   {listings.map((listing) => (
                     <ListingItem
                       key={listing.id}
@@ -155,16 +194,6 @@ export default function Profile() {
               Go Back Home
             </Link>
           </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
-          <div className="h-[50px] "> </div>
         </div>
       </div>
     </div>

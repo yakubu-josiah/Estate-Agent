@@ -101,12 +101,6 @@ header ul li:hover {
   position: absolute;
 }
 
-.profileCont .portfolio div div div:hover{
-  background: #fff8d7;
-  box-shadow: 0 4px 10px 2px rgba(0,0,0,.17);
-  cursor: pointer;
-  transition: all 3ms ease-out;
-}
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -385,7 +379,7 @@ input[type="number"] {
     margin-top: 24px;
   }
   .profileCont .imgCont .image h5 {
-    font-size: 2rem;
+    font-size: 20px;
     line-height: 2rem;
   }
 
