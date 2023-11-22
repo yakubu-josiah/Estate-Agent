@@ -75,7 +75,7 @@ export default function Profile() {
   }, [username, auth.currentUser.uid]);
   return (
     <div className="profileCont background mb-0">
-      <div className="">
+      <div>
         <div className="imgCont h-[200px] w-full">
           <div className="relative">
             <div className="image ml-9 mt-12 flex ">
@@ -120,15 +120,15 @@ export default function Profile() {
         </div>
       </div>
       <div className="portfolio mx-auto flex justify-center">
-        <div className="">
-          <div className="flex justify-center items-center mt-4">
+        <div>
+          <div className="flex justify-center items-center mt-4 mb-2 align-middle">
             <h3 className="text-center text-purple-800 font-bold lg:text-3xl text-2xl mr-3">
               All Listings
             </h3>
-            <div className="relative">
-              <Link to="/profile/add-new-listing">
-                <RiAddCircleFill className="absolute left-2 top-[8px] text-gray-600 text-lg" />
-                <button className="tracking-tighter rounded-lg pl-7 pr-5 py-1 bg-transparent border-2 text-sm sm:text-base text-gray-600 border-gray-500 ">
+            <div className="relative mx-auto">
+              <Link to="/profile/add-new-listing" className="mx-1">
+                <RiAddCircleFill className="fakery absolute left-2 top-2 text-gray-600 text-lg" />
+                <button className="tracking-tighter rounded-lg">
                   ADD MORE
                 </button>
               </Link>

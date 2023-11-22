@@ -101,6 +101,33 @@ header ul li:hover {
   position: absolute;
 }
 
+.profileCont .portfolio div div div button {
+  /* rounded-lg pl-7 pr-5 py-1 bg-transparent border-2 text-sm sm:text-base text-gray-600 border-gray-500 hover:shadow-lg hover:text-[15px] transition-all duration-200 ease-in */
+  cursor: pointer;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: Marvel;
+  font-size: 14px;
+  font-weight: 500;
+  width: 140px;
+  height: 40px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.2s ease-in-out;
+  padding: 0;
+  overflow: hidden;
+  border-top: 1px solid #dfdddd;
+  border-right: 1px solid #dfdddd;
+  border-bottom: 6px solid #9b9b9b;
+  border-left: 2px solid #9b9b9b;
+  border-radius: 2px;
+}
+
+.profileCont .portfolio div div div button:active{
+  border-bottom-width: 2px;
+  border-left-width: 1px;
+  top: 3px;
+}
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
