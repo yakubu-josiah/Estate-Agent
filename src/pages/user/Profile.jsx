@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthStatus } from "../../hooks/useAuthStatus";
 import { getAuth, updateProfile } from "firebase/auth";
 import { RiAddCircleFill } from "react-icons/ri";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import ListingItem from "../../components/ListingItem";
+import { toast } from "react-toastify";
 
 export default function Profile() {
   const auth = getAuth();
+  const nav = useNavigate();
   const [editMode, setEditMode] = useState(true);
   const [listings, setListings] = useState(null);
   const [isLoading, setisLoading] = useState(true);
@@ -73,6 +83,27 @@ export default function Profile() {
     }
     fetchListings();
   }, [username, auth.currentUser.uid]);
+
+  function onEdit(listingId) {
+    nav(`/profile/listing/edit/${listingId}`);
+  }
+  async function onDelete(listingId) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this Listing?"
+    );
+    if (confirmed) {
+      try {
+        await deleteDoc(doc(db, "listings", listingId));
+        const updatedListings = listings.filter(
+          (listing) => listing.id !== listingId
+        );
+        setListings(updatedListings);
+        toast.success("Listing deleted successfully!!");
+      } catch (error) {
+        console.error("Error deleting listing:", error);
+      }
+    }
+  }
   return (
     <div className="profileCont background mb-0">
       <div>
@@ -125,9 +156,9 @@ export default function Profile() {
             <h3 className="text-center text-purple-800 font-bold lg:text-3xl text-2xl mr-3">
               All Listings
             </h3>
-            <div className="relative mx-auto">
+            <div className="relative">
               <Link to="/profile/add-new-listing" className="mx-1">
-                <RiAddCircleFill className="fakery absolute left-2 top-2 text-gray-600 text-lg" />
+                <RiAddCircleFill className="absolute left-2 top-2 text-gray-600 text-lg" />
                 <button className="tracking-tighter rounded-lg">
                   ADD MORE
                 </button>
@@ -142,8 +173,10 @@ export default function Profile() {
                   {listings.map((listing) => (
                     <ListingItem
                       key={listing.id}
-                      id={listing.id}
+                      listingId={listing.id}
                       listing={listing.data}
+                      onDelete={() => onDelete(listing.id)}
+                      onEdit={() => onEdit(listing.id)}
                     />
                   ))}
                 </ul>

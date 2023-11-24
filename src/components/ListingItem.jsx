@@ -1,6 +1,8 @@
 import React from "react";
 import Moment from "react-moment";
 import { ImLocation2 } from "react-icons/im";
+import { GrEdit } from "react-icons/gr";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const formatPrice = (price) => {
@@ -11,10 +13,10 @@ const formatPrice = (price) => {
   );
 };
 
-export default function ListingItem({ listing, listingId }) {
+export default function ListingItem({ listing, listingId, onEdit, onDelete }) {
   return (
     <li className="relative flex flex-col justify-between m-[10px] items-center shadow-md p-0 hover:shadow-2xl rounded-md overflow-hidden transition-shadow duration-150">
-      <Link className="contents" to={`/category/${listing.type}/${listingId}`}>
+      <Link className="contents" to={`/profile/listing/${listingId}`}>
         <img
           className="h-[170px] w-full object-cover hover:scale-110 transition-scale duration-200 ease-in"
           loading="lazy"
@@ -37,16 +39,42 @@ export default function ListingItem({ listing, listingId }) {
               {listing.address}
             </p>
           </div>
-          {listing.sale && (
-            <p className="font-bold text-xs text-gray-600">
-              Sale Price - {formatPrice(listing.sale)}
-            </p>
-          )}
-          {listing.lease && (
-            <p className="font-bold text-xs text-gray-600">
-              Lease Price - {formatPrice(listing.lease)}
-            </p>
-          )}
+          <div className="flex justify-between items-center">
+            <div className="">
+              {listing.sale && (
+                <p className="font-bold text-xs text-gray-600">
+                  Sale Price - {formatPrice(listing.sale)}
+                </p>
+              )}
+              {listing.lease && (
+                <p className="font-bold text-xs text-gray-600">
+                  Lease Price - {formatPrice(listing.lease)}
+                </p>
+              )}
+            </div>
+            <div>
+              <div className="flex space-x-2">
+                {onEdit && (
+                  <GrEdit
+                    className="text-lg hover:text-md hover:px-[1px] transition-all ease-in"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onEdit(listing.listingId, e);
+                    }}
+                  />
+                )}
+                {onDelete && (
+                  <BsFillTrash3Fill
+                    className="text-red-500 text-lg hover:text-md hover:px-[1px] transition-all ease-in"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onDelete(listing.listingId);
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </Link>
     </li>
