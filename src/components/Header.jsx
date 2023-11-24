@@ -70,7 +70,7 @@ export default function Header() {
           />
         </div>
         <div className="">
-          <ul className="flex space-x-2 md:space-x-7 lg:space-x-10">
+          <ul className="flex space-x-4 lg:space-x-10">
             <li
               className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
                         ${checkRoute("/") && "header-active"}`}
@@ -107,7 +107,8 @@ export default function Header() {
                           ${checkRoute("/auth/sign-in") && "header-active"}`}
                   onClick={onSignOut}
                 >
-                  Logout <SlLogout className="mr-1 text-md inline" />
+                  Logout{" "}
+                  <SlLogout className="mr-1 text-md inline hide-on-small-screens" />
                 </li>
               </>
             ) : (

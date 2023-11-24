@@ -364,7 +364,9 @@ input[type="number"] {
   .form textarea::placeholder {
     font-size: 1rem;
   }
-  
+  .hide-on-small-screens {
+    display: none;
+  }
   /* ============= AUTHENTICATION PAGES STYLES ============= */
   .auth {
     display: flex;
