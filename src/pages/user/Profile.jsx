@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 export default function Profile() {
   const auth = getAuth();
   const nav = useNavigate();
-  const [editMode, setEditMode] = useState(true);
+  const [editPhoto, setEditPhoto] = useState(true);
   const [listings, setListings] = useState(null);
   const [isLoading, setisLoading] = useState(true);
 
@@ -40,7 +40,7 @@ export default function Profile() {
   };
 
   const editForm = (e) => {
-    setEditMode(false);
+    setEditPhoto(false);
     console.log("Clicked!!");
   };
   const saveForm = async () => {
@@ -49,10 +49,10 @@ export default function Profile() {
         await updateProfile(auth.currentUser, {
           displayName: formData.formUsername,
         });
-        setEditMode(true);
+        setEditPhoto(true);
         console.log("Profile updated successfully!");
       }
-      setEditMode(true);
+      setEditPhoto(true);
     } catch (error) {
       console.log("Error updating profile:", error);
     }
@@ -85,7 +85,7 @@ export default function Profile() {
   }, [username, auth.currentUser.uid]);
 
   function onEdit(listingId) {
-    nav(`/profile/listing/edit/${listingId}`);
+    nav(`/profile/listing/${listingId}/edit`);
   }
   async function onDelete(listingId) {
     const confirmed = window.confirm(
@@ -115,7 +115,7 @@ export default function Profile() {
                 className="rounded-md row-auto h-[200px] w-[200px] mr-9 space-y-3 border-4 border-white shadow-lg"
               >
                 <div className="bg-red-400 w-full h-full"></div>
-                {editMode ? (
+                {editPhoto ? (
                   <button
                     className="border-2 border-gray-500 text-gray-500 hover:bg-gray-600 hover:text-white font-bold py-1 w-full rounded transition duration-300 ease-in-out"
                     onClick={editForm}
@@ -132,7 +132,7 @@ export default function Profile() {
                 )}
               </div>
               <div className="text-gray-300 rounded-md flex flex-col items-center justify-center pt-3">
-                {editMode ? (
+                {editPhoto ? (
                   <h5 className="text-4xl mb-0">{username}</h5>
                 ) : (
                   <input

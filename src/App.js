@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthGuard from "./pages/auth/AuthGuard";
 import NewListing from "./pages/user/NewListings";
+import EditListing from "./pages/user/EditListing";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/profile" element={<AuthGuard />}>
             <Route index element={<Profile />} />
             <Route path="/profile/add-new-listing" element={<NewListing />} />
+            <Route path="/profile/listing/:listingId/edit" element={<EditListing />} />
           </Route>
 
           <Route path="/offers" element={<Offers />} />

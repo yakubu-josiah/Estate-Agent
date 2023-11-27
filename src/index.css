@@ -276,10 +276,42 @@ input[type="number"] {
 
 /* ============= NEW LISTING PAGE STYLES ============ */
 
+.loading-container {
+  font-size: 1rem;
+}
+
+.letter-text {
+  display: inline-block;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    font-size: 2rem;
+    color: #fff; /* Text color when shining */
+  }
+  25% {
+    font-size: 2rem;
+    color: #eee; /* Slightly dimmer */
+  }
+  50% {
+    font-size: 2.5rem;
+    color: #ddd; /* Dimmer */
+  }
+  75% {
+    font-size: 2rem;
+    color: #eee; /* Slightly dimmer */
+  }
+  100% {
+    font-size: 2rem;
+    color: #fff; /* Back to shining */
+  }
+}
+
 .spinner {
   display: inline-block;
-  border: 4px solid #1b25245d; 
-  border-top: 4px solid #3d3c3c; 
+  border: 4px solid #fffffffd; 
+  border-top: 4px solid #949292; 
   border-radius: 50%;
   width: 30px;
   height: 30px;
