@@ -59,6 +59,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
+    setisLoading(true);
     setFormData((prevState) => ({
       ...prevState,
       formUsername: username,
@@ -87,6 +88,8 @@ export default function Profile() {
   function onEdit(listingId) {
     nav(`/profile/listing/${listingId}/edit`);
   }
+
+  //  DELETE FUNCTION HERE
   async function onDelete(listingId) {
     const confirmed = window.confirm(
       "Are you sure you want to delete this Listing?"
@@ -157,20 +160,32 @@ export default function Profile() {
               All Listings
             </h3>
             <div className="relative">
-              <Link to="/profile/add-new-listing" className="mx-1">
-                <RiAddCircleFill className="absolute left-2 top-2 text-gray-600 text-lg" />
+              <Link to="/profile/add-new-listing" className="mx-1 group">
+                <RiAddCircleFill className="absolute left-2 top-2 text-gray-600 text-lg transition-transform group-active:translate-y-1" />
                 <button className="tracking-tighter rounded-lg">
                   ADD MORE
                 </button>
               </Link>
             </div>
           </div>
-          <div className="">
-            {" "}
-            {!isLoading && listings.length > 0 && (
-              <>
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                  {listings.map((listing) => (
+          <div>
+            {isLoading ? (
+              <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
+                {[...Array(4)].map((_, index) => (
+                  <li
+                    key={index}
+                    className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
+                  >
+                    <p className="letter-text font-bold text-black top-10">
+                      Loading....
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                {listings &&
+                  listings.map((listing) => (
                     <ListingItem
                       key={listing.id}
                       listingId={listing.id}
@@ -179,9 +194,8 @@ export default function Profile() {
                       onEdit={() => onEdit(listing.id)}
                     />
                   ))}
-                </ul>
-              </>
-            )}{" "}
+              </ul>
+            )}
             {!isLoading && listings.length > 0 && (
               <>
                 <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">

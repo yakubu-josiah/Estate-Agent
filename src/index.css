@@ -276,6 +276,32 @@ input[type="number"] {
 
 /* ============= NEW LISTING PAGE STYLES ============ */
 
+.loader-listing {
+  justify-content: center;
+  align-items: center;
+  animation-duration: 2.7s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background-color: rgb(245, 237, 126);
+  background: linear-gradient(to right, #eeeeeec5 8%, #b3b2b2 18%, #c5c3be7a 33%);
+  background-size: 800px 104px;
+  width: 15rem;
+  height: 15rem;
+  position: relative;
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: -800px 0
+  }
+  100% {
+    background-position: 800px 0
+  }
+}
+
+
 .loading-container {
   font-size: 1rem;
 }
