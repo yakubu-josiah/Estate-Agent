@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function NewListings() {
   const auth = getAuth();
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -88,7 +88,6 @@ export default function NewListings() {
 
   async function submitListing(e) {
     e.preventDefault();
-    setIsLoading(true);
     let geolocation = {
       lat: 37.7749, // Replace with desired latitude
       lng: -122.4194,
@@ -115,10 +114,11 @@ export default function NewListings() {
       //   geolocation.lat = latitude;
       //   geolocation.lng = longitude;
       // }
-
-      if (selectedFiles.length > 0) {
+      if (selectedFiles.length > 1) {
+        setIsLoading(true);
         await uploadImages(selectedFiles, geolocation);
       }
+      return;
     } catch (error) {
       setIsLoading(false);
       return;
@@ -176,8 +176,8 @@ export default function NewListings() {
       console.log("Document added:", docRef);
       setIsLoading(false);
       toast.success("Listing has been created successfully!");
-      navigate("/profile");
-      // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
+      nav("/profile");
+      // nav(`/category/${formDataCopy.type}/${docRef.id}`);
     } catch (error) {
       setIsLoading(false);
       console.error("Error creating listing:", error);
@@ -507,11 +507,11 @@ export default function NewListings() {
 
             <div className="flex justify-center mt-20">
               {isLoading ? (
-                <div className="flex justify-center items-center relative w-full opacity-60">
+                <div className="flex justify-center items-center relative w-full">
                   <input
                     type="submit"
                     value="Saving"
-                    className="sm:text-[15px] my-10 cursor-not-allowed"
+                    className="sm:text-[15px] my-10 cursor-not-allowed opacity-40"
                   />
                   <span className="spinner cursor-not-allowed absolute left-[63%] sm:left-[55%]"></span>
                 </div>

@@ -546,7 +546,7 @@ export default function EditListing() {
                     <input
                       type="submit"
                       value="Saving..."
-                      className="sm:text-[15px] my-10 cursor-not-allowed opacity-60"
+                      className="sm:text-[15px] my-10 cursor-not-allowed opacity-40"
                     />
                     <span className="spinner cursor-not-allowed absolute left-[63%] sm:left-[55%]"></span>
                   </div>
