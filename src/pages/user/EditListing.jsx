@@ -86,6 +86,13 @@ export default function EditListing() {
   const params = useParams();
 
   useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("Not authorized to edit Listing");
+      nav("/profile");
+    }
+  }, [auth.currentUser.uid, listing, nav]);
+
+  useEffect(() => {
     setIsLoading(true);
     async function fetchListing() {
       const docRef = doc(db, "listings", params.listingId);
