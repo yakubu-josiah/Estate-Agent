@@ -117,7 +117,7 @@ export default function Profile() {
                 id="img"
                 className="rounded-md row-auto h-[200px] w-[200px] mr-9 space-y-3 border-4 border-white shadow-lg"
               >
-                <div className="bg-red-400 w-full h-full"></div>
+                <div className="bg-red-300 w-full h-full"></div>
                 {editPhoto ? (
                   <button
                     className="border-2 border-gray-500 text-gray-500 hover:bg-gray-600 hover:text-white font-bold py-1 w-full rounded transition duration-300 ease-in-out"
@@ -192,6 +192,7 @@ export default function Profile() {
                       listing={listing.data}
                       onDelete={() => onDelete(listing.id)}
                       onEdit={() => onEdit(listing.id)}
+                      isOwner={listing.data.userRef === auth.currentUser.uid}
                     />
                   ))}
               </ul>
