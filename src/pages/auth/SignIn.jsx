@@ -9,6 +9,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignIn() {
   const [viewPassword, setViewPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
   const [formData, setformData] = useState({
     email: "",
@@ -27,6 +28,7 @@ export default function SignIn() {
   const loginForm = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -93,9 +95,20 @@ export default function SignIn() {
                 Forgot Password?
               </Link>
             </div>
-            <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">
-              Login
-            </button>
+            <>
+              {isLoading ? (
+                <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2 cursor-not-allowed opacity-60">
+                  <div className="flex justify-center">
+                    <span>Authenticating..</span>
+                    <span className="spinner cursor-not-allowed"></span>
+                  </div>
+                </button>
+              ) : (
+                <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">
+                  Login
+                </button>
+              )}
+            </>
           </form>
           <div className="mb-10">
             <OAuth />

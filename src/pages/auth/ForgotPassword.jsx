@@ -7,6 +7,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function ForgotPassword() {
   const [form, setForm] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   function handleChage(e) {
     setEmail(e.target.value);
@@ -16,6 +17,7 @@ export default function ForgotPassword() {
   const onForgot = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       await sendPasswordResetEmail(auth, email);
       setForm(false);
       setformSuccess(true);
@@ -50,9 +52,20 @@ export default function ForgotPassword() {
                   placeholder="Enter Email Address"
                 />
               </div>
-              <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">
-                Reset Password
-              </button>
+              <>
+                {isLoading ? (
+                  <button className="relative border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2 cursor-not-allowed opacity-60">
+                    <div className="flex justify-center my-0 py-0">
+                      <span>Authenticating..</span>
+                      <span className="spinner cursor-not-allowed "></span>
+                    </div>
+                  </button>
+                ) : (
+                  <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">
+                    Reset Password
+                  </button>
+                )}
+              </>
             </form>
             <div className="mb-10">
               <OAuth />

@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp() {
   const [viewPassword, setViewPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
   const [formData, setformData] = useState({
     username: "",
@@ -35,6 +36,7 @@ export default function SignUp() {
   async function submitForm(e) {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -156,12 +158,20 @@ export default function SignUp() {
                 Forgot Password?
               </Link>
             </div>
-            <button
-              type="submit"
-              className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2"
-            >
-              Register
-            </button>
+            <>
+              {isLoading ? (
+                <button className="relative border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2 cursor-not-allowed opacity-60">
+                  <div className="flex justify-center my-0 py-0">
+                    <span>Registering..</span>
+                    <span className="spinner cursor-not-allowed "></span>
+                  </div>
+                </button>
+              ) : (
+                <button className="border p-2 w-full mt-7 rounded-full hover:shadow-lg hover:text-white transition duration-300 ease-in-out px-4 py-2">
+                  Register
+                </button>
+              )}
+            </>
           </form>
           <div className="mb-10">
             <OAuth />
