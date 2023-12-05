@@ -273,6 +273,18 @@ input[type="number"] {
 }
 
 
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: purple;
+}
+/* .swiper-scrollbar::-webkit-scrollbar-track{
+  width: 12px;
+  background: #fff7d1 !important;
+} */
+.swiper-scrollbar-drag{
+  color: #fff7d1 !important;
+  background: purple !important;
+}
 
 /* ============= NEW LISTING PAGE STYLES ============ */
 

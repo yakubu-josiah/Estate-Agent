@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthGuard from "./pages/auth/AuthGuard";
 import NewListing from "./pages/user/NewListings";
 import EditListing from "./pages/user/EditListing";
+import Listing from "./pages/Listing";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" element={<AuthGuard />}>
             <Route index element={<Profile />} />
             <Route path="/profile/add-new-listing" element={<NewListing />} />
+            <Route path="/profile/listing/:listingId" element={<Listing />}></Route>
             <Route path="/profile/listing/:listingId/edit" element={<EditListing />} />
           </Route>
 
