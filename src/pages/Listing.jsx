@@ -18,7 +18,7 @@ import Loader from "../components/Loader";
 export default function Listing() {
   const [listing, setListing] = useState(null);
   const [isLoading, setisLoading] = useState(true);
-  const [sharedLink, setSharedLink] = useState(false);
+  const [shareLink, setShareLink] = useState(false);
   const param = useParams();
 
   useEffect(() => {
@@ -74,14 +74,14 @@ export default function Listing() {
         <FaShare
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
-            setSharedLink(true);
+            setShareLink(true);
             setTimeout(() => {
-              setSharedLink(false);
+              setShareLink(false);
             }, 2000);
           }}
         />
       </div>
-      {sharedLink && (
+      {shareLink && (
         <div className="fixed top-[20%] right-[3%] font-semibold border-2 border-purple-300 rounded-md bg-[#fff7d1] z-10 p-1 text-purple-600 text-sm sm:top-[48%] sm:text-md ">
           Link Copied
         </div>
