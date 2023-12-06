@@ -24,7 +24,6 @@ function App() {
           <Route path="/profile" element={<AuthGuard />}>
             <Route index element={<Profile />} />
             <Route path="/profile/add-new-listing" element={<NewListing />} />
-            <Route path="/profile/listing/:listingId" element={<Listing />}></Route>
             <Route path="/profile/listing/:listingId/edit" element={<EditListing />} />
           </Route>
 
@@ -32,6 +31,7 @@ function App() {
           <Route path="/auth/sign-in" element={<SignIn />} />
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+          <Route path="/profile/listing/:listingId" element={<Listing />}></Route>
         </Routes>
       </Router>
       <ToastContainer
