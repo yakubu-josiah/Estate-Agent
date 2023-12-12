@@ -14,12 +14,21 @@ import {
 } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 import Loader from "../components/Loader";
+import { ImLocation2 } from "react-icons/im";
 
 export default function Listing() {
   const [listing, setListing] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const [shareLink, setShareLink] = useState(false);
   const param = useParams();
+
+  const formatPrice = (price) => {
+    return price && price !== 0 ? (
+      `₦${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+    ) : (
+      <p className="text-gray-600 italic">Not Available</p>
+    );
+  };
 
   useEffect(() => {
     async function fetchListing() {
@@ -91,11 +100,12 @@ export default function Listing() {
         <div className="w-full px-8 pt-10 rounded-lg">
           <div className="flex space-x-2 items-center">
             <p className="text-2xl font-semibold mb-2">{listing.name} - </p>
-            <p className="text-lg">${listing.sale}</p>
+            <p className="text-lg">{formatPrice(listing.sale)}</p>
           </div>
           <div className="mb-4">
+            <ImLocation2 className="h-4 w-4 text-red-500" />
             <p className="font-semibold">Address:</p>
-            <p>{listing.address}</p>
+            <p className="">{listing.address}</p>
           </div>
           <div className="mb-4">
             <p className="font-semibold">City:</p>
