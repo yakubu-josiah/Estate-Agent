@@ -39,7 +39,7 @@ export default function Listing() {
   }
 
   return (
-    <main>
+    <main className="bg-[#fff7d1]">
       <Swiper
         modules={[
           Navigation,
@@ -70,7 +70,7 @@ export default function Listing() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="fixed top-[13%] right-[3%] z-10 bg-[#fff7d1] cursor-pointer border-2 border-purple-600 rounded-full w-12 h-7 flex justify-center items-center text-md text-purple-600 sm:h-12 sm:top-[40%] sm:text-2xl ">
+      <div className="absolute top-[13%] right-[3%] z-10 bg-[#fff7d1] cursor-pointer border-2 border-purple-600 rounded-full w-12 h-7 flex justify-center items-center text-md text-purple-600 sm:h-12 sm:top-[40%] sm:text-2xl ">
         <FaShare
           onClick={() => {
             navigator.clipboard.writeText(window.location.href);
@@ -82,10 +82,43 @@ export default function Listing() {
         />
       </div>
       {shareLink && (
-        <div className="fixed top-[20%] right-[3%] font-semibold border-2 border-purple-300 rounded-md bg-[#fff7d1] z-10 p-1 text-purple-600 text-sm sm:top-[48%] sm:text-md ">
+        <div className="absolute top-[20%] right-[3%] font-semibold border-2 border-purple-300 rounded-md bg-[#fff7d1] z-10 p-1 text-purple-600 text-sm sm:top-[48%] sm:text-md ">
           Link Copied
         </div>
       )}
+      {/* The Lister div below */}
+      <div className="bg-[#eee3d3] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
+        <div className="w-full px-8 pt-10 rounded-lg">
+          <div className="flex space-x-2 items-center">
+            <p className="text-2xl font-semibold mb-2">{listing.name} - </p>
+            <p className="text-lg">${listing.sale}</p>
+          </div>
+          <div className="mb-4">
+            <p className="font-semibold">Address:</p>
+            <p>{listing.address}</p>
+          </div>
+          <div className="mb-4">
+            <p className="font-semibold">City:</p>
+            <p>
+              {listing.city}, {listing.state}
+            </p>
+          </div>
+          <div className="mb-4">
+            <p className="font-semibold">Size:</p>
+            <p>{listing.size}</p>
+          </div>
+          <div className="mb-4">
+            <p className="font-semibold">Type:</p>
+            <p>{listing.type}</p>
+          </div>
+          {/* ... (add more details as needed) */}
+          <div className="mb-4">
+            <p className="font-semibold">Description:</p>
+            <p>{listing.description}</p>
+          </div>
+        </div>
+        <div className="bg-blue-300 w-full h-[200px] lg-[400px] mt-3 z-10 overflow-x-hidden"></div>
+      </div>
     </main>
   );
 }
