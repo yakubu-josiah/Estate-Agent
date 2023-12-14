@@ -98,21 +98,51 @@ export default function Listing() {
       {/* The Lister div below */}
       <div className="bg-[#eee3d3] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
         <div className="w-full px-8 pt-10 rounded-lg">
-          <div className="flex space-x-2 items-center">
-            <p className="text-2xl font-semibold mb-2">{listing.name} - </p>
-            <p className="text-lg">{formatPrice(listing.sale)}</p>
+          <div className="flex space-x-2 items-center o">
+            <p className="text-2xl font-semibold mb-2 text-purple-700">
+              {listing.name} -{" "}
+            </p>
           </div>
-          <div className="mb-4">
-            <ImLocation2 className="h-4 w-4 text-red-500" />
-            <p className="font-semibold">Address:</p>
-            <p className="">{listing.address}</p>
-          </div>
-          <div className="mb-4">
+
+          {listing.sale ? (
+            <p className="text-gray-600 pl-5">
+              <span className="font-semibold text-gray-800">Sale Price: </span>
+              {formatPrice(listing.sale)}
+            </p>
+          ) : (
+            <p className="">
+              <span className="font-semibold text-gray-800">Sale Price: </span>{" "}
+              Not available for Sale...
+            </p>
+          )}
+
+          {listing.lease ? (
+            <p className="text-gray-600 pl-5">
+              <span className="font-semibold text-gray-800">Lease Price: </span>
+              {formatPrice(listing.lease)}
+            </p>
+          ) : (
+            <p className="">
+              <span className="font-semibold text-gray-800">Lease Price: </span>{" "}
+              Not available for Lease...
+            </p>
+          )}
+          <div className="mb-4 "></div>
+          <p className="text-2xl font-semibold mb-2 text-purple-700">
+            Property Details
+          </p>
+          <div className="mb-4 pl-5 text-gray-600">
+            <div className="flex items-center">
+              <ImLocation2 className="h-4 w-4 text-red-500" />
+              <p className="font-semibold">Address:</p>
+              <p className="ml-1">{listing.address}</p>
+            </div>
             <p className="font-semibold">City:</p>
             <p>
               {listing.city}, {listing.state}
             </p>
           </div>
+          <div className="mb-4"></div>
           <div className="mb-4">
             <p className="font-semibold">Size:</p>
             <p>{listing.size}</p>
