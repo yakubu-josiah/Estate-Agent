@@ -286,7 +286,14 @@ input[type="number"] {
   background: purple !important;
 }
 
+
+
 /* ============= NEW LISTING PAGE STYLES ============ */
+
+
+.singleList .moment {
+  font-family: 'Courier New', Courier, monospace;
+}
 
 .loader-listing {
   justify-content: center;
@@ -484,6 +491,12 @@ input[type="number"] {
 
   /* ============= NEW LISTING PAGE STYLES ============ */
 
+  .singleList{
+    font-size: 14px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    /* letter-spacing: 0.1px; */
+  }
   .newList .form .listForm div span {
     font-size: 12px;
     padding-top: 2px;

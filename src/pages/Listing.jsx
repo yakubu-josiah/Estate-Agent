@@ -15,6 +15,7 @@ import {
 import "swiper/swiper-bundle.css";
 import Loader from "../components/Loader";
 import { ImLocation2 } from "react-icons/im";
+import Moment from "react-moment";
 
 export default function Listing() {
   const [listing, setListing] = useState(null);
@@ -95,13 +96,19 @@ export default function Listing() {
           Link Copied
         </div>
       )}
-      {/* The Lister div below */}
+
       <div className="bg-[#eee3d3] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
-        <div className="w-full px-8 pt-10 rounded-lg">
-          <div className="flex space-x-2 items-center o">
+        <div className="w-full singleList px-8 pt-10 rounded-lg">
+          <div className="flex items-center truncate">
             <p className="text-2xl font-semibold mb-2 text-purple-700">
               {listing.name} -{" "}
             </p>
+            <Moment
+              className="text-gray-700 text-md moment uppercase sm:block"
+              calendar
+            >
+              {listing.timestamp?.toDate()}
+            </Moment>
           </div>
 
           {listing.sale ? (
@@ -133,20 +140,40 @@ export default function Listing() {
           </p>
           <div className="mb-4 pl-5 text-gray-600">
             <div className="flex items-center">
+              <p className="font-semibold text-gray-800">Size:</p>
+              <p>{listing.size}</p>
+            </div>
+            <div className="flex items-center">
+              <p className="font-semibold text-gray-800">Dimension:</p>
+              <p>{listing.dimension}</p>
+            </div>
+            <div className="flex items-center">
+              <p className="font-semibold text-gray-800">Property Type:</p>
+              <p>{listing.type}</p>
+            </div>
+            <div className="flex items-center">
+              <p className="font-semibold text-gray-800">Category:</p>
+              <p>{listing.category}</p>
+            </div>
+          </div>
+
+          <p className="text-2xl font-semibold mb-2 text-purple-700">
+            Property Location
+          </p>
+          <div className="mb-4 pl-0 text-gray-600 truncate">
+            <div className="flex items-center">
+              <p className="font-semibold text-gray-800 mr-1">City:</p>
+              <p>
+                {listing.city}, {listing.state}
+              </p>
+            </div>
+            <div className="flex items-center ">
               <ImLocation2 className="h-4 w-4 text-red-500" />
-              <p className="font-semibold">Address:</p>
+              <p className="font-semibold text-gray-800">Address:</p>
               <p className="ml-1">{listing.address}</p>
             </div>
-            <p className="font-semibold">City:</p>
-            <p>
-              {listing.city}, {listing.state}
-            </p>
           </div>
           <div className="mb-4"></div>
-          <div className="mb-4">
-            <p className="font-semibold">Size:</p>
-            <p>{listing.size}</p>
-          </div>
           <div className="mb-4">
             <p className="font-semibold">Type:</p>
             <p>{listing.type}</p>
