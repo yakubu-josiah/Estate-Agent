@@ -336,15 +336,15 @@ input[type="number"] {
     color: #fff; /* Text color when shining */
   }
   25% {
-    font-size: 2rem;
+    font-size: 1rem;
     color: #eee; /* Slightly dimmer */
   }
   50% {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color: #ddd; /* Dimmer */
   }
   75% {
-    font-size: 2rem;
+    font-size: 1rem;
     color: #eee; /* Slightly dimmer */
   }
   100% {
