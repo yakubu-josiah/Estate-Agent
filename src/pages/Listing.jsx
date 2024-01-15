@@ -100,12 +100,15 @@ export default function Listing() {
       <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
         <div className="w-full singleList px-8 pt-10 rounded-lg">
           <div className="flex-col sm:flex-row items-center truncate">
+          <div className="relative inline-block mb-2">
+            <div className="absolute top-0.5 left-[98%] w-[0.29rem] transform bg-red-600 opacity-60 h-[28px]"></div>
             <Moment
-              className="text-sm moment uppercase bg-[#dbd6be] py-1 px-2 rounded text-red-600 tracking-widest"
+              className="text-sm moment uppercase bg-[#dbd6be] py-1 px-3 rounded-tl-full relative z-10 text-red-600 tracking-widest"
               format="Do MMMM YYYY"
             >
               {listing.timestamp?.toDate()}
             </Moment>
+            </div>
             <p className="text-2xl font-semibold text-purple-700">
               {listing.name} 
             </p>
@@ -140,19 +143,19 @@ export default function Listing() {
           </p>
           <div className="mb-4 pl-3 text-gray-500">
             <div className="flex items-center">
-              <p className="font-semibold text-gray-600">Size:</p>
+              <p className="font-semibold text-gray-600 mr-2">Size:</p>
               <p>{listing.size}</p>
             </div>
             <div className="flex items-center">
-              <p className="font-semibold text-gray-600">Dimension:</p>
+              <p className="font-semibold text-gray-600 mr-2">Dimension:</p>
               <p>{listing.dimension}</p>
             </div>
             <div className="flex items-center">
-              <p className="font-semibold text-gray-600">Property Type:</p>
+              <p className="font-semibold text-gray-600 mr-2">Property Type:</p>
               <p>{listing.type}</p>
             </div>
             <div className="flex items-center">
-              <p className="font-semibold text-gray-600">Category:</p>
+              <p className="font-semibold text-gray-600 mr-2">Category:</p>
               <p> {listing.category}</p>
             </div>
           </div>
@@ -162,15 +165,15 @@ export default function Listing() {
           </p>
           <div className="mb-4 pl-0 text-gray-500 truncate">
             <div className="flex items-center">
-              <p className="font-semibold text-gray-600 mr-1">City:</p>
+              <p className="font-semibold text-gray-600 mr-2">City:</p>
               <p>
                 {listing.city}, {listing.state}
               </p>
             </div>
             <div className="flex items-center ">
               <ImLocation2 className="h-4 w-4 text-red-500" />
-              <p className="font-semibold text-gray-600">Address:</p>
-              <p className="ml-1">{listing.address}</p>
+              <p className="font-semibold text-gray-600 mr-2">Address:</p>
+              <p>{listing.address}</p>
             </div>
           </div>
           <p className="text-2xl font-semibold mb-2 text-purple-700">
@@ -178,7 +181,7 @@ export default function Listing() {
           </p>
           <div className="pl-0 mb-1 text-gray-500 truncate">
             <div className="flex items-center">
-              <p className="font-semibold text-gray-600 mr-1">Type:</p>
+              <p className="font-semibold text-gray-600 mr-2">Type:</p>
               <p>
                 {listing.type}
               </p>
