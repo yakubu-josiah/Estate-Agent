@@ -27,7 +27,7 @@ export default function Listing() {
     return price && price !== 0 ? (
       `₦${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
     ) : (
-      <p className="text-gray-600 italic">Not Available</p>
+      <p className="text-gray-500 italic">Not Available</p>
     );
   };
 
@@ -97,40 +97,40 @@ export default function Listing() {
         </div>
       )}
 
-      <div className="bg-[#eee3d3] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
+      <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
         <div className="w-full singleList px-8 pt-10 rounded-lg">
-          <div className="flex items-center truncate">
-            <p className="text-2xl font-semibold mb-2 text-purple-700">
-              {listing.name} -{" "}
-            </p>
+          <div className="flex-col sm:flex-row items-center truncate">
             <Moment
-              className="text-gray-700 text-md moment uppercase sm:block"
-              calendar
+              className="text-sm moment uppercase bg-[#dbd6be] py-1 px-2 rounded text-red-600 tracking-widest"
+              format="Do MMMM YYYY"
             >
               {listing.timestamp?.toDate()}
             </Moment>
+            <p className="text-2xl font-semibold text-purple-700">
+              {listing.name} 
+            </p>
           </div>
 
           {listing.sale ? (
-            <p className="text-gray-600 pl-5">
-              <span className="font-semibold text-gray-800">Sale Price: </span>
+            <p className="text-gray-500 pl-3">
+              <span className="font-semibold text-gray-600">Sale Price: </span>
               {formatPrice(listing.sale)}
             </p>
           ) : (
             <p className="">
-              <span className="font-semibold text-gray-800">Sale Price: </span>{" "}
+              <span className="font-semibold text-gray-600">Sale Price: </span>{" "}
               Not available for Sale...
             </p>
           )}
 
           {listing.lease ? (
-            <p className="text-gray-600 pl-5">
-              <span className="font-semibold text-gray-800">Lease Price: </span>
+            <p className="text-gray-500 pl-3">
+              <span className="font-semibold text-gray-600">Lease Price: </span>
               {formatPrice(listing.lease)}
             </p>
           ) : (
             <p className="">
-              <span className="font-semibold text-gray-800">Lease Price: </span>{" "}
+              <span className="font-semibold text-gray-600">Lease Price: </span>{" "}
               Not available for Lease...
             </p>
           )}
@@ -138,49 +138,55 @@ export default function Listing() {
           <p className="text-2xl font-semibold mb-2 text-purple-700">
             Property Details
           </p>
-          <div className="mb-4 pl-5 text-gray-600">
+          <div className="mb-4 pl-3 text-gray-500">
             <div className="flex items-center">
-              <p className="font-semibold text-gray-800">Size:</p>
+              <p className="font-semibold text-gray-600">Size:</p>
               <p>{listing.size}</p>
             </div>
             <div className="flex items-center">
-              <p className="font-semibold text-gray-800">Dimension:</p>
+              <p className="font-semibold text-gray-600">Dimension:</p>
               <p>{listing.dimension}</p>
             </div>
             <div className="flex items-center">
-              <p className="font-semibold text-gray-800">Property Type:</p>
+              <p className="font-semibold text-gray-600">Property Type:</p>
               <p>{listing.type}</p>
             </div>
             <div className="flex items-center">
-              <p className="font-semibold text-gray-800">Category:</p>
-              <p>{listing.category}</p>
+              <p className="font-semibold text-gray-600">Category:</p>
+              <p> {listing.category}</p>
             </div>
           </div>
 
           <p className="text-2xl font-semibold mb-2 text-purple-700">
             Property Location
           </p>
-          <div className="mb-4 pl-0 text-gray-600 truncate">
+          <div className="mb-4 pl-0 text-gray-500 truncate">
             <div className="flex items-center">
-              <p className="font-semibold text-gray-800 mr-1">City:</p>
+              <p className="font-semibold text-gray-600 mr-1">City:</p>
               <p>
                 {listing.city}, {listing.state}
               </p>
             </div>
             <div className="flex items-center ">
               <ImLocation2 className="h-4 w-4 text-red-500" />
-              <p className="font-semibold text-gray-800">Address:</p>
+              <p className="font-semibold text-gray-600">Address:</p>
               <p className="ml-1">{listing.address}</p>
             </div>
           </div>
-          <div className="mb-4"></div>
-          <div className="mb-4">
-            <p className="font-semibold">Type:</p>
-            <p>{listing.type}</p>
-          </div>
+          <p className="text-2xl font-semibold mb-2 text-purple-700">
+            Property Description
+          </p>
+          <div className="pl-0 mb-1 text-gray-500 truncate">
+            <div className="flex items-center">
+              <p className="font-semibold text-gray-600 mr-1">Type:</p>
+              <p>
+                {listing.type}
+              </p>
+            </div>
+          </div>          
           {/* ... (add more details as needed) */}
-          <div className="mb-4">
-            <p className="font-semibold">Description:</p>
+          <div className="mb-4 text-gray-500">
+            <p className="font-semibold text-gray-600 mr-1">Description:</p>
             <p>{listing.description}</p>
           </div>
         </div>
