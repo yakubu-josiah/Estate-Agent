@@ -53,7 +53,6 @@ export default function EditListing() {
     lease,
     landmark,
     amenities,
-    images,
   } = formData;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -229,13 +228,6 @@ export default function EditListing() {
             <div className="loading-container items-center flex justify-center space-x-5 h-[80vh]">
               <span className="spinner text-white"></span>
               <p className="letter-text font-bold top-10">Loading....</p>
-              {/* <span class="letter-text">L</span>
-              <span class="letter-text">o</span>
-              <span class="letter-text">a</span>
-              <span class="letter-text">d</span>
-              <span class="letter-text">i</span>
-              <span class="letter-text">n</span>
-              <span class="letter-text">g</span> */}
             </div>
           ) : (
             <form onSubmit={editListing}>
