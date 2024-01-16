@@ -14,13 +14,13 @@ export default function Loader() {
             </div>
             <div className="loader">
                 <div className="loading-container items-center flex justify-center space-x-5">
-                    <span class="letter-text">l</span>
-                    <span class="letter-text">o</span>
-                    <span class="letter-text">a</span>
-                    <span class="letter-text">d</span>
-                    <span class="letter-text">i</span>
-                    <span class="letter-text">n</span>
-                    <span class="letter-text">g</span>
+                    <span className="letter-text">l</span>
+                    <span className="letter-text">o</span>
+                    <span className="letter-text">a</span>
+                    <span className="letter-text">d</span>
+                    <span className="letter-text">i</span>
+                    <span className="letter-text">n</span>
+                    <span className="letter-text">g</span>
                 </div>
             </div>
         </div>
