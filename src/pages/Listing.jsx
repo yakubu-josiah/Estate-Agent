@@ -1,9 +1,10 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../firebaseConfig";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaShare } from "react-icons/fa";
+import { getAuth } from "firebase/auth";
 import {
   Navigation,
   Pagination,
@@ -15,12 +16,21 @@ import {
 import "swiper/swiper-bundle.css";
 import Loader from "../components/Loader";
 import { ImLocation2 } from "react-icons/im";
+import { IoCloseCircleOutline } from "react-icons/io5";
 import Moment from "react-moment";
+import { toast } from "react-toastify";
+import { GrEdit } from "react-icons/gr";
+import { BsFillTrash3Fill } from "react-icons/bs";
 
 export default function Listing() {
-  const [listing, setListing] = useState(null);
+  const nav = useNavigate();
+  const auth = getAuth();
+  const [listing, setListing] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [shareLink, setShareLink] = useState(false);
+  const [contactAgent, setContactAgent] = useState(false);
+  const [agentData, setAgentData] = useState(null);
+  const [message, setMessage] = useState('');
   const param = useParams();
 
   const formatPrice = (price) => {
@@ -30,6 +40,18 @@ export default function Listing() {
       <p className="text-gray-500 italic">Not Available</p>
     );
   };
+
+  const contactForm = () => {
+    setContactAgent(true);
+  }
+
+  const onChange = (e) => {
+    setMessage(e.target.value);
+  }
+  
+  const closeBTN = () => {
+    setContactAgent(false);
+  }
 
   useEffect(() => {
     async function fetchListing() {
@@ -44,6 +66,42 @@ export default function Listing() {
     }
     fetchListing();
   }, [param.listingId]);
+
+  useEffect(() => {
+    async function fetchAgentData() {
+      const docRef = doc(db, "users", listing?.userRef);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setAgentData(docSnap.data())
+      }else{
+        toast.error("Opps! Error fetching Agent's contact.");
+      }
+    }
+    fetchAgentData();
+  }, [listing?.userRef])
+  
+  const onEdit = (listingId) =>  {
+    nav(`/profile/listing/${listingId}/edit`);
+  }
+
+  async function onDelete(listingId) {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this Listing?"
+    );
+    if (confirmed) {
+      try {
+        setisLoading(true);
+        await deleteDoc(doc(db, "listings", listingId));
+        toast.success("Listing deleted successfully!");
+        nav("/profile");
+      } catch (error) {
+        console.error("Error deleting listing:", error);
+      } finally {
+        setisLoading(false);
+      }
+    }
+  }
+
   if (isLoading) {
     return <Loader />;
   }
@@ -100,17 +158,17 @@ export default function Listing() {
       <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
         <div className="w-full singleList px-8 pt-10 rounded-lg">
           <div className="flex-col sm:flex-row items-center truncate">
-          <div className="relative inline-block mb-2">
-            <div className="absolute top-0.5 left-[98%] w-[0.29rem] transform bg-red-600 opacity-60 h-[28px]"></div>
-            <Moment
-              className="text-sm moment uppercase bg-[#dbd6be] py-1 px-3 rounded-tl-full relative z-10 text-red-600 tracking-widest"
-              format="Do MMMM YYYY"
-            >
-              {listing.timestamp?.toDate()}
-            </Moment>
+            <div className="relative inline-block mb-2">
+              <div className="absolute top-0.5 left-[98%] w-[0.29rem] transform bg-red-600 opacity-60 h-[28px]"></div>
+              <Moment
+                className="text-sm moment uppercase bg-[#dbd6be] py-1 px-3 rounded-tl-full relative z-10 text-red-600 tracking-widest"
+                format="Do MMMM YYYY"
+              >
+                {listing.timestamp?.toDate()}
+              </Moment>
             </div>
             <p className="text-2xl font-semibold text-purple-700">
-              {listing.name} 
+              {listing.name}
             </p>
           </div>
 
@@ -186,11 +244,72 @@ export default function Listing() {
                 {listing.type}
               </p>
             </div>
-          </div>          
+          </div>
           {/* ... (add more details as needed) */}
           <div className="mb-4 text-gray-500">
             <p className="font-semibold text-gray-600 mr-1">Description:</p>
             <p>{listing.description}</p>
+          </div>
+
+
+          <div className="mb-3">
+            {listing.userRef === auth.currentUser?.uid ? (
+              // When it is the Agent then display no button or form
+              <div className="flex justify-between items-center space-x-2 w-full"> {/* Full width, justify content, center items */}
+                <button 
+                  className="w-1/2 flex items-center px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md text-gray-700 font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" 
+                  onClick={(listingId) => 
+                    onEdit(param.listingId, listingId)
+                }>
+                  <GrEdit className="w-6 h-6 mr-2" /> {/* Icon with spacing */}
+                  Edit
+                </button>
+                <button 
+                  className="w-1/2 flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  onClick={(listingId) => 
+                    onDelete(param.listingId, listingId)
+                }>
+                  <BsFillTrash3Fill className="w-6 h-6 mr-2" /> {/* Icon with spacing */}
+                  Delete
+                </button>
+              </div>
+            ) : (
+              <>
+                {!contactAgent && (
+                  <>
+                    <em className="block text-red-400 mt-4 text-center">Interested in this property? Inquire now</em>
+                    <button
+                      className="border-2 border-purple-400 text-purple-700 hover:border-red-300 hover:bg-[#dbd6be] hover:text-red-600  active:border-red-300 active:bg-[#dbd6be] hover:shadow-lg font-bold py-2 px-5 w-full rounded transition ease-in-out duration-300 uppercase"
+                      onClick={contactForm}
+                    >
+                      Contact Agent
+                    </button>
+                    {/* All logic goes in here
+                    Display button and when clicked show form and take message to mail. */}
+                  </>
+                )}
+              </>
+
+            )}
+            {contactAgent && (
+              <div className="relative pt-7">
+                <button className="absolute top-0 right-0 block" onClick={closeBTN}> <IoCloseCircleOutline className="text-red-600 text-3xl"/> </button>
+                <p className="block text-gray-500 mt-0">You're about sending a mail to <span className="text-purple-600 font-bold">{agentData.username.charAt(0).toUpperCase() + agentData.username.slice(1)}</span> agent concerning this listing.</p>
+                <textarea 
+                  className="w-full ring-offset-inherit bg-[#ffeeb1] border-green-500 focus:border-purple-400 text-gray-600" 
+                  name="message" id="" rows="3" 
+                  onChange={onChange}
+                  value={message}
+                  >
+                  </textarea>
+                <a 
+                  href={`mailto:${agentData.email}?Subject=${listing.name}&body=${message}`} 
+                  className="block border-2 border-green-500 text-green-500 hover:bg-green-600 hover:text-white active:bg-green-600 active:text-white font-bold py-2 px-5 w-full rounded transition text-center ease-in-out duration-300 uppercase"
+                >
+                  Send Message
+                </a>
+              </div>
+            )}
           </div>
         </div>
         <div className="bg-blue-300 w-full h-[200px] lg-[400px] mt-3 z-10 overflow-x-hidden"></div>
