@@ -18,9 +18,8 @@ import Loader from "../components/Loader";
 import { ImLocation2 } from "react-icons/im";
 import Moment from "react-moment";
 import { toast } from "react-toastify";
-import { GrEdit } from "react-icons/gr";
-import { BsFillTrash3Fill } from "react-icons/bs";
 import Contact from "../components/Contact";
+import ListingActions from "../components/ListingActions";
 
 export default function Listing() {
   const nav = useNavigate();
@@ -64,6 +63,8 @@ export default function Listing() {
   
   
   const onEdit = (listingId) =>  {
+    console.log(param.listingId);
+    console.log(listing.userRef);
     nav(`/profile/listing/${listingId}/edit`);
   }
 
@@ -237,25 +238,10 @@ export default function Listing() {
 
           <div className="mb-3">
             {listing.userRef === auth.currentUser?.uid ? (
-              // When it is the Agent then display no button or form
-              <div className="flex justify-between items-center space-x-2 w-full"> {/* Full width, justify content, center items */}
-                <button 
-                  className="w-1/2 flex items-center px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md text-gray-700 font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" 
-                  onClick={(listingId) => 
-                    onEdit(param.listingId, listingId)
-                }>
-                  <GrEdit className="w-6 h-6 mr-2" /> {/* Icon with spacing */}
-                  Edit
-                </button>
-                <button 
-                  className="w-1/2 flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                  onClick={(listingId) => 
-                    onDelete(param.listingId, listingId)
-                }>
-                  <BsFillTrash3Fill className="w-6 h-6 mr-2" /> {/* Icon with spacing */}
-                  Delete
-                </button>
-              </div>
+              <ListingActions 
+                onEdit={() => onEdit(param.listingId)} 
+                onDelete={() => onDelete(param.listingId)}
+              />
             ) : (
               <>
                 {!contactAgent && (
@@ -267,8 +253,6 @@ export default function Listing() {
                     >
                       Contact Agent
                     </button>
-                    {/* All logic goes in here
-                    Display button and when clicked show form and take message to mail. */}
                   </>
                 )}
               </>
