@@ -155,31 +155,28 @@ export default function Listing() {
               {listing.name}
             </p>
           </div>
+          <div className="mb-4 space-x-2 pt-2">
+            {listing.sale ? (
+              <button type="button" className="button-price font-semibold text-white bg-purple-700 px-4 py-2 mt-2 rounded-md hover:bg-purple-800 disabled:opacity-50">
+                Sale Price: {formatPrice(listing.sale)}
+              </button>
+            ) : (
+              <button type="button" className="button-price font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 rounded-md disabled:opacity-50 text-[13px]">
+                Sale Price: Not available for Sale
+              </button>
+            )}
 
-          {listing.sale ? (
-            <p className="text-gray-500 pl-3">
-              <span className="font-semibold text-gray-600">Sale Price: </span>
-              {formatPrice(listing.sale)}
-            </p>
-          ) : (
-            <p className="">
-              <span className="font-semibold text-gray-600">Sale Price: </span>{" "}
-              Not available for Sale...
-            </p>
-          )}
+            {listing.lease ? (
+              <button type="button" className="button-price font-semibold text-white bg-green-600 px-4 py-2 mt-2 rounded-md hover:bg-green-700 disabled:opacity-50">
+                Lease Price: {formatPrice(listing.lease)}/<span className="text-xs">mon</span>
+              </button>
+            ) : (
+              <button type="button" className="button-price font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 rounded-md disabled:opacity-50 text-[13px]">
+                Lease Price: Not available for Lease
+              </button>
+            )}
 
-          {listing.lease ? (
-            <p className="text-gray-500 pl-3">
-              <span className="font-semibold text-gray-600">Lease Price: </span>
-              {formatPrice(listing.lease)}
-            </p>
-          ) : (
-            <p className="">
-              <span className="font-semibold text-gray-600">Lease Price: </span>{" "}
-              Not available for Lease...
-            </p>
-          )}
-          <div className="mb-4 "></div>
+          </div>
           <p className="text-2xl font-semibold mb-2 text-purple-700">
             Property Details
           </p>
