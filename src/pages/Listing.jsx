@@ -20,6 +20,7 @@ import Moment from "react-moment";
 import { toast } from "react-toastify";
 import Contact from "../components/Contact";
 import ListingActions from "../components/ListingActions";
+import LocationMap from "../components/LocationMap";
 
 export default function Listing() {
   const nav = useNavigate();
@@ -29,6 +30,7 @@ export default function Listing() {
   const [shareLink, setShareLink] = useState(false);
   const [contactAgent, setContactAgent] = useState(false);
   const param = useParams();
+  const position = [51.505, -0.09]
 
   const formatPrice = (price) => {
     return price && price !== 0 ? (
@@ -139,8 +141,8 @@ export default function Listing() {
         </div>
       )}
 
-      <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 ">
-        <div className="w-full singleList px-8 pt-10 rounded-lg">
+      <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 z-10">
+        <div className="singleList flex-1 flex-col px-8 pt-10 rounded-lg">
           <div className="flex-col sm:flex-row items-center truncate">
             <div className="relative inline-block mb-2">
               <div className="absolute top-0.5 left-[98%] w-[0.29rem] transform bg-red-600 opacity-60 h-[28px]"></div>
@@ -269,7 +271,9 @@ export default function Listing() {
             )}
           </div>
         </div>
-        <div className="bg-blue-300 w-full h-[200px] lg-[400px] mt-3 z-10 overflow-x-hidden"></div>
+        <div className="flex-1 flex-col items-stretch z-10 ">
+          <LocationMap position={position} />
+        </div>
       </div>
     </main>
   );
