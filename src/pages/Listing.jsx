@@ -94,52 +94,55 @@ export default function Listing() {
 
   return (
     <main className="bg-[#fff7d1]">
-      <Swiper
-        modules={[
-          Navigation,
-          Scrollbar,
-          Pagination,
-          A11y,
-          EffectFade,
-          Autoplay,
-        ]}
-        slidesPerView={1}
-        navigation
-        effect="fade"
-        pagination={{ clickable: true, type: "progressbar" && "fraction" }}
-        scrollbar={{ draggable: true }}
-      >
-        {listing.images.map((item, i) => (
-          <SwiperSlide key={i}>
-            <div
-              className="w-full overflow-hidden h-[300px]"
-              style={{
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                background: `url(${listing.images[i]}) center no-repeat`,
-                height: `300px`,
-                width: "100%",
-              }}
-            ></div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div className="absolute top-[13%] right-[3%] z-10 bg-[#fff7d1] cursor-pointer border-2 border-purple-600 rounded-full w-12 h-7 flex justify-center items-center text-md text-purple-600 sm:h-12 sm:top-[40%] sm:text-2xl ">
-        <FaShare
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-            setShareLink(true);
-            setTimeout(() => {
-              setShareLink(false);
-            }, 2000);
-          }}
-        />
-      </div>
-      {shareLink && (
-        <div className="absolute top-[20%] right-[3%] font-semibold border-2 border-purple-300 rounded-md bg-[#fff7d1] z-10 p-1 text-purple-600 text-sm sm:top-[48%] sm:text-md ">
-          Link Copied
+      <div className="relative">
+        <Swiper
+          modules={[
+            Navigation,
+            Scrollbar,
+            Pagination,
+            A11y,
+            EffectFade,
+            Autoplay,
+          ]}
+          slidesPerView={1}
+          navigation
+          effect="fade"
+          pagination={{ clickable: true, type: "progressbar" && "fraction" }}
+          scrollbar={{ draggable: true }}
+        >
+          {listing.images.map((item, i) => (
+            <SwiperSlide key={i}>
+              <div
+                className="w-full overflow-hidden h-[300px]"
+                style={{
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  background: `url(${listing.images[i]}) center no-repeat`,
+                  height: `300px`,
+                  width: "100%",
+                }}
+              ></div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="absolute top-[7%] right-[5%] z-20 bg-[#fff7d1] cursor-pointer border-2 border-fuchsia-800 rounded-full w-12 h-7 flex justify-center items-center text-md text-purple-600 sm:h-12 sm:top-[70%] sm:text-2xl ">
+          <FaShare
+            className="text-fuchsia-800"
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              setShareLink(true);
+              setTimeout(() => {
+                setShareLink(false);
+              }, 2000);
+            }}
+          />
         </div>
-      )}
+        {shareLink && (
+          <div className="absolute top-[17%] right-[5%] font-semibold border-2 border-fuchsia-600 rounded-md bg-[#fff7d1] z-20 p-1 text-fuchsia-600 text-sm sm:top-[87%] sm:text-md ">
+            Link Copied
+          </div>
+        )}
+      </div>
 
       <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 z-10">
         <div className="singleList flex-1 flex-col px-8 pt-10 rounded-lg">
