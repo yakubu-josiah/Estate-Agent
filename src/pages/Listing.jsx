@@ -157,23 +157,23 @@ export default function Listing() {
               {listing.name}
             </p>
           </div>
-          <div className="mb-4 space-x-2 pt-2">
+          <div className="mb-4 pt-2">
             {listing.sale ? (
-              <button type="button" className="button-price font-semibold text-white bg-purple-700 px-4 py-2 mt-2 rounded-md hover:bg-purple-800 disabled:opacity-50">
+              <button type="button" className="cursor-default font-semibold text-white bg-purple-700 px-4 py-2 mt-2 mr-2 rounded-md hover:bg-purple-800 disabled:opacity-50">
                 Sale Price: {formatPrice(listing.sale)}
               </button>
             ) : (
-              <button type="button" className="button-price font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 rounded-md disabled:opacity-50 text-[13px]">
+              <button type="button" className="cursor-default font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 mr-2 rounded-md disabled:opacity-50 text-[13px]">
                 Sale Price: Not available for Sale
               </button>
             )}
 
             {listing.lease ? (
-              <button type="button" className="button-price font-semibold text-white bg-green-600 px-4 py-2 mt-2 rounded-md hover:bg-green-700 disabled:opacity-50">
+              <button type="button" className="cursor-default font-semibold text-white bg-green-600 px-4 py-2 mt-2 rounded-md hover:bg-green-700 disabled:opacity-50">
                 Lease Price: {formatPrice(listing.lease)}/<span className="text-xs">mon</span>
               </button>
             ) : (
-              <button type="button" className="button-price font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 rounded-md disabled:opacity-50 text-[13px]">
+              <button type="button" className="cursor-default font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 rounded-md disabled:opacity-50 text-[13px]">
                 Lease Price: Not available for Lease
               </button>
             )}
@@ -228,7 +228,6 @@ export default function Listing() {
               </p>
             </div>
           </div>
-          {/* ... (add more details as needed) */}
           <div className="mb-4 text-gray-500">
             <p className="font-semibold text-gray-600 mr-1">Description:</p>
             <p>{listing.description}</p>
