@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { doc, getDoc } from "firebase/firestore";
 import { IoCloseCircleOutline } from 'react-icons/io5';
-import { db } from '../../firebaseConfig';
+import { db } from '../firebaseConfig';
 import { toast } from 'react-toastify';
 
 export default function Contact({ closeBTN, listing, userRef }) {
