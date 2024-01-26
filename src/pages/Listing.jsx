@@ -262,12 +262,12 @@ export default function Listing() {
             {contactAgent && (
               <div className="relative pt-7">
                 <Contact 
-                  listing={listing.data}
-                  agentData={listing.userRef}
-                  onDelete={() => onDelete(listing.id)}
-                  onEdit={() => onEdit(listing.id)}
-                  userRef={listing.userRef}
                   closeBTN={closeBTN}
+                  userRef={listing.userRef}
+                  listingName={listing.name}
+                  agentData={listing.userRef}
+                  onEdit={() => onEdit(listing.id)}
+                  onDelete={() => onDelete(listing.id)}
                 />
               </div>
             )}

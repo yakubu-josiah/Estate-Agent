@@ -4,7 +4,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import { db } from '../firebaseConfig';
 import { toast } from 'react-toastify';
 
-export default function Contact({ closeBTN, listing, userRef }) {
+export default function Contact({ closeBTN, listingName, userRef }) {
     const [message, setMessage] = useState('');
     const [agentData, setAgentData] = useState(null);
 
@@ -25,6 +25,7 @@ export default function Contact({ closeBTN, listing, userRef }) {
         fetchAgentData();
     }, [userRef])
 
+
     return (
         <div>
             {agentData !== null && (
@@ -40,7 +41,7 @@ export default function Contact({ closeBTN, listing, userRef }) {
                         value={message}
                     ></textarea>
                     <a
-                        href={`mailto:${agentData.email}?Subject=${listing?.name}&body=${message}`}
+                        href={`mailto:${agentData.email}?Subject=${listingName}&body=${message}`}
                         className="block border-2 border-green-500 text-green-500 hover:bg-green-600 hover:text-white active:bg-green-600 active:text-white font-bold py-2 px-5 w-full rounded transition text-center ease-in-out duration-300 uppercase"
                     >
                         Send Message

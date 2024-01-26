@@ -55,10 +55,10 @@ export default function NewListings() {
     lease,
     landmark,
     amenities,
-    images,
+    // images,
   } = formData;
 
-  const [geoPoint, setGeoPoint] = useState(true);
+  // const [geoPoint, setGeoPoint] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("sale");
   const [selectedFiles, setSelectedFiles] = useState([]);
