@@ -5,6 +5,7 @@ export default function Offers() {
   return (
     <div>
       <div>
+      <p className="text-center">Coming soon....</p>
         <Loader />
       </div>
     </div>
