@@ -1,7 +1,7 @@
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaShare } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
