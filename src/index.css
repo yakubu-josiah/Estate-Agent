@@ -468,6 +468,9 @@ input[type="number"] {
   .auth .formCont .form form div .forgot {
     top: 3.3rem;
   }
+  .auth .formCont .form form div .login{
+    top: 1.7rem;
+  }
   .auth div form span {
     font-size: 15px;
     line-height: 28px;
