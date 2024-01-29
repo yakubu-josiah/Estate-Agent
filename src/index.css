@@ -43,11 +43,11 @@ header ul li:hover {
 /* ============= AUTHENTICATION PAGES STYLES ============= */
 .auth {
   display: flex;
-  background: linear-gradient(to right, #f5e694, #370372c7);
+  background: linear-gradient(to right, #f5e694, #034072c7);
 }
 .auth p {
-  /* font-size: small; */
-  line-height: 0.9em;
+  font-size: small;
+  line-height: 1em;
 }
 .auth div .form {
   border-radius: 10px;
@@ -72,7 +72,7 @@ header ul li:hover {
   font-size: 17px;
   margin-bottom: 30px;
   letter-spacing: 3px;
-  background: linear-gradient(to right, #62596d, #f5e694);
+  background: linear-gradient(to right, #034072c7, #f5e694);
 }
 
 .authhr{
@@ -434,6 +434,12 @@ input[type="number"] {
   .auth .imgCont {
     height: 250px;
   }
+  .auth .formCont form .text-end a{
+    color: #dfd187;
+  }
+  .auth .formCont .form form div .forgot {
+    top: 3.2rem;
+  }
   
 }
 @media (max-width: 480px) {
@@ -455,6 +461,12 @@ input[type="number"] {
   }
   .auth .formCont .form {
     width: 100%;
+  }
+  .auth .formCont form .text-end a{
+    color: #dfd187;
+  }
+  .auth .formCont .form form div .forgot {
+    top: 3.3rem;
   }
   .auth div form span {
     font-size: 15px;
