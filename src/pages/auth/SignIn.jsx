@@ -8,26 +8,37 @@ import OAuth from "../../components/OAuth";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignIn() {
-  const [viewPassword, setViewPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [viewPassword, setViewPassword] = useState(false);
+  
+  
   const [formData, setformData] = useState({
     email: "",
     password: "",
   });
   const { email, password } = formData;
+  
   function handleChange(e) {
     const { id, value } = e.target;
     setformData((prevState) => ({
       ...prevState,
       [id]: value,
     }));
+    setErrorMessage(false);
   }
 
   const auth = getAuth();
   const loginForm = async (e) => {
     e.preventDefault();
+    if (!email || !password) {
+      setErrorMessage("Email or Password cannot be empty");
+      return;
+    }
+
     try {
+      setErrorMessage(false)
       setIsLoading(true);
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -38,7 +49,9 @@ export default function SignIn() {
         nav("/");
       }
     } catch (error) {
-      console.log(error);
+      setErrorMessage("User crenditials doesn't match");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,7 +73,9 @@ export default function SignIn() {
               <input
                 type="email"
                 id="email"
-                className="p-2 pl-12 w-full mt-10 rounded-full"
+                className={`p-2 pl-12 w-full mt-10 rounded-full ${
+                  errorMessage ? "border-red-500 text-red-500 focus:border-0": ""
+                }`}
                 value={email}
                 onChange={handleChange}
                 placeholder="Email Address"
@@ -68,24 +83,29 @@ export default function SignIn() {
             </div>
 
             <div className="relative">
-              <span className="absolute left-5 bottom-3 text-xl">
+              <span className={`absolute left-5 bottom-3 text-xl ${errorMessage ? "top-[1.4rem]" : ""}`}>
                 {" "}
                 <RiLockPasswordFill />{" "}
               </span>
               <input
                 id="password"
-                className="p-2 pl-12 w-full mt-3 rounded-full"
+                className={`p-2 pl-12 w-full mt-3 rounded-full ${
+                  errorMessage ? "border-red-500 text-red-500 focus:border-0": ""
+                }` }
                 type={viewPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={handleChange}
               />
               <span
-                className="absolute right-5 bottom-3 text-xl cursor-pointer"
+                className={`absolute right-5 bottom-3 text-xl cursor-pointer ${errorMessage ? "top-[1.4rem]" : ""}`}
                 onClick={() => setViewPassword((prevVisible) => !prevVisible)}
               >
                 {viewPassword ? <TiEyeOutline /> : <RiEyeCloseLine />}
               </span>
+              {errorMessage && (
+                  <p className="text-red-500 text-sm mt-2 font-light pl-3">{errorMessage}</p>
+              )}
             </div>
             <div className="text-end mt-1">
               <Link
