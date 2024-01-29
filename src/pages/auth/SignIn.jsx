@@ -83,7 +83,11 @@ export default function SignIn() {
             </div>
 
             <div className="relative">
+<<<<<<< HEAD
               <span className={`absolute left-5 bottom-3 text-xl login ${errorMessage ? "top-[1.4rem]" : ""}`}>
+=======
+              <span className={`absolute left-5 bottom-3 text-xl ${errorMessage ? "top-[1.4rem]" : ""}`}>
+>>>>>>> 5c8bc58c5da05b5d6ff72b81d5ff80795bc13053
                 {" "}
                 <RiLockPasswordFill />{" "}
               </span>

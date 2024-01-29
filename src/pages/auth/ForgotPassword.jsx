@@ -51,7 +51,11 @@ export default function ForgotPassword() {
             </p>
             <form onSubmit={passwordResetEmail}>
               <div className="relative">
+<<<<<<< HEAD
                   <span className={`absolute forgot left-5 bottom-3 text-xl ${errorMessage ? "lg:top-[3.1rem] top-[3.1rem] text-red-500" : ""}`}>
+=======
+                  <span className={`absolute left-5 bottom-3 text-xl ${errorMessage ? "lg:top-[3.1rem] md:top-[3.2rem] top-[3.5rem] text-red-500" : ""}`}>
+>>>>>>> 5c8bc58c5da05b5d6ff72b81d5ff80795bc13053
                   <HiUser />
                 </span>
                 <input
