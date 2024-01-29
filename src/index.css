@@ -46,8 +46,8 @@ header ul li:hover {
   background: linear-gradient(to right, #f5e694, #370372c7);
 }
 .auth p {
-  /* font-size: small; */
-  line-height: 0.9em;
+  font-size: small;
+  line-height: 1em;
 }
 .auth div .form {
   border-radius: 10px;
