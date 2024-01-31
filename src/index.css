@@ -419,6 +419,9 @@ input[type="number"] {
   .auth .imgCont {
     height: auto;
   }
+  .auth .formCont .form form div .signUp {
+    top: 3rem;
+  }
 }
 @media (max-width: 850px) {
   .auth {
@@ -437,6 +440,7 @@ input[type="number"] {
   .auth .formCont form .text-end a{
     color: #dfd187;
   }
+  .auth .formCont .form form div .signUp,
   .auth .formCont .form form div .forgot {
     top: 3.2rem;
   }
@@ -465,6 +469,7 @@ input[type="number"] {
   .auth .formCont form .text-end a{
     color: #dfd187;
   }
+  
   .auth .formCont .form form div .forgot {
     top: 3.3rem;
   }

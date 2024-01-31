@@ -13,28 +13,61 @@ import {
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useFormValidation } from "../../hooks/useFormValidations";
+
+
+const validationRules = {
+  username: {
+    rule: (value) => !!value && value.length > 6, 
+    message: "Username must be at least 6 characters long",
+  },
+  email: {
+    rule: (value) => /^[^@]+@[^@]+\.[^@]+$/.test(value), 
+    message: "Please enter a valid email address.",
+  },
+  phoneNumber: {
+    rule: (value) => value.length >= 11, 
+    message: "Please enter a valid phone number.",
+  },
+  password: {
+    rule: (value) => value.length >= 6 && /[!@#$%^&*(),.?":{}/~`|<>]/.test(value), 
+    message: "Password must be at least 6 characters and contain at least one special character",
+  },
+  
+};
 
 export default function SignUp() {
-  const [viewPassword, setViewPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
   const nav = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [viewPassword, setViewPassword] = useState(false);
+  const [formState, setFormState] = useState(false)
   const [formData, setformData] = useState({
     username: "",
     email: "",
     phoneNumber: "",
     password: "",
   });
+  const { username, email, password, phoneNumber } = formData;
 
-  const { username, email, phoneNumber, password } = formData;
+
+  const { errors, isValid } = useFormValidation(formData, validationRules);
+
   function handleChange(e) {
     setformData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+    setFormState(false);
   }
 
   async function submitForm(e) {
     e.preventDefault();
+    if (!isValid){
+      setFormState(true);
+      return;
+    };
+    
     try {
       setIsLoading(true);
       const auth = getAuth();
@@ -55,12 +88,13 @@ export default function SignUp() {
       await setDoc(doc(db, "users", user.uid), data);
       toast.success("Account created successfully!!!");
       nav("/");
-      console.log(userCredential.user);
     } catch (error) {
-      toast.error("Oops!!! Network Error...");
-      console.log(error);
+      toast.error("Oops! Network error, please try again. ");
+    }finally {
+      setIsLoading(false);  
     }
   }
+
 
   return (
     <div className="flex auth">
@@ -72,35 +106,45 @@ export default function SignUp() {
           </p>
           <form onSubmit={submitForm} className="">
             <div className="relative">
-              <span className="absolute left-5 bottom-3 text-xl">
+              <span className={`absolute left-5 bottom-3 text-xl signUp ${errors.username && formData.username !== "" ? "text-red-500 lg:top-[3.1rem] top-[1.3rem]" : ""}`}>
                 {" "}
                 <HiUser />{" "}
               </span>
               <input
                 type="text"
                 id="username"
-                className="sm:text-[12px] p-2 pl-12 w-full mt-10 rounded-full"
+                className={`sm:text-[12px] p-2 pl-12 w-full mt-10 rounded-full ${errors.username && formData.username !== "" ? "border-red-500 text-red-500": "" 
+              }`}
                 value={username}
                 placeholder="Username"
                 onChange={handleChange}
               />
+              {errors.username && formData.username !== "" && (
+                <p className="text-red-500 text-sm mt-2 font-light pl-3">{errors.username}</p>
+              )}
             </div>
+
+
             <div className="relative">
-              <span className="absolute left-5 bottom-3 text-xl">
+              <span className={`absolute left-5 bottom-3 text-xl login ${errors.email && formData.email !== "" ? "text-red-500 top-[1.4rem]" : ""}`}>
                 {" "}
                 <HiMail />{" "}
               </span>
               <input
                 type="email"
                 id="email"
-                className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full"
+                className={`sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full ${errors.email && formData.email !== "" ? "border-red-500 text-red-500": ""}`}
                 value={email}
                 placeholder="Email Address"
                 onChange={handleChange}
               />
+              {errors.email && formData.email !== "" && (
+                <p className="text-red-500 text-sm mt-2 font-light pl-3">{errors.email}</p>
+              )}
             </div>
+
             <div className="relative">
-              <span className="absolute left-5 bottom-3 text-xl">
+              <span className={`absolute left-5 bottom-3 text-xl login ${errors.phoneNumber && formData.phoneNumber !== "" ? "text-red-500 top-[1.4rem]" : ""}`}>
                 {" "}
                 <TiPhone />{" "}
               </span>
@@ -108,30 +152,38 @@ export default function SignUp() {
               <input
                 type="number"
                 id="phoneNumber"
-                className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full"
+                className={`sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full ${errors.phoneNumber && formData.phoneNumber !== "" ? "border-red-500 text-red-500": ""}`}
+               
                 value={phoneNumber}
                 pattern="[0-9]+"
                 inputMode="numeric"
                 placeholder="(+234) Phone Number"
                 onChange={handleChange}
               />
+              {errors.phoneNumber && formData.phoneNumber !== "" && (
+                <p className="text-red-500 text-sm mt-2 font-light pl-3">{errors.phoneNumber}</p>
+              )}
             </div>
+
             <div className="relative">
-              <span className="absolute left-5 bottom-3 text-xl">
+              <span className={`absolute left-5 bottom-3 text-xl login ${errors.password && formData.password !== "" ? "text-red-500 top-[1.4rem]" : ""}`}>
                 {" "}
                 <RiLockPasswordFill />{" "}
               </span>
               <input
                 id="password"
-                className="sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full"
+                className={`sm:text-[12px] p-2 pl-12 w-full mt-3 rounded-full ${errors.password && formData.password !== "" ? "border-red-500 text-red-500": ""}`}
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={handleChange}
               />
+              {errors.password && formData.password !== "" && (
+                <p className="text-red-500 text-sm mt-2 font-light pl-3">{errors.password}</p>
+              )}
             </div>
             <div className="relative">
-              <span className="absolute left-5 bottom-3 text-xl">
+              <span className={`absolute left-5 bottom-3 text-xl cursor-pointer login ${formState ? "top-[1.4rem] " : ""}`}>
                 {" "}
                 <RiLockPasswordFill />{" "}
               </span>
@@ -141,19 +193,23 @@ export default function SignUp() {
                 type={viewPassword ? "password" : "text"}
                 placeholder="Confirm Password"
                 value={password}
-                onChange={handleChange}
+                disabled
               />
               <span
-                className="absolute right-5 bottom-3 text-2xl cursor-pointer"
+                className={`absolute right-5 bottom-3 text-2xl cursor-pointer login ${formState ? "top-[1.1rem] " : ""}`}
                 onClick={() => setViewPassword((prevVisible) => !prevVisible)}
               >
                 {viewPassword ? <RiEyeCloseLine /> : <TiEyeOutline />}
               </span>
+              {formState && (
+                <p className="text-red-500 text-sm mt-2 font-bold pl-3">*Please complete the form</p>
+              )}
             </div>
+            
             <div className="text-end mt-1">
               <Link
                 to="/auth/forgot-password"
-                className="text-sm text-red-600 hover:text-red-800 transition duration-200"
+                className="text-sm text-[#585852] hover:text-red-800 transition duration-200"
               >
                 Forgot Password?
               </Link>
@@ -180,7 +236,7 @@ export default function SignUp() {
             <p className="text-sm">Already a member?</p>
             <Link
               to="/auth/sign-in"
-              className="text-red-600  hover:text-red-800 transition duration-200"
+              className="text-red-600  hover:text-red-800 transition duration-200 underline"
             >
               Login
             </Link>
