@@ -41,7 +41,7 @@ export default function SignUp() {
   const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [viewPassword, setViewPassword] = useState(false);
-  const [formState, setFormState] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
   const [formData, setformData] = useState({
     username: "",
     email: "",
@@ -58,13 +58,13 @@ export default function SignUp() {
       ...prevState,
       [e.target.id]: e.target.value,
     }));
-    setFormState(false);
+    setIsCompleted(false);
   }
 
   async function submitForm(e) {
     e.preventDefault();
     if (!isValid){
-      setFormState(true);
+      setIsCompleted(true);
       return;
     };
     
@@ -183,7 +183,7 @@ export default function SignUp() {
               )}
             </div>
             <div className="relative">
-              <span className={`absolute left-5 bottom-3 text-xl cursor-pointer login ${formState ? "top-[1.4rem] " : ""}`}>
+              <span className={`absolute left-5 bottom-3 text-xl cursor-pointer login ${isCompleted ? "top-[1.4rem] " : ""}`}>
                 {" "}
                 <RiLockPasswordFill />{" "}
               </span>
@@ -196,12 +196,12 @@ export default function SignUp() {
                 disabled
               />
               <span
-                className={`absolute right-5 bottom-3 text-2xl cursor-pointer login ${formState ? "top-[1.1rem] " : ""}`}
+                className={`absolute right-5 bottom-3 text-2xl cursor-pointer login ${isCompleted ? "top-[1.1rem] " : ""}`}
                 onClick={() => setViewPassword((prevVisible) => !prevVisible)}
               >
                 {viewPassword ? <RiEyeCloseLine /> : <TiEyeOutline />}
               </span>
-              {formState && (
+              {isCompleted && (
                 <p className="text-red-500 text-sm mt-2 font-bold pl-3">*Please complete the form</p>
               )}
             </div>
