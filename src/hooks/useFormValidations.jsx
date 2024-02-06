@@ -6,11 +6,14 @@ export const useFormValidation = (formData, validationRules) => {
   useEffect(() => {
     const newErrors = {};
     for (const field in formData) {
-      const { rule, message } = validationRules[field];
-      if (!rule(formData[field])) {
-        newErrors[field] = message;
-      }else {
-        delete newErrors[field];
+      const validationRule = validationRules[field];
+      if (validationRule) {
+        const { rule, message } = validationRule;
+        if (!rule(formData[field])) {
+          newErrors[field] = message;
+        } else {
+          delete newErrors[field];
+        }
       }
     }
     setErrors(newErrors);
