@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStatus } from "../../hooks/useAuthStatus";
 import { getAuth, updateProfile } from "firebase/auth";
-import { RiAddCircleFill } from "react-icons/ri";
+import { MdAdd } from "react-icons/md";
 import {
   collection,
   deleteDoc,
@@ -160,10 +160,10 @@ export default function Profile() {
               All Listings
             </h3>
             <div className="relative">
-              <Link to="/profile/add-new-listing" className="mx-1 group">
-                <RiAddCircleFill className="absolute left-2 top-2 text-gray-600 text-lg transition-transform group-active:translate-y-1" />
+              <Link to="/profile/add-new-listing" className="group space-x-2">
+                <MdAdd className="absolute left-4 top-[5px] text-gray-600 text-lg transition-transform group-active:translate-y-1" />
                 <button className="tracking-tighter rounded-lg">
-                  ADD MORE
+                  Add more
                 </button>
               </Link>
             </div>

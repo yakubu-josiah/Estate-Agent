@@ -100,17 +100,21 @@ header ul li:hover {
 .profileCont .imgCont .image {
   position: absolute;
 }
-
+.profileCont .portfolio div div div a{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
 .profileCont .portfolio div div div button {
   /* rounded-lg pl-7 pr-5 py-1 bg-transparent border-2 text-sm sm:text-base text-gray-600 border-gray-500 hover:shadow-lg hover:text-[15px] transition-all duration-200 ease-in */
   cursor: pointer;
   letter-spacing: 2px;
-  text-transform: uppercase;
   font-family: Marvel;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   width: 140px;
-  height: 40px;
+  text-transform: uppercase;
+  height: 35px;
   position: relative;
   z-index: 1;
   transition: all 0.2s ease-in-out;
