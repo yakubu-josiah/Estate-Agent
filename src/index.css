@@ -205,7 +205,7 @@ input[type="number"] {
   color: rgb(20 83 45 / var(--tw-text-opacity));
 }
 
-.newList .form div input[type="submit"] {
+.newList .form div div input[type="submit"] {
   background: #fff7d1;
   color: #525252;
   padding: 9px 2px;
@@ -534,7 +534,7 @@ input[type="number"] {
   .newList .form .listForm div .radio-container label {
     font-size: 14px;
   }
-  .newList .form div input[type="submit"] {
+  .newList .form div div input[type="submit"] {
     width: 80%;
   }
 }
