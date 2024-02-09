@@ -41,7 +41,7 @@ export default function Contact({ closeBTN, listingName, userRef }) {
                         value={message}
                     ></textarea>
                     <a
-                        href={`mailto:${agentData.email}?Subject=${listingName}&body=${message}`}
+                        href={`mailto:${agentData.email}?Subject=Inquiry For - ${listingName}&body=${message}`}
                         className="block border-2 border-green-500 text-green-500 hover:bg-green-600 hover:text-white active:bg-green-600 active:text-white font-bold py-2 px-5 w-full rounded transition text-center ease-in-out duration-300 uppercase"
                     >
                         Send Message
