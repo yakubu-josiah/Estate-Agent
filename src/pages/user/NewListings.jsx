@@ -11,6 +11,52 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
 import { db } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useFormValidation } from "../../hooks/useFormValidations";
+
+const validationRules = {
+  name: {
+    rule: (value) => !!value && value.length > 6, 
+    message: "Name must be greater than 6 characters",
+  },
+  description: {
+    rule: (value) => !!value && value.length > 10, 
+    message: "Please give full description",
+  },
+  size: {
+    rule: (value) => value.length > 1, 
+    message: "Land size must be a valid number",
+  },
+  dimension: {
+    rule: (value) => /^\d+,?\d+$/.test(value.trim()), 
+    message: "Invalid dimension format (length,width)",
+  },
+  address: {
+    rule: (value) => !!value && value.length > 5, 
+    message: "Please give full address",
+  },
+  latitude: {
+    rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -90) && (value.trim() <= 90), 
+    message: "Latitude is required and must be a valid number between -90 and 90",
+  },
+  longitude: {
+    rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -180) && (value.trim() <= 180), 
+    message: "Longitude is required and must be a valid number between -180 and 180",
+  },
+  sale: {
+    rule: (value) => !!value.trim() && !isNaN(value.trim()), 
+    message: "Sale price is required and must be a valid number",
+  },
+  lease: {
+    rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= 0), 
+    message: "Lease price is required and must be a valid number",
+  },
+  landmark: {
+    rule: (value) => !!value.trim() && value.trim().length >= 2, 
+    message: "Close landmark is required and must be at least 2 characters long",
+  },
+};
+
+
 
 export default function NewListings() {
   const auth = getAuth();
@@ -62,6 +108,8 @@ export default function NewListings() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("sale");
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [isCompleted, setIsCompleted] = useState(false);
+  const { errors, isValid } = useFormValidation(formData, validationRules);
 
   // Event Handlers
   const handleChange = (e) => {
@@ -69,6 +117,7 @@ export default function NewListings() {
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+    setIsCompleted(false);
   };
 
   const handleOptionChange = (e) => {
@@ -88,6 +137,11 @@ export default function NewListings() {
 
   async function submitListing(e) {
     e.preventDefault();
+    if (!isValid){
+      setIsCompleted(true);
+      return;
+    };
+
     let geolocation = {
       lat: 37.7749, // Replace with desired latitude
       lng: -122.4194,
@@ -193,20 +247,20 @@ export default function NewListings() {
       <img
         src={process.env.PUBLIC_URL + "/images/listing.jpeg"}
         alt=""
-        className="inset-0 object-cover top-[70px] bg-fixed fixed h-full w-full z-0"
+        className="inset-0 object-cover bg-fixed fixed h-full w-full -z-10"
       />
 
       <div className="form flex justify-center mx-auto z-10 pb-20">
         <div className="w-[80%] place-items-center">
-          <h3 className="text-center my-10 sm:text-5xl text-3xl text-gray-300">
+          <h3 className="text-center my-10 sm:text-5xl text-3xl font-bold shadow-xl py-2 text-gray-300">
             CREATE A LISTING
           </h3>
           <form onSubmit={submitListing}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:mx-auto items-start">
               {/* Property Information */}
               <div className="listForm">
-                <div className="col">
-                  <span className="label">Property Name</span>
+                <div className="col mb-3">
+                  <span className="label">*Property Name</span>
                   <input
                     type="text"
                     name="name"
@@ -214,10 +268,15 @@ export default function NewListings() {
                     value={name}
                     onChange={handleChange}
                     placeholder="Enter name"
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.name && formData.name !== "" ? "border-red-400 text-red-400": "" 
+                    }`}
                   />
+                  {errors.name && formData.name !== "" && (
+                    <p className="text-white text-sm mt-1 text-center bg-red-400 pl-1">{errors.name}</p>
+                  )}
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Property Type</span>
                   <input
                     type="text"
@@ -229,7 +288,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Property Category</span>
                   <input
                     type="text"
@@ -241,7 +300,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="flex justify-center mt-5">
+                <div className="flex justify-center mt-10 mb-2">
                   <div className="radio-container">
                     <input
                       type="radio"
@@ -269,56 +328,63 @@ export default function NewListings() {
                     </label>
                   </div>
                 </div>
-                <div className="col">
-                  <span className="inline-block">Property Description</span>
+                <div className="col mb-3">
+                  <span className="inline-block">*Property Description</span>
                   <textarea
-                    className="block"
                     name="description"
                     id="description"
                     value={description}
                     onChange={handleChange}
                     placeholder="Enter your message"
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.description && formData.description !== "" ? "border-red-400 text-red-400": ""}`}
                   ></textarea>
+                {errors.description && formData.description !== "" && (
+                  <p className="text-white text-sm text-center pl-1 bg-red-400">{errors.description}</p>
+                )}
                 </div>
               </div>
 
               {/* Land Details */}
               <div className="listForm">
-                <div className="col">
-                  <span className="label inline-block">
-                    Land Size
-                    <span className="lowercase text-yellow-200">
+                <div className="col mb-3">
+                  <span className="label inline-block">*Land Size<span className="lowercase text-yellow-200">
                       (in meters)
                     </span>
                   </span>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="e.g 100010"
                     name="size"
                     id="size"
                     value={size}
                     onChange={handleChange}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.size && formData.size !== "" ? "border-red-400 text-red-400": ""}`}
                   />
+                  {errors.size && formData.size !== "" && (
+                    <p className="text-white text-sm text-center pl-1 mt-1 bg-red-400">{errors.size}</p>
+                  )}
                 </div>
 
-                <div className="col">
-                  <span className="label">
-                    Dimensions
-                    <span className="lowercase text-yellow-200">
+                <div className="col mb-3">
+                  <span className="label">*Dimensions<span className="lowercase text-yellow-200">
                       (length, width)
                     </span>
                   </span>
                   <input
                     type="text"
-                    placeholder="e.g 100010"
+                    placeholder="e.g 123, 456"
                     name="dimension"
                     id="dimension"
                     value={dimension}
                     onChange={handleChange}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.dimension && formData.dimension !== "" ? "border-red-400 text-red-400": ""}`}
                   />
+                  {errors.dimension && formData.dimension !== "" && (
+                    <p className="text-white text-sm text-center pl-1 mt-1 bg-red-400">{errors.dimension}</p>
+                  )}
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Topography</span>
                   <input
                     type="text"
@@ -330,7 +396,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Soil Type</span>
                   <input
                     type="text"
@@ -342,7 +408,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="inline-block">Zonning</span>
                   <textarea
                     name="zonning"
@@ -357,8 +423,8 @@ export default function NewListings() {
 
               {/* Location Information */}
               <div className="listForm">
-                <div className="col">
-                  <span className="label">Address</span>
+                <div className="col mb-3">
+                  <span className="label">*Address</span>
                   <input
                     type="text"
                     placeholder="Enter address"
@@ -366,10 +432,14 @@ export default function NewListings() {
                     id="address"
                     value={address}
                     onChange={handleChange}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.address && formData.address !== "" ? "border-red-400 text-red-400": ""}`}
                   />
+                  {errors.address && formData.address !== "" && (
+                    <p className="text-white text-sm text-center pl-1 mt-1 bg-red-400">{errors.address}</p>
+                  )}
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">City</span>
                   <input
                     type="text"
@@ -381,7 +451,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">State/Province</span>
                   <input
                     type="text"
@@ -407,7 +477,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col mt-1 mb-2">
+                <div className="col mt-1 mb-3">
                   <input
                     type="number"
                     name="longitude"
@@ -420,7 +490,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">
                     Upload Images
                     <span className="lowercase text-yellow-200">(max. 5)</span>
@@ -447,7 +517,7 @@ export default function NewListings() {
 
               {/* Price and Utilities */}
               <div className="listForm">
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Sale Price(₦)</span>
                   <input
                     type="text"
@@ -458,7 +528,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Lease Price(₦)</span>
                   <input
                     type="text"
@@ -469,7 +539,7 @@ export default function NewListings() {
                   />
                 </div>
 
-                <div className="col">
+                <div className="col mb-3">
                   <span className="label">Close Landmark</span>
                   <input
                     type="text"
@@ -505,7 +575,7 @@ export default function NewListings() {
               </div>
             </div>
 
-            <div className="flex justify-center mt-20">
+            <div className="flex justify-center mt-20 text-center">
               {isLoading ? (
                 <div className="flex justify-center items-center relative w-full">
                   <input
@@ -516,11 +586,12 @@ export default function NewListings() {
                   <span className="spinner cursor-not-allowed absolute left-[63%] sm:left-[55%]"></span>
                 </div>
               ) : (
-                <input
-                  type="submit"
-                  value="Create"
-                  className="my-10 cursor-pointer"
-                />
+                <div className="w-full text-center">
+                  <input type="submit" value="Create" className="mt-10 mb-3 cursor-pointer" />
+                  {isCompleted && (
+                    <p className="text-gray-200 text-sm mt-2 px-2 w-[200px] mx-auto rounded bg-red-400 text-center">*Please complete fields with asterisk</p>
+                  )}
+                </div>
               )}
             </div>
           </form>
