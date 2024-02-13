@@ -43,16 +43,16 @@ const validationRules = {
     message: "Longitude is required and must be a valid number between -180 and 180",
   },
   sale: {
-    rule: (value) => !!value.trim() && !isNaN(value.trim()), 
-    message: "Sale price is required and must be a valid number",
+    rule: (value) => !!value.trim() && value.length > 4, 
+    message: "Sale price is required and must be a valid price",
   },
   lease: {
-    rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= 0), 
-    message: "Lease price is required and must be a valid number",
+    rule: (value) => !!value.trim() && value.length > 5, 
+    message: "Lease price is required and must be a valid price",
   },
   landmark: {
-    rule: (value) => !!value.trim() && value.trim().length >= 2, 
-    message: "Close landmark is required and must be at least 2 characters long",
+    rule: (value) => !!value.trim() && value.trim().length >= 6, 
+    message: "Close landmark is required and should be well known",
   },
 };
 
@@ -268,8 +268,7 @@ export default function NewListings() {
                     value={name}
                     onChange={handleChange}
                     placeholder="Enter name"
-                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.name && formData.name !== "" ? "border-red-400 text-red-400": "" 
-                    }`}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.name && formData.name !== "" ? "border-red-400 text-red-400": "" }`}
                   />
                   {errors.name && formData.name !== "" && (
                     <p className="text-white text-sm mt-1 text-center bg-red-400 pl-1">{errors.name}</p>
@@ -309,6 +308,7 @@ export default function NewListings() {
                       checked={selectedOption === "sale"}
                       value="sale"
                       onChange={handleOptionChange}
+
                     />
                     <input
                       type="radio"
@@ -464,7 +464,7 @@ export default function NewListings() {
                 </div>
 
                 <div className="col mt-2 w-full">
-                  <span className="label"> GPS Coordinates</span>
+                  <span className="label">*GPS Coordinates</span>
                   <input
                     type="number"
                     name="latitude"
@@ -474,6 +474,7 @@ export default function NewListings() {
                     max="90"
                     onChange={handleChange}
                     placeholder="Latitude"
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.latitude && formData.latitude !== "" ? "border-red-400 text-red-400": ""}`}
                   />
                 </div>
 
@@ -487,8 +488,15 @@ export default function NewListings() {
                     max="180"
                     onChange={handleChange}
                     placeholder="Longitude"
-                  />
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.longitude && formData.longitude !== "" ? "border-red-400 text-red-400": ""}`}
+                    />
                 </div>
+                {errors.latitude && formData.latitude !== "" && (
+                  <p className="text-white text-sm text-center pl-1 mt-1 bg-red-400">{errors.latitude}</p>
+                )}
+                {errors.longitude && formData.longitude !== "" && (
+                  <p className="text-white text-sm text-center pl-1 mt-1 bg-red-400">{errors.longitude}</p>
+                )}
 
                 <div className="col mb-3">
                   <span className="label">
@@ -518,38 +526,49 @@ export default function NewListings() {
               {/* Price and Utilities */}
               <div className="listForm">
                 <div className="col mb-3">
-                  <span className="label">Sale Price(₦)</span>
+                  <span className="label">*Sale Price(₦)</span>
                   <input
                     type="text"
                     name="sale"
                     id="sale"
                     value={sale}
                     onChange={handleChange}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.sale && formData.sale !== "" ? "border-red-400 text-red-400": "" }`}
                   />
+                  {errors.sale && formData.sale !== "" && (
+                    <p className="text-white text-sm mt-1 text-center bg-red-400 pl-1">{errors.sale}</p>
+                  )}
                 </div>
 
                 <div className="col mb-3">
-                  <span className="label">Lease Price(₦)</span>
+                  <span className="label">*Lease Price(₦)</span>
                   <input
                     type="text"
                     name="lease"
                     id="lease"
                     value={lease}
                     onChange={handleChange}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.lease && formData.lease !== "" ? "border-red-400 text-red-400": "" }`}
                   />
+                  {errors.lease && formData.lease !== "" && (
+                    <p className="text-white text-sm mt-1 text-center bg-red-400 pl-1">{errors.lease}</p>
+                  )}
                 </div>
 
                 <div className="col mb-3">
-                  <span className="label">Close Landmark</span>
+                  <span className="label">*Close Landmark</span>
                   <input
                     type="text"
                     name="landmark"
                     id="landmark"
                     value={landmark}
                     onChange={handleChange}
+                    className={`sm:text-[12px] p-2 pl-12 w-full${errors.landmark && formData.landmark !== "" ? "border-red-400 text-red-400": "" }`}
                   />
+                  {errors.landmark && formData.landmark !== "" && (
+                    <p className="text-white text-sm mt-1 text-center bg-red-400 pl-1">{errors.landmark}</p>
+                  )}
                 </div>
-
                 <div className="col">
                   <span className="inline-block">Amenities</span>
                   <textarea
@@ -589,7 +608,7 @@ export default function NewListings() {
                 <div className="w-full text-center">
                   <input type="submit" value="Create" className="mt-10 mb-3 cursor-pointer" />
                   {isCompleted && (
-                    <p className="text-gray-200 text-sm mt-2 px-2 w-[200px] mx-auto rounded bg-red-400 text-center">*Please complete fields with asterisk</p>
+                    <p className="text-gray-200 text-sm mt-2 px-2 w-[270px] mx-auto rounded bg-red-400 text-center">*Please complete all fields with asterisk</p>
                   )}
                 </div>
               )}
