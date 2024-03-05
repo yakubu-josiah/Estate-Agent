@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStatus } from "../../hooks/useAuthStatus";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { MdAdd } from "react-icons/md";
 import {
   collection,
@@ -10,60 +10,30 @@ import {
   getDocs,
   orderBy,
   query,
-  where,
+  where
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import ListingItem from "../../components/ListingItem";
 import { toast } from "react-toastify";
+import EditProfile from "../../components/EditProfile";
+import MyContextProvider from "../../MyContext";
 
 export default function Profile() {
   const auth = getAuth();
   const nav = useNavigate();
-  const [editPhoto, setEditPhoto] = useState(true);
   const [listings, setListings] = useState(null);
   const [isLoading, setisLoading] = useState(true);
 
   const { user } = useAuthStatus();
   const username = user ? user.displayName : "Unknown User";
-  const email = user ? user.email : "Unknown User";
 
-  const [formData, setFormData] = useState({
-    formUsername: username,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const editForm = (e) => {
-    setEditPhoto(false);
-    console.log("Clicked!!");
-  };
-  const saveForm = async () => {
-    try {
-      if (username !== formData.formUsername) {
-        await updateProfile(auth.currentUser, {
-          displayName: formData.formUsername,
-        });
-        setEditPhoto(true);
-        console.log("Profile updated successfully!");
-      }
-      setEditPhoto(true);
-    } catch (error) {
-      console.log("Error updating profile:", error);
-    }
-  };
 
   useEffect(() => {
     setisLoading(true);
-    setFormData((prevState) => ({
-      ...prevState,
-      formUsername: username,
-    }));
+    // setFormData((prevState) => ({
+    //   ...prevState,
+    //   formUsername: username,
+    // }));
     async function fetchListings() {
       const listingRef = collection(db, "listings");
       const q = query(
@@ -109,50 +79,9 @@ export default function Profile() {
   }
   return (
     <div className="profileCont background mb-0">
-      <div>
-        <div className="imgCont h-[200px] w-full">
-          <div className="relative">
-            <div className="image ml-9 mt-12 flex ">
-              <div
-                id="img"
-                className="rounded-md row-auto h-[200px] w-[200px] mr-9 space-y-3 border-4 border-white shadow-lg"
-              >
-                <div className="bg-red-300 w-full h-full"></div>
-                {editPhoto ? (
-                  <button
-                    className="border-2 border-gray-500 text-gray-500 hover:bg-gray-600 hover:text-white font-bold py-1 w-full rounded transition duration-300 ease-in-out"
-                    onClick={editForm}
-                  >
-                    Edit
-                  </button>
-                ) : (
-                  <input
-                    className="border-2 border-green-500 text-green-500 hover:bg-green-600 hover:text-white font-bold py-1 w-full rounded transition duration-300 ease-in-out"
-                    type="submit"
-                    value="Save Changes"
-                    onClick={saveForm}
-                  />
-                )}
-              </div>
-              <div className="text-gray-300 rounded-md flex flex-col items-center justify-center pt-3">
-                {editPhoto ? (
-                  <h5 className="text-4xl mb-0">{username}</h5>
-                ) : (
-                  <input
-                    type="text"
-                    name="formUsername"
-                    value={formData.formUsername}
-                    onChange={handleChange}
-                    placeholder="Enter a username"
-                    className="text-[26px] text-center p-1 max-w-[210px] text-gray-600 rounded-full"
-                  />
-                )}
-                <p>{email}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MyContextProvider>
+        <EditProfile />
+      </MyContextProvider>
       <div className="portfolio mx-auto flex justify-center">
         <div>
           <div className="flex justify-center items-center mt-4 mb-2 align-middle">
