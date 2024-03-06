@@ -41,16 +41,16 @@ export default function SignUp() {
   const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [viewPassword, setViewPassword] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false);
+
   const [formData, setformData] = useState({
     username: "",
     email: "",
     phoneNumber: "",
     password: "",
   });
+
   const { username, email, password, phoneNumber } = formData;
-
-
   const { errors, isValid } = useFormValidation(formData, validationRules);
 
   function handleChange(e) {
