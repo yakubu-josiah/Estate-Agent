@@ -504,9 +504,9 @@ input[type="number"] {
     margin-top: 9px;
     margin-right: 0;
   }
-  .profileCont .imgCont .image .text-white {
-    margin-top: 24px;
-  }
+ .profileCont .imgCont .image #img .no-photo {
+    height: 143px;
+ }
   .profileCont .imgCont .image h5 {
     font-size: 20px;
     line-height: 2rem;

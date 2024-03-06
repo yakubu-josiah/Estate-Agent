@@ -16,7 +16,6 @@ import { db } from "../../firebaseConfig";
 import ListingItem from "../../components/ListingItem";
 import { toast } from "react-toastify";
 import EditProfile from "../../components/EditProfile";
-import MyContextProvider from "../../MyContext";
 
 export default function Profile() {
   const auth = getAuth();
@@ -30,10 +29,6 @@ export default function Profile() {
 
   useEffect(() => {
     setisLoading(true);
-    // setFormData((prevState) => ({
-    //   ...prevState,
-    //   formUsername: username,
-    // }));
     async function fetchListings() {
       const listingRef = collection(db, "listings");
       const q = query(
@@ -79,9 +74,7 @@ export default function Profile() {
   }
   return (
     <div className="profileCont background mb-0">
-      <MyContextProvider>
-        <EditProfile />
-      </MyContextProvider>
+      <EditProfile />
       <div className="portfolio mx-auto flex justify-center">
         <div>
           <div className="flex justify-center items-center mt-4 mb-2 align-middle">
