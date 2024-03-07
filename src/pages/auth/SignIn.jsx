@@ -46,7 +46,7 @@ export default function SignIn() {
         password
       );
       if (userCredential) {
-        nav("/");
+        nav("/profile");
       }
     } catch (error) {
       setErrorMessage("User crenditials doesn't match");

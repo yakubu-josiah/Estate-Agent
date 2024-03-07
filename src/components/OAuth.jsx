@@ -2,68 +2,64 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import {
-  FacebookAuthProvider,
-  GoogleAuthProvider,
   getAuth,
   signInWithPopup,
+  GoogleAuthProvider,
+  TwitterAuthProvider,
+  FacebookAuthProvider,
 } from "firebase/auth";
 import { Timestamp, doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function OAuth() {
   const nav = useNavigate();
   const auth = getAuth();
-  const OAuthFacebook = async () => {
+
+
+  const handleSignIn = async (provider) => {
+    try {
+      let account = await signInWithPopup(auth, provider);
+      let user = account.user;
+      let dataRef = doc(db, "users", user.uid);
+      let dataSnap = await getDoc(dataRef);
+      if (!dataSnap.exists()) {
+        await setDoc(dataRef, {
+          username: user.displayName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          photo: user.photoURL,
+          timestamp: Timestamp.fromDate(new Date()),
+        });
+      }
+      nav("/profile");
+    } catch (error) {
+        if (error.code === "auth/popup-closed-by-user") {
+          toast.error("Oh try again! Closed authentication popup");
+        } else {
+          toast.error("Opps! Network error, try again.");
+        }
+    }
+  };
+
+
+  const OAuthFacebook = () => {
     let provider = new FacebookAuthProvider();
-    try {
-      let account = await signInWithPopup(auth, provider);
-      let user = account.user;
-      let dataRef = doc(db, "users", user.uid);
-      let dataSnap = await getDoc(dataRef);
-      if (!dataSnap.exists()) {
-        await setDoc(dataRef, {
-          username: user.displayName,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-          timestamp: Timestamp.fromDate(new Date()),
-          photo: user.photoURL,
-        });
-        console.log(user);
-        nav("/");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    handleSignIn(provider);
   };
-  const OAuthGoogle = async () => {
+
+  const OAuthGoogle = () => {
     let provider = new GoogleAuthProvider();
-    try {
-      let account = await signInWithPopup(auth, provider);
-      let user = account.user;
-      let dataRef = doc(db, "users", user.uid);
-      let dataSnap = await getDoc(dataRef);
-      if (!dataSnap.exists()) {
-        await setDoc(dataRef, {
-          username: user.displayName,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-          photo: user.photoURL,
-          timestamp: Timestamp.fromDate(new Date()),
-        });
-        console.log(user);
-        nav("/");
-      }
-    } catch (error) {
-      if (error.code === "auth/popup-closed-by-user") {
-        // User closed the authentication popup
-        console.log("Authentication popup closed by the user");
-      } else {
-        // Other error occurred, handle it accordingly
-        console.log("Error during authentication:", error);
-      }
-    }
+    handleSignIn(provider);
   };
+
+  const OAuthTwitter = () => {
+    let provider = new TwitterAuthProvider();
+    handleSignIn(provider);
+  };
+
+
   return (
     <div className="flex justify-center items-center">
       <div className="w-full">
@@ -88,7 +84,10 @@ export default function OAuth() {
             className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all"
             onClick={OAuthGoogle}
           />
-          <FaTwitter className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all" />
+          <FaTwitter 
+            className="rounded-full p-1 ml-2 cursor-pointer bg-orange-100 hover:bg-orange-200 transition-all" 
+            onClick={OAuthTwitter}
+          />
         </div>
       </div>
     </div>
