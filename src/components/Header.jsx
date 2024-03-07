@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStatus } from "../hooks/useAuthStatus";
 import { SlLogout } from "react-icons/sl";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const location = useLocation();
@@ -23,10 +24,9 @@ export default function Header() {
   const onSignOut = async () => {
     try {
       await signOut(auth);
-      console.log("user logged out");
       nav("/");
     } catch (error) {
-      console.log("Error occurred during logout:", error);
+      toast.error("Error occurred during logout");
     }
   };
 
@@ -49,6 +49,10 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div
