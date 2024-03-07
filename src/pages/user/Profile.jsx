@@ -68,7 +68,7 @@ export default function Profile() {
         setListings(updatedListings);
         toast.success("Listing deleted successfully!!");
       } catch (error) {
-        console.error("Error deleting listing:", error);
+        toast.error("Network error, try again.");
       }
     }
   }

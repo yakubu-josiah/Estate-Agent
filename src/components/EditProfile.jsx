@@ -82,7 +82,7 @@ export default function EditProfile () {
                                 <div id="img" className={`relative rounded-md row-auto max-h-[200px] w-[200px] mr-9 space-y-3 border-4 border-white shadow-lg bg-[#3a3a3a]`}>
                                     {imageUrl ? (
                                         <div className={`w-full h-full ${isEditing ? "opacity-50" : ""}`}>
-                                            <img className="" src={imageUrl} alt="Profile_Photo" />
+                                            <img className="w-full h-full object-cover" src={imageUrl} alt="Profile preview" />
                                         </div>
                                     ) : (
                                         <div className={`no-photo w-full h-[196px] ${isEditing ? "opacity-50" : ""}`}>
