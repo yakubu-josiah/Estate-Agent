@@ -17,7 +17,7 @@ export default function HeroBanner() {
     const [listings, setListings] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [agentName, setAgentName] = useState('');
-    const [currentId, setCurrentListingId] = useState(null);
+    const [currentListingId, setCurrentListingId] = useState(null);
 
 
     const formatPrice = (price) => {
@@ -50,7 +50,6 @@ export default function HeroBanner() {
                 
                 const listingsWithOwners = fetchedListings.map((listing, index) => {
                     const userData = userDocs[index].data();
-                    // console.log(listing);
                     return {
                         ...listing,
                         agentName: userData.username, 
@@ -73,8 +72,11 @@ export default function HeroBanner() {
     }
 
     const exploreMore = (id) => {
-        setCurrentListingId(id);
         nav(`/profile/listing/${id}`);
+    };
+
+    const handleListingChange = (id) => {
+        setCurrentListingId(id);
     };
 
     if (!listings || listings.length === 0) {
@@ -92,6 +94,7 @@ export default function HeroBanner() {
                     slidesPerView={1}
                     effect="fade"
                     autoplay={{ delay: 4000 }}
+                    onSlideChange={(swiper) => handleListingChange(listings[swiper.realIndex].id)}
                 >
                     {listings.map(({ data, id, agentName }) => (
                         <SwiperSlide key={id} onClick={() => exploreMore(id)}>
@@ -103,23 +106,30 @@ export default function HeroBanner() {
                                 }}
                                 className="herobanner w-full h-[300px] "
                             >
-                            <p className="absolute inline-block text-purple-950 right-0 text-[20px] bottom-2 font-bold px-2 sm:px-4 sm:text-2xl rounded-l-full max-w-[90%] bg-[#fff7d1] shadow-lg opacity-80">{agentName}</p>
-                            <p className="absolute inline-block text-purple-950 right-0 text-[20px] bottom-10 sm:bottom-[41px] md:bottom-12 font-bold px-2 sm:px-4 sm:text-2xl rounded-l-full max-w-[90%] bg-[#fff7d1] shadow-lg opacity-80">{data.sale ? ( <span> Sale: {formatPrice(data.sale)} </span> ) : ( <span> Lease: {formatPrice(data.lease)} </span>)}</p>
+                            <p className="absolute inline-block text-white right-0 text-[20px] bottom-2 font-bold px-2 sm:px-4 sm:text-2xl rounded-l-full max-w-[90%] bg-green-700 shadow-lg opacity-80">{agentName}</p>
+                            <p className="absolute inline-block text-white right-0 text-[20px] bottom-10 sm:bottom-[41px] md:bottom-12 font-bold px-2 sm:px-4 sm:text-2xl rounded-l-full max-w-[90%] bg-green-700 shadow-lg opacity-80">{data.sale ? ( <span> Sale: {formatPrice(data.sale)} </span> ) : ( <span> Lease: {formatPrice(data.lease)} </span>)}</p>
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                {/* {listings.map(({ id }) => ( */}
-                    <div className="cursor-pointer absolute bg-[#24252785] w-full h-full top-0 z-[2]" onClick={() => exploreMore(currentId)}>
+                    <div className="absolute bg-[#24252785] w-full h-full top-0 z-[2]">
                         <div className="flex">
                             <div className="absolute bottom-[30%] md:bottom-[20%] sm:w-[70%] lg:w-[60%]">
                                 <p class="block text-2xl md:pl-[7%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">We Help To You Find The Best </p>
                                 <p class="block text-2xl md:pl-[10%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">Property For You</p>
                                 <p class="block text-sm px-3 md:pl-[15%] font-light text-[#bfc0c2] text-center sm:mt-4 sm:text-base md:text-xl">Ready to move on up? Browse listings, get expert advice, and simplify your real estate journey.</p>
+                                {currentListingId && (
+                                    <div className="block">
+                                        <button 
+                                            className="mt-8 px-4 py-2 bg-green-800 text-gray-300 font-bold rounded-md shadow-md hover:bg-green-600 sm:text-lg md:text-xl lg:text-2xl"
+                                            onClick={() => nav(`profile/listing/${currentListingId}`)}>
+                                        View Details
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-                {/* ))} */}
             </div>
         )
     );
