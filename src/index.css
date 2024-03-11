@@ -38,6 +38,9 @@ header ul li:hover {
   cursor: pointer;
   transition: ease-in-out 0.3s;
 }
+.herobanner{
+  height: 300px;
+}
 /* ============= HEADER SECTION STYLES ============= */
 
 /* ============= AUTHENTICATION PAGES STYLES ============= */
@@ -411,6 +414,9 @@ input[type="number"] {
 /* ============= MEDIA MEDIA MEDIA MEDIA MEDIA ============= */
 
 @media (min-width: 850px) {
+  .herobanner{
+    height: 450px;
+  }
   .auth .formCont {
     display: flex;
     align-items: center;
@@ -427,6 +433,9 @@ input[type="number"] {
   }
 }
 @media (max-width: 850px) {
+  .herobanner{
+    height: 400px;
+  }
   .auth {
     display: flex;
     flex-direction: column-reverse;

@@ -17,6 +17,8 @@ export default function HeroBanner() {
     const [listings, setListings] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [agentName, setAgentName] = useState('');
+    const [currentId, setCurrentListingId] = useState(null);
+
 
     const formatPrice = (price) => {
         return price && price !== 0 ? (
@@ -47,12 +49,12 @@ export default function HeroBanner() {
                 const userDocs = await Promise.all(userDocRefs.map(getDoc));
                 
                 const listingsWithOwners = fetchedListings.map((listing, index) => {
-                const userData = userDocs[index].data();
-                console.log(userData);
-                return {
-                    ...listing,
-                    agentName: userData.username, 
-                };
+                    const userData = userDocs[index].data();
+                    // console.log(listing);
+                    return {
+                        ...listing,
+                        agentName: userData.username, 
+                    };
                 });
 
                 setListings(listingsWithOwners);
@@ -70,8 +72,9 @@ export default function HeroBanner() {
         return <Loader />;
     }
 
-    const exploreMore = (listingId) => {
-        nav(`/profile/listing/${listingId}`);
+    const exploreMore = (id) => {
+        setCurrentListingId(id);
+        nav(`/profile/listing/${id}`);
     };
 
     if (!listings || listings.length === 0) {
@@ -79,7 +82,7 @@ export default function HeroBanner() {
     }
     return (
         listings && (
-            <>
+            <div className="relative">
                 <Swiper
                     modules={[
                         A11y,
@@ -100,13 +103,24 @@ export default function HeroBanner() {
                                 }}
                                 className="herobanner w-full h-[300px] "
                             >
-                            <p className="absolute text-purple-700 right-0 top-2 font-bold px-2 rounded-l-full max-w-[90%] bg-[#f1de7e] shadow-lg opacity-80 ">{agentName}</p>
-                            <p className="absolute text-purple-700 left-0 bottom-2 font-bold px-2 rounded-r-full max-w-[90%] bg-[#fff7d1] shadow-lg opacity-80 ">{data.sale ? ( <span> Sale: {formatPrice(data.sale)} </span> ) : ( <span> Lease: {formatPrice(data.lease)} </span>)}</p>
+                            <p className="absolute inline-block text-purple-950 right-0 text-[20px] bottom-2 font-bold px-2 sm:px-4 sm:text-2xl rounded-l-full max-w-[90%] bg-[#fff7d1] shadow-lg opacity-80">{agentName}</p>
+                            <p className="absolute inline-block text-purple-950 right-0 text-[20px] bottom-10 sm:bottom-[41px] md:bottom-12 font-bold px-2 sm:px-4 sm:text-2xl rounded-l-full max-w-[90%] bg-[#fff7d1] shadow-lg opacity-80">{data.sale ? ( <span> Sale: {formatPrice(data.sale)} </span> ) : ( <span> Lease: {formatPrice(data.lease)} </span>)}</p>
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-            </>
+                {/* {listings.map(({ id }) => ( */}
+                    <div className="cursor-pointer absolute bg-[#24252785] w-full h-full top-0 z-[2]" onClick={() => exploreMore(currentId)}>
+                        <div className="flex">
+                            <div className="absolute bottom-[30%] md:bottom-[20%] sm:w-[70%] lg:w-[60%]">
+                                <p class="block text-2xl md:pl-[7%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">We Help To You Find The Best </p>
+                                <p class="block text-2xl md:pl-[10%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">Property For You</p>
+                                <p class="block text-sm px-3 md:pl-[15%] font-light text-[#bfc0c2] text-center sm:mt-4 sm:text-base md:text-xl">Ready to move on up? Browse listings, get expert advice, and simplify your real estate journey.</p>
+                            </div>
+                        </div>
+                    </div>
+                {/* ))} */}
+            </div>
         )
     );
 }
