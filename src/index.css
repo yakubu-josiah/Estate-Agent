@@ -399,6 +399,13 @@ input[type="number"] {
   }
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scrollbar-width: none;
+}
+
 ::-webkit-file-upload-button {
   background: #fff7d1;
   color: #525252;
