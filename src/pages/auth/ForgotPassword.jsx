@@ -12,7 +12,7 @@ export default function ForgotPassword() {
   const [form, setForm] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [formSuccess, setformSuccess] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
 
   function handleChange(e) {
     setEmail(e.target.value);
@@ -30,7 +30,7 @@ export default function ForgotPassword() {
       setIsLoading(true);
       await sendPasswordResetEmail(auth, email);
       setForm(false);
-      setformSuccess(true);
+      setFormSuccess(true);
       toast.success("Email sent successfully!");
     } catch (error) {
       setErrorMessage("Invalid email address");

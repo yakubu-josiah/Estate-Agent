@@ -49,7 +49,7 @@ export default function SignIn() {
         nav("/profile");
       }
     } catch (error) {
-      setErrorMessage("User crenditials doesn't match");
+      setErrorMessage("User credentials doesn't match");
     } finally {
       setIsLoading(false);
     }

@@ -43,7 +43,7 @@ export default function SignUp() {
   const [viewPassword, setViewPassword] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const [formData, setformData] = useState({
+  const [formData, setFormData] = useState({
     username: "",
     email: "",
     phoneNumber: "",
@@ -54,7 +54,7 @@ export default function SignUp() {
   const { errors, isValid } = useFormValidation(formData, validationRules);
 
   function handleChange(e) {
-    setformData((prevState) => ({
+    setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
