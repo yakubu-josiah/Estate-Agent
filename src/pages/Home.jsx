@@ -3,6 +3,9 @@ import { db } from "../firebaseConfig";
 import HeroBanner from "../components/HeroBanner";
 import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
 import ListingItem from "../components/ListingItem";
+import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 
 export default function Home() {
@@ -65,28 +68,28 @@ export default function Home() {
             <p className="text-xl text-gray-400 text-center mt-4 sm:text-2xl md:text-3xl lg:text-4xl">Explore a curated selection of properties, perfect for your next adventure.</p>
           </div>
         </div>
-        <div className="flex justify-center mb-9">
+
+        <div className="flex justify-center align-middle items-center mb-14">
           <div>
             <div className="relative overflow-hidden container w-full sm:w-fit">
               <div className="mt-2 sm:mt-4 absolute h-[50%] sm:rounded-br-xl inset-0 bg-gradient-to-b from-transparent opacity-70 to-pink-500 z-1"></div>
-              {/* <div className=" px-4 py-8 h-full w-fit text-center"> */}
-              <h1 className="z-2 w-auto text-base h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties for Sale</h1>
-                {/* <p class="mt-2 text-lg">Optional Subheading Text</p>
-              </div> */}
+              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties Sale</h1>
             </div>
             {isLoading ? (
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
-                  {[...Array(4)].map((_, index) => (
-                    <li
-                      key={index}
-                      className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
-                    >
-                      <p className="letter-text font-bold text-black top-10">
-                        Loading....
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex justify-center">
+                  <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
+                    {[...Array(4)].map((_, index) => (
+                      <li
+                        key={index}
+                        className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
+                      >
+                        <p className="letter-text font-bold text-black top-10">
+                          Loading....
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : (
                 <div className="flex justify-center">
                   <div>
@@ -107,35 +110,41 @@ export default function Home() {
                         </li>
                       </ul>
                     </div>
+                    <div className="relative w-full hover:underline bg-green-600 hover:text-white text-gray-300 font-bold rounded-md shadow-md hover:bg-green-800">
+                      <Link to="/category/listings/sale" className="min-w-[150px] w-auto flex justify-center space-x-0 mx-auto items-center">
+                        <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+                          See More
+                        </button>
+                        <FaArrowRight className="absolute right-4 bottom-2 text-lg mx-3 hover:underline" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
             )}
           </div>
         </div>
-        
-        
-        <div className="flex justify-center mb-9">
+               
+        <div className="flex justify-center align-middle items-center mb-14">
           <div>
             <div className="relative overflow-hidden container w-full sm:w-fit">
               <div className="mt-2 sm:mt-4 absolute h-[50%] sm:rounded-br-xl inset-0 bg-gradient-to-b from-transparent opacity-70 to-pink-500 z-1"></div>
-              {/* <div className=" px-4 py-8 h-full w-fit text-center"> */}
-              <h1 className="z-2 w-auto text-base h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties for Lease</h1>
-                {/* <p class="mt-2 text-lg">Optional Subheading Text</p>
-              </div> */}
+              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties Lease</h1>
             </div>
             {isLoading ? (
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
-                  {[...Array(4)].map((_, index) => (
-                    <li
-                      key={index}
-                      className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
-                    >
-                      <p className="letter-text font-bold text-black top-10">
-                        Loading....
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex justify-center">
+                  <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
+                    {[...Array(4)].map((_, index) => (
+                      <li
+                        key={index}
+                        className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
+                      >
+                        <p className="letter-text font-bold text-black top-10">
+                          Loading....
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : (
                 <div className="flex justify-center">
                   <div>
@@ -156,31 +165,41 @@ export default function Home() {
                         </li>
                       </ul>
                     </div>
+                    <div className="relative w-full hover:underline bg-green-600 hover:text-white text-gray-300 font-bold rounded-md shadow-md hover:bg-green-800">
+                      <Link to="/category/listings/lease" className="min-w-[150px] w-auto flex justify-center space-x-0 mx-auto items-center">
+                        <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+                          See More
+                        </button>
+                        <FaArrowRight className="absolute right-4 bottom-2 text-lg mx-3 hover:underline" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
             )}
           </div>
         </div>
 
-        <div className="flex justify-center ">
+        <div className="flex justify-center align-middle items-center pb-20">
           <div>
             <div className="relative overflow-hidden container w-full sm:w-fit">
               <div className="mt-2 sm:mt-4 absolute h-[50%] sm:rounded-br-xl inset-0 bg-gradient-to-b from-transparent opacity-70 to-pink-500 z-1"></div>
-              <h1 className="z-2 w-auto text-base h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties All Offers</h1>
+              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties All Offers</h1>
             </div>
             {isLoading ? (
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
-                  {[...Array(4)].map((_, index) => (
-                    <li
-                      key={index}
-                      className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
-                    >
-                      <p className="letter-text font-bold text-black top-10">
-                        Loading....
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex justify-center">
+                  <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
+                    {[...Array(4)].map((_, index) => (
+                      <li
+                        key={index}
+                        className="relative flex flex-col bg-[#faf5de] justify-between m-[10px] shadow-md hover:shadow-2xl overflow-hidden transition-shadow loader-listing"
+                      >
+                        <p className="letter-text font-bold text-black top-10">
+                          Loading....
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : (
                 <div className="flex justify-center">
                   <div>
@@ -200,6 +219,14 @@ export default function Home() {
                             ))}
                         </li>
                       </ul>
+                    </div>
+                    <div className="relative w-full hover:underline bg-green-600 hover:text-white text-gray-300 font-bold rounded-md shadow-md hover:bg-green-800">
+                      <Link to="/category/listings/all-offers" className="min-w-[150px] w-auto flex justify-center space-x-0 mx-auto items-center">
+                        <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+                          See More
+                        </button>
+                        <FaArrowRight className="absolute right-4 bottom-2 text-lg mx-3 hover:underline" />
+                      </Link>
                     </div>
                   </div>
                 </div>
