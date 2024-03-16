@@ -68,7 +68,13 @@ export default function HeroBanner() {
     }, [agentName]);
 
     if (isLoading) {
-        return <Loader />;
+        return  <div className="flex justify-center items-center bg-[#3a3a3a] h-[410px] ">
+                    <div className="h-[10px] loading-container items-center align-middle flex justify-center">
+                        <span className="spinner mt-0 text-white mr-3"></span>
+                        <p className="letter-text font-bold">Loading....</p>
+                    </div>
+                </div>;
+        // return <div className="loading"><Loader className=" h-[300px]" /></div>;
     }
 
     const exploreMore = (id) => {
