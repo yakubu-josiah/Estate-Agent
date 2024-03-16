@@ -110,13 +110,15 @@ export default function Home() {
                         </li>
                       </ul>
                     </div>
-                    <div className="relative w-full hover:underline bg-green-600 hover:text-white text-gray-300 font-bold rounded-md shadow-md hover:bg-green-800">
-                      <Link to="/category/listings/sale" className="min-w-[150px] w-auto flex justify-center space-x-0 mx-auto items-center">
-                        <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
-                          See More
-                        </button>
-                        <FaArrowRight className="absolute right-4 bottom-2 text-lg mx-3 hover:underline" />
-                      </Link>
+                    <div className="w-full flex justify-center my-10">
+                      <div className="relative hover:underline bg-green-600 min-w-[150px] max-w-[400px] hover:text-white text-gray-300 sm:w-full font-bold rounded-md shadow-md hover:bg-green-800">
+                        <Link to="/category/listings/all-offers" className="w-auto flex justify-center space-x-0 mx-auto items-center">
+                          <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+                            See More
+                          </button>
+                          <FaArrowRight className="absolute right-4 sm:right-32 bottom-2 text-lg mx-3 hover:underline" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -165,13 +167,15 @@ export default function Home() {
                         </li>
                       </ul>
                     </div>
-                    <div className="relative w-full hover:underline bg-green-600 hover:text-white text-gray-300 font-bold rounded-md shadow-md hover:bg-green-800">
-                      <Link to="/category/listings/lease" className="min-w-[150px] w-auto flex justify-center space-x-0 mx-auto items-center">
-                        <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
-                          See More
-                        </button>
-                        <FaArrowRight className="absolute right-4 bottom-2 text-lg mx-3 hover:underline" />
-                      </Link>
+                    <div className="w-full flex justify-center my-10">
+                      <div className="relative hover:underline bg-green-600 min-w-[150px] max-w-[400px] hover:text-white text-gray-300 sm:w-full font-bold rounded-md shadow-md hover:bg-green-800">
+                        <Link to="/category/listings/all-offers" className="w-auto flex justify-center space-x-0 mx-auto items-center">
+                          <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+                            See More
+                          </button>
+                          <FaArrowRight className="absolute right-4 sm:right-32 bottom-2 text-lg mx-3 hover:underline" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -220,13 +224,15 @@ export default function Home() {
                         </li>
                       </ul>
                     </div>
-                    <div className="relative w-full hover:underline bg-green-600 hover:text-white text-gray-300 font-bold rounded-md shadow-md hover:bg-green-800">
-                      <Link to="/category/listings/all-offers" className="min-w-[150px] w-auto flex justify-center space-x-0 mx-auto items-center">
-                        <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
-                          See More
-                        </button>
-                        <FaArrowRight className="absolute right-4 bottom-2 text-lg mx-3 hover:underline" />
-                      </Link>
+                    <div className="w-full flex justify-center my-10">
+                      <div className="relative hover:underline bg-green-600 min-w-[150px] max-w-[400px] hover:text-white text-gray-300 sm:w-full font-bold rounded-md shadow-md hover:bg-green-800">
+                        <Link to="/category/listings/all-offers" className="w-auto flex justify-center space-x-0 mx-auto items-center">
+                          <button className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+                            See More
+                          </button>
+                          <FaArrowRight className="absolute right-4 sm:right-32 bottom-2 text-lg mx-3 hover:underline" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
