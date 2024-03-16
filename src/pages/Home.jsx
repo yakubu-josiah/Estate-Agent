@@ -73,7 +73,7 @@ export default function Home() {
           <div>
             <div className="relative overflow-hidden container w-full sm:w-fit">
               <div className="mt-2 sm:mt-4 absolute h-[50%] sm:rounded-br-xl inset-0 bg-gradient-to-b from-transparent opacity-70 to-pink-500 z-1"></div>
-              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties Sale</h1>
+              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-600 sm:text-gray-400 leading-tight">Browse Available Properties Sale</h1>
             </div>
             {isLoading ? (
                 <div className="flex justify-center">
@@ -130,7 +130,7 @@ export default function Home() {
           <div>
             <div className="relative overflow-hidden container w-full sm:w-fit">
               <div className="mt-2 sm:mt-4 absolute h-[50%] sm:rounded-br-xl inset-0 bg-gradient-to-b from-transparent opacity-70 to-pink-500 z-1"></div>
-              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties Lease</h1>
+              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-600 sm:text-gray-400 leading-tight">Browse Available Properties Lease</h1>
             </div>
             {isLoading ? (
                 <div className="flex justify-center">
@@ -187,7 +187,7 @@ export default function Home() {
           <div>
             <div className="relative overflow-hidden container w-full sm:w-fit">
               <div className="mt-2 sm:mt-4 absolute h-[50%] sm:rounded-br-xl inset-0 bg-gradient-to-b from-transparent opacity-70 to-pink-500 z-1"></div>
-              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-400 leading-tight">Browse Available Properties All Offers</h1>
+              <h1 className="z-2 w-auto text-xl h-full sm:text-2xl pr-3 font-bold text-center sm:text-end text-gray-600 sm:text-gray-400 leading-tight">Browse Available Properties All Offers</h1>
             </div>
             {isLoading ? (
                 <div className="flex justify-center">
