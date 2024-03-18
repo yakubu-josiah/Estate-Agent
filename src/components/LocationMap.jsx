@@ -11,7 +11,7 @@ export default function LocationMap({position}) {
         />
         <Marker position={position}>
             <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+             Here's the pin<br /> for this property.
             </Popup>
         </Marker>
         </MapContainer>

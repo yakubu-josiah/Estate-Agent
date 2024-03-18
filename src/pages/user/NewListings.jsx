@@ -24,11 +24,11 @@ const validationRules = {
   },
   size: {
     rule: (value) => value.length > 1, 
-    message: "Land size must be a valid number",
+    message: "Please give a valid land size",
   },
   dimension: {
     rule: (value) => /^\d+,?\d+$/.test(value.trim()), 
-    message: "Invalid dimension format (length,width)",
+    message: "Invalid dimension format e.g(length,width)",
   },
   address: {
     rule: (value) => !!value && value.length > 5, 
@@ -43,12 +43,12 @@ const validationRules = {
     message: "Longitude is required and must be a valid number between -180 and 180",
   },
   sale: {
-    rule: (value) => !!value.trim() && value.length > 4, 
-    message: "Sale price is required and must be a valid price",
+    rule: (value) => !!value.trim(), 
+    message: "Sale price must be a valid price",
   },
   lease: {
-    rule: (value) => !!value.trim() && value.length > 5, 
-    message: "Lease price is required and must be a valid price",
+    rule: (value) => !!value.trim(), 
+    message: "Lease price must be a valid price",
   },
   landmark: {
     rule: (value) => !!value.trim() && value.trim().length >= 6, 
@@ -70,7 +70,7 @@ export default function NewListings() {
     dimension: "",
     topography: "",
     soilType: "",
-    zonning: "",
+    zoning: "",
     address: "",
     city: "",
     state: "",
@@ -80,7 +80,6 @@ export default function NewListings() {
     lease: "",
     landmark: "",
     amenities: "",
-    images: "",
   });
   const {
     name,
@@ -91,7 +90,7 @@ export default function NewListings() {
     dimension,
     topography,
     soilType,
-    zonning,
+    zoning,
     address,
     city,
     state,
@@ -101,10 +100,9 @@ export default function NewListings() {
     lease,
     landmark,
     amenities,
-    // images,
   } = formData;
 
-  // const [geoPoint, setGeoPoint] = useState(true);
+  
   const [isLoading, setIsLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("sale");
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -127,7 +125,7 @@ export default function NewListings() {
   const handleFileChange = (e) => {
     const files = e.target.files;
     if (files.length > 5) {
-      alert("You can only upload up to five images."); //error will come in here later..
+      toast.error("You can only upload up to five images.");
       return;
     }
     setSelectedFiles(Array.from(files));
@@ -143,8 +141,8 @@ export default function NewListings() {
     };
 
     let geolocation = {
-      lat: 37.7749, // Replace with desired latitude
-      lng: -122.4194,
+      lat: parseFloat(latitude), 
+      lng: parseFloat(longitude),
     };
     try {
       // if (geoPoint) {
@@ -216,8 +214,6 @@ export default function NewListings() {
         });
       }
 
-      console.log("Image URLs:", imageUrls);
-
       const formDataCopy = {
         ...formData,
         images: imageUrls,
@@ -225,6 +221,7 @@ export default function NewListings() {
         timestamp: serverTimestamp(),
         userRef: auth.currentUser.uid,
       };
+      
       console.log("got here");
       const docRef = await addDoc(collection(db, "listings"), formDataCopy);
       console.log("Document added:", docRef);
@@ -234,7 +231,7 @@ export default function NewListings() {
       // nav(`/category/${formDataCopy.type}/${docRef.id}`);
     } catch (error) {
       setIsLoading(false);
-      console.error("Error creating listing:", error);
+      toast.error("Error creating listing:", error);
       throw error;
       // Handle the image upload error by displaying a message to the user later.
       // setError("Image upload failed. Please try again later.");
@@ -250,7 +247,7 @@ export default function NewListings() {
         className="inset-0 object-cover bg-fixed fixed h-full w-full -z-10"
       />
 
-      <div className="form flex justify-center mx-auto z-10 pb-20">
+      <div className="form flex justify-center mx-auto z-10 pb-20 h-full">
         <div className="w-[80%] place-items-center">
           <h3 className="text-center my-10 sm:text-5xl text-3xl font-bold shadow-xl py-2 text-gray-300">
             CREATE A LISTING
@@ -409,11 +406,11 @@ export default function NewListings() {
                 </div>
 
                 <div className="col mb-3">
-                  <span className="inline-block">Zonning</span>
+                  <span className="inline-block">Zoning</span>
                   <textarea
-                    name="zonning"
-                    id="zonning"
-                    value={zonning}
+                    name="zoning"
+                    id="zoning"
+                    value={zoning}
                     className="block"
                     onChange={handleChange}
                     placeholder="Enter regulations"

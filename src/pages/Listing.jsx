@@ -26,11 +26,10 @@ export default function Listing() {
   const nav = useNavigate();
   const auth = getAuth();
   const [listing, setListing] = useState([]);
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [shareLink, setShareLink] = useState(false);
   const [contactAgent, setContactAgent] = useState(false);
   const param = useParams();
-  const position = [51.505, -0.09]
 
   const formatPrice = (price) => {
     return price && price !== 0 ? (
@@ -54,19 +53,15 @@ export default function Listing() {
       const listingData = await getDoc(docRef);
       if (listingData.exists()) {
         setListing(listingData.data());
-        setisLoading(false);
+        setIsLoading(false);
         console.log(listingData.data());
       }
       return;
     }
     fetchListing();
   }, [param.listingId]);
-
-  
   
   const onEdit = (listingId) =>  {
-    console.log(param.listingId);
-    console.log(listing.userRef);
     nav(`/profile/listing/${listingId}/edit`);
   }
 
@@ -76,14 +71,14 @@ export default function Listing() {
     );
     if (confirmed) {
       try {
-        setisLoading(true);
+        setIsLoading(true);
         await deleteDoc(doc(db, "listings", listingId));
         toast.success("Listing deleted successfully!");
         nav("/profile");
       } catch (error) {
-        console.error("Error deleting listing:", error);
+        toast.error("Error deleting listing:", error);
       } finally {
-        setisLoading(false);
+        setIsLoading(false);
       }
     }
   }
@@ -274,7 +269,7 @@ export default function Listing() {
           </div>
         </div>
         <div className="flex-1 flex-col items-stretch z-10 ">
-          <LocationMap position={position} />
+          <LocationMap position={[listing.geolocation.lat, listing.geolocation.lng]} />
         </div>
       </div>
     </main>
