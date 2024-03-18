@@ -94,20 +94,18 @@ export default function Home() {
                 <div className="flex justify-center">
                   <div>
                     
-                    <div class="relative h-auto overflow-hidden px-8">
-                      <div class="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
+                    <div className="relative h-auto overflow-hidden px-8">
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
                         
-                      <ul>
-                        <li className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                          {saleListings !== null &&
+                      <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                        {saleListings !== null &&
                             saleListings.map((listing) => (
                               <ListingItem
                                 key={listing.id}
                                 listingId={listing.id}
                                 listing={listing.data}
                               />
-                            ))}
-                        </li>
+                        ))}
                       </ul>
                     </div>
                     <div className="w-full flex justify-center my-10">
@@ -151,20 +149,18 @@ export default function Home() {
                 <div className="flex justify-center">
                   <div>
                     
-                    <div class="relative h-auto overflow-hidden px-8">
-                      <div class="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
+                    <div className="relative h-auto overflow-hidden px-8">
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
                         
-                      <ul>
-                        <li className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                          {leaseListings !== null &&
+                      <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                        {leaseListings !== null &&
                             leaseListings.map((listing) => (
                               <ListingItem
                                 key={listing.id}
                                 listingId={listing.id}
                                 listing={listing.data}
                               />
-                            ))}
-                        </li>
+                        ))}
                       </ul>
                     </div>
                     <div className="w-full flex justify-center my-10">
@@ -208,20 +204,18 @@ export default function Home() {
                 <div className="flex justify-center">
                   <div>
                     
-                    <div class="relative h-auto overflow-hidden px-8">
-                      <div class="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
+                    <div className="relative h-auto overflow-hidden px-8">
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
                         
-                      <ul>
-                        <li className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                          {allOffersListings !== null &&
+                      <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
+                        {allOffersListings !== null &&
                             allOffersListings.map((listing) => (
                               <ListingItem
                                 key={listing.id}
                                 listingId={listing.id}
                                 listing={listing.data}
                               />
-                            ))}
-                        </li>
+                        ))}
                       </ul>
                     </div>
                     <div className="w-full flex justify-center my-10">

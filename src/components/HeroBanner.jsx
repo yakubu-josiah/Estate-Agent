@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, collection, getDocs, getDoc, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import Loader from "../components/Loader";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -121,9 +120,9 @@ export default function HeroBanner() {
                     <div className="absolute bg-[#24252785] w-full h-full top-0 z-[2]">
                         <div className="flex">
                             <div className="absolute bottom-[30%] md:bottom-[20%] sm:w-[70%] lg:w-[60%]">
-                                <p class="block text-2xl md:pl-[7%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">We Help To You Find The Best </p>
-                                <p class="block text-2xl md:pl-[10%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">Property For You</p>
-                                <p class="block text-sm px-3 md:pl-[15%] font-light text-[#bfc0c2] text-center sm:mt-4 sm:text-base md:text-xl">Ready to move on up? Browse listings, get expert advice, and simplify your real estate journey.</p>
+                                <p className="block text-2xl md:pl-[7%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">We Help To You Find The Best </p>
+                                <p className="block text-2xl md:pl-[10%] font-bold text-gray-300 text-center sm:text-3xl md:text-4xl">Property For You</p>
+                                <p className="block text-sm px-3 md:pl-[15%] font-light text-[#bfc0c2] text-center sm:mt-4 sm:text-base md:text-xl">Ready to move on up? Browse listings, get expert advice, and simplify your real estate journey.</p>
                                 {currentListingId && (
                                     <div className="block">
                                         <button 
