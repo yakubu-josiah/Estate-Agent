@@ -91,6 +91,7 @@ header ul li:hover {
 /* ============= PROFILE PAGE STYLES ============ */
 .profileCont {
   width: 100%;
+  height: 100%;
   background-color: #faf5de;
 }
 
@@ -109,7 +110,6 @@ header ul li:hover {
   text-align: center;
 }
 .profileCont .portfolio div div div button {
-  /* rounded-lg pl-7 pr-5 py-1 bg-transparent border-2 text-sm sm:text-base text-gray-600 border-gray-500 hover:shadow-lg hover:text-[15px] transition-all duration-200 ease-in */
   cursor: pointer;
   letter-spacing: 2px;
   font-family: Marvel;

@@ -21,14 +21,14 @@ export default function Profile() {
   const auth = getAuth();
   const nav = useNavigate();
   const [listings, setListings] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useAuthStatus();
   const username = user ? user.displayName : "Unknown User";
 
 
   useEffect(() => {
-    setisLoading(true);
+    setIsLoading(true);
     async function fetchListings() {
       const listingRef = collection(db, "listings");
       const q = query(
@@ -45,7 +45,7 @@ export default function Profile() {
         });
       });
       setListings(listings);
-      setisLoading(false);
+      setIsLoading(false);
     }
     fetchListings();
   }, [username, auth.currentUser.uid]);
@@ -73,9 +73,9 @@ export default function Profile() {
     }
   }
   return (
-    <div className="profileCont background mb-0">
+    <div className="profileCont bg-[#fff7d1] min-h-screen overflow-hidden">
       <EditProfile />
-      <div className="portfolio mx-auto flex justify-center">
+      <div className="portfolio mx-auto flex justify-center mb-10">
         <div>
           <div className="flex justify-center items-center mt-4 mb-2 align-middle">
             <h3 className="text-center text-purple-800 font-bold lg:text-3xl text-2xl mr-3">
@@ -119,51 +119,7 @@ export default function Profile() {
                   ))}
               </ul>
             )}
-            {!isLoading && listings.length > 0 && (
-              <>
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                  {listings.map((listing) => (
-                    <ListingItem
-                      key={listing.id}
-                      id={listing.id}
-                      listing={listing.data}
-                    />
-                  ))}
-                </ul>
-              </>
-            )}{" "}
-            {!isLoading && listings.length > 0 && (
-              <>
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                  {listings.map((listing) => (
-                    <ListingItem
-                      key={listing.id}
-                      id={listing.id}
-                      listing={listing.data}
-                    />
-                  ))}
-                </ul>
-              </>
-            )}{" "}
-            {!isLoading && listings.length > 0 && (
-              <>
-                <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
-                  {listings.map((listing) => (
-                    <ListingItem
-                      key={listing.id}
-                      id={listing.id}
-                      listing={listing.data}
-                    />
-                  ))}
-                </ul>
-              </>
-            )}
-          </div>
-          <div className="text-center">
-            <Link to="/" className="text-green-300 text-center">
-              Go Back Home
-            </Link>
-          </div>
+          </div>  
         </div>
       </div>
     </div>
