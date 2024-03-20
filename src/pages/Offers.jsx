@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import { collection, query, orderBy, limit, getDocs, startAfter } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 import { toast } from 'react-toastify';
+import { FiChevronsDown } from "react-icons/fi";
 import ListingItem from '../components/ListingItem';
 
 export default function Offers() {
   const [isLoading, setIsLoading] = useState(true);
   const [allOffersListings, setAllOffersListings] = useState([]);
-  // const [lastFetchedListing, setLastFetchedListing] = useState(null);
+  const [lastFetchedListing, setLastFetchedListing] = useState(null);
 
 
   useEffect(() => {
     async function fetchListings() {
       try {
         const listingRef = collection(db, "listings");
-        const allOffersQuery = query(listingRef, orderBy("timestamp", "asc"), limit(8));
+        const allOffersQuery = query(listingRef, orderBy("timestamp", "asc"), limit(4));
         const allOffersSnap = await getDocs(allOffersQuery);
 
         const lastIndexListing = allOffersSnap.docs[allOffersSnap.docs.length - 1]
-        // setLastFetchedListing(lastIndexListing);
+        setLastFetchedListing(lastIndexListing);
 
         const allOffersListingsData = allOffersSnap.docs.map(doc => ({
           id: doc.id,
@@ -26,8 +27,6 @@ export default function Offers() {
         }));
         
         setAllOffersListings(allOffersListingsData);
-        console.log(allOffersListingsData);
-        console.log("Last Listing:", lastIndexListing.data());
       } catch (error) {
         toast.error("Network error, please refresh the page.")
       } finally {
@@ -36,8 +35,32 @@ export default function Offers() {
     }
     fetchListings();
   }, []);
+
+
+  async function fetchMore() {
+    try {
+      const listingRef = collection(db, "listings");
+      const allOffersQuery = query(listingRef, orderBy("timestamp", "asc"), startAfter(lastFetchedListing), limit(4));
+      const allOffersSnap = await getDocs(allOffersQuery);
+
+      const lastIndexListing = allOffersSnap.docs[allOffersSnap.docs.length - 1]
+      setLastFetchedListing(lastIndexListing);
+
+      const allOffersListingsData = allOffersSnap.docs.map(doc => ({
+        id: doc.id,
+        data: doc.data(),
+      }));
+      
+      setAllOffersListings((prevState) => [...prevState, ...allOffersListingsData]);
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <div className="w-full bg-[#fff7d1] ">
+    <div className="w-full bg-[#fff7d1] min-h-screen overflow-hidden">
       <div className="relative mt-0 w-full h-[170px] sm:h-[200px] flex justify-center">
         <img
           src={process.env.PUBLIC_URL + "/images/offers.webp"}
@@ -69,7 +92,7 @@ export default function Offers() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-12">
           <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 my-6">
             {[...Array(4)].map((_, index) => (
               <li
@@ -84,7 +107,7 @@ export default function Offers() {
           </ul>
         </div>
       ) : (
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-12">
           <div>            
             <div className="relative h-auto overflow-hidden px-8">
               <div className="absolute inset-0 bg-gradient-to-b from-[#ece0ac] to-transparent opacity-50 z-1"></div>
@@ -103,6 +126,16 @@ export default function Offers() {
               </ul>
 
             </div>
+          </div>
+        </div>
+      )}
+      {lastFetchedListing && (
+        <div className="w-full flex justify-center my-10">
+          <div className="relative hover:underline bg-green-600 min-w-[150px] max-w-[400px] hover:text-white text-gray-300 sm:w-full font-bold rounded-md shadow-md hover:bg-green-800">
+            <button onClick={fetchMore} className="block mx-0 py-1 pr-3 w-full sm:text-lg md:text-xl transition-all ease-in-out duration-300">
+              Load More
+            </button>
+            <FiChevronsDown className="absolute right-0 sm:right-28 top-1 sm:top-2 bottom-2 text-2xl mx-3 hover:underline" />
           </div>
         </div>
       )}
