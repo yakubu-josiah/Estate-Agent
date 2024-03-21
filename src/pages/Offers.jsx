@@ -60,7 +60,7 @@ export default function Offers() {
   }
 
   return (
-    <div className="w-full bg-[#fff7d1] min-h-screen overflow-hidden">
+    <div className="w-full bg-[#fff7d1] min-h-screen overflow-hidden pb-10">
       <div className="relative mt-0 w-full h-[170px] sm:h-[200px] flex justify-center">
         <img
           src={process.env.PUBLIC_URL + "/images/offers.webp"}

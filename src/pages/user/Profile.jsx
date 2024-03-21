@@ -73,7 +73,7 @@ export default function Profile() {
     }
   }
   return (
-    <div className="profileCont bg-[#fff7d1] min-h-screen overflow-hidden">
+    <div className="profileCont bg-[#fff7d1] min-h-screen overflow-hidden pb-10">
       <EditProfile />
       <div className="portfolio mx-auto flex justify-center mb-10">
         <div>
