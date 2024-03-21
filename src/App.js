@@ -12,6 +12,7 @@ import AuthGuard from "./pages/auth/AuthGuard";
 import NewListing from "./pages/user/NewListings";
 import EditListing from "./pages/user/EditListing";
 import Listing from "./pages/Listing";
+import ListingCategory from "./pages/ListingCategory";
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
             <Route path="/profile/listing/:listingId/edit" element={<EditListing />} />
           </Route>
 
-          <Route path="/offers" element={<Offers />} />
+          <Route path="/offers/category/listings/all-offers" element={<Offers />} />
+          <Route path="/offers/category/listings/:categoryName" element={<ListingCategory />} />
           <Route path="/auth/sign-in" element={<SignIn />} />
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
