@@ -15,7 +15,7 @@ export default function Offers() {
     async function fetchListings() {
       try {
         const listingRef = collection(db, "listings");
-        const allOffersQuery = query(listingRef, orderBy("timestamp", "asc"), limit(4));
+        const allOffersQuery = query(listingRef, orderBy("timestamp", "asc"), limit(8));
         const allOffersSnap = await getDocs(allOffersQuery);
 
         const lastIndexListing = allOffersSnap.docs[allOffersSnap.docs.length - 1]
