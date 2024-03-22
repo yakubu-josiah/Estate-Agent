@@ -13,6 +13,7 @@ import NewListing from "./pages/user/NewListings";
 import EditListing from "./pages/user/EditListing";
 import Listing from "./pages/Listing";
 import ListingCategory from "./pages/ListingCategory";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/auth/sign-up" element={<SignUp />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile/listing/:listingId" element={<Listing />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </Router>
       <ToastContainer
