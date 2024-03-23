@@ -86,9 +86,9 @@ export default function Header() {
             </li>
             <li
               className={`py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent 
-                        ${checkRoute("/offers") && "header-active"}`}
+                        ${checkRoute("/offers/category/listings/all-offers")  && "header-active"}`}
               onClick={() => {
-                nav("/offers");
+                nav("/offers/category/listings/all-offers");
               }}
             >
               Offers
