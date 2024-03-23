@@ -292,9 +292,13 @@ input[type="number"] {
   color: #fff7d1 !important;
   background: purple !important;
 }
-
-
-
+footer div{
+  /* width: fit-content; */
+}
+.footer-text {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  letter-spacing: 0.1rem;
+}
 /* ============= NEW LISTING PAGE STYLES ============ */
 
 
