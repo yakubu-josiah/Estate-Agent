@@ -1,4 +1,4 @@
-# Land Deals NG
+# Land Deals NG <sub><sup> [vercel deployment](https://estate-agent-tau.vercel.app)
 
 A user-friendly web application built with React.js and Firebase Firestore that empowers real estate agents to efficiently list land properties and allows users to browse available offers.
 
@@ -13,7 +13,7 @@ A user-friendly web application built with React.js and Firebase Firestore that 
 
 1. Clone the repository:
    ```bash
-   git clone https://your-github-repo-url.git
+   git clone https://github.com/yakubu-josiah/Estate-Agent.git
    cd Estate-Agent
    ```
 
