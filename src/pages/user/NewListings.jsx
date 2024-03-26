@@ -34,22 +34,22 @@ const validationRules = {
     rule: (value) => !!value && value.length > 5, 
     message: "Please give full address",
   },
-  latitude: {
-    rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -90) && (value.trim() <= 90), 
-    message: "Latitude is required and must be a valid number between -90 and 90",
-  },
-  longitude: {
-    rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -180) && (value.trim() <= 180), 
-    message: "Longitude is required and must be a valid number between -180 and 180",
-  },
-  sale: {
-    rule: (value) => !!value.trim(), 
-    message: "Sale price must be a valid price",
-  },
-  lease: {
-    rule: (value) => !!value.trim(), 
-    message: "Lease price must be a valid price",
-  },
+  // latitude: {
+  //   rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -90) && (value.trim() <= 90), 
+  //   message: "Latitude is required and must be a valid number between -90 and 90",
+  // },
+  // longitude: {
+  //   rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -180) && (value.trim() <= 180), 
+  //   message: "Longitude is required and must be a valid number between -180 and 180",
+  // },
+  // sale: {
+  //   rule: (value) => !!value.trim(), 
+  //   message: "Sale price must be a valid price",
+  // },
+  // lease: {
+  //   rule: (value) => !!value.trim(), 
+  //   message: "Lease price must be a valid price",
+  // },
   landmark: {
     rule: (value) => !!value.trim() && value.trim().length >= 6, 
     message: "Close landmark is required and should be well known",
@@ -166,7 +166,7 @@ export default function NewListings() {
       //   geolocation.lat = latitude;
       //   geolocation.lng = longitude;
       // }
-      if (selectedFiles.length > 1) {
+      if (!selectedFiles.length) {
         setIsLoading(true);
         await uploadImages(selectedFiles, geolocation);
       }
@@ -467,8 +467,8 @@ export default function NewListings() {
                     name="latitude"
                     id="latitude"
                     value={latitude}
-                    min="-90"
-                    max="90"
+                    // min="-90"
+                    // max="90"
                     onChange={handleChange}
                     placeholder="Latitude"
                     className={`sm:text-[12px] p-2 pl-12 w-full${errors.latitude && formData.latitude !== "" ? "border-red-400 text-red-400": ""}`}
@@ -481,8 +481,8 @@ export default function NewListings() {
                     name="longitude"
                     id="longitude"
                     value={longitude}
-                    min="-180"
-                    max="180"
+                    // min="-180"
+                    // max="180"
                     onChange={handleChange}
                     placeholder="Longitude"
                     className={`sm:text-[12px] p-2 pl-12 w-full${errors.longitude && formData.longitude !== "" ? "border-red-400 text-red-400": ""}`}

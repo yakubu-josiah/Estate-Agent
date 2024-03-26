@@ -13,7 +13,7 @@ import {
   where
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
-import ListingItem from "../../components/ListingItem";
+import ListingItem from "../../components/ListingCard";
 import { toast } from "react-toastify";
 import EditProfile from "../../components/EditProfile";
 import Footer from "../../components/Footer";

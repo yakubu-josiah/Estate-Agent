@@ -3,7 +3,7 @@ import { collection, query, orderBy, limit, getDocs, startAfter } from "firebase
 import { db } from '../firebaseConfig';
 import { toast } from 'react-toastify';
 import { FiChevronsDown } from "react-icons/fi";
-import ListingItem from '../components/ListingItem';
+import ListingItem from '../components/ListingCard';
 import Footer from '../components/Footer';
 
 export default function Offers() {

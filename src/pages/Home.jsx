@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebaseConfig";
 import HeroBanner from "../components/HeroBanner";
 import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
-import ListingItem from "../components/ListingItem";
+import ListingItem from "../components/ListingCard";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";

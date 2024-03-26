@@ -13,7 +13,7 @@ const formatPrice = (price) => {
   );
 };
 
-export default function ListingItem({
+export default function ListingCard({
   listing,
   listingId,
   onEdit,
