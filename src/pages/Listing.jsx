@@ -16,6 +16,7 @@ import {
 import "swiper/swiper-bundle.css";
 import Loader from "../components/Loader";
 import { ImLocation2 } from "react-icons/im";
+import { LuLandmark } from "react-icons/lu";
 import Moment from "react-moment";
 import { toast } from "react-toastify";
 import Contact from "../components/Contact";
@@ -141,8 +142,8 @@ export default function Listing() {
           )}
         </div>
 
-        <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 shadow-lg lg:space-x-5 z-10">
-          <div className="singleList flex-1 flex-col px-8 pt-10 rounded-lg">
+        <div className="bg-[#faedb8] flex flex-col md:flex-row max-w-6xl m-4 lg:mx-auto rounded-lg border-3 mt-12 shadow-lg lg:space-x-5 z-10">
+          <div className="singleList flex-1 flex-col px-8 pt-10 sm:pb-10 rounded-lg">
             <div className="flex-col sm:flex-row items-center truncate">
               <div className="relative inline-block mb-2">
                 <div className="absolute top-0.5 left-[98%] w-[0.29rem] transform bg-red-600 opacity-60 h-[28px]"></div>
@@ -170,7 +171,7 @@ export default function Listing() {
 
               {listing.lease ? (
                 <button type="button" className="cursor-default font-semibold text-white bg-green-600 px-4 py-2 mt-2 rounded-md hover:bg-green-700 disabled:opacity-50">
-                  Lease Price: {formatPrice(listing.lease)}/<span className="text-xs">mon</span>
+                  Lease Price: {formatPrice(listing.lease)}/<span className="text-xs">Year</span>
                 </button>
               ) : (
                 <button type="button" className="cursor-default font-light text-gray-500 bg-gray-200 px-4 py-2 mt-2 rounded-md disabled:opacity-50 text-[13px]">
@@ -196,6 +197,10 @@ export default function Listing() {
                 <p>{listing.type}</p>
               </div>
               <div className="flex items-center">
+                <p className="font-semibold text-gray-600 mr-2">Soil Type:</p>
+                <p>{listing.soilType}</p>
+              </div>
+              <div className="flex items-center">
                 <p className="font-semibold text-gray-600 mr-2">Category:</p>
                 <p> {listing.category}</p>
               </div>
@@ -215,6 +220,11 @@ export default function Listing() {
                 <ImLocation2 className="h-4 w-4 text-red-500" />
                 <p className="font-semibold text-gray-600 mr-2">Address:</p>
                 <p>{listing.address}</p>
+              </div>
+              <div className="flex items-center ">
+                <LuLandmark className="h-4 w-4 text-red-500" />
+                <p className="font-semibold text-gray-600 mr-2">Closest Landmark:</p>
+                <p>{listing.landmark}</p>
               </div>
             </div>
             <p className="text-2xl font-semibold mb-2 text-purple-700">
