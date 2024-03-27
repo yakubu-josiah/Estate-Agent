@@ -2,14 +2,7 @@ import { doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../../firebaseConfig";
 import { useNavigate, useParams } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 export default function EditListing() {
@@ -22,7 +15,7 @@ export default function EditListing() {
     dimension: "",
     topography: "",
     soilType: "",
-    zonning: "",
+    zoning: "",
     address: "",
     city: "",
     state: "",
@@ -43,7 +36,7 @@ export default function EditListing() {
     dimension,
     topography,
     soilType,
-    zonning,
+    zoning,
     address,
     city,
     state,
@@ -58,7 +51,6 @@ export default function EditListing() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("sale");
   const [listing, setListing] = useState(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
   const auth = getAuth();
   const nav = useNavigate();
@@ -73,14 +65,6 @@ export default function EditListing() {
     setSelectedOption(e.target.value);
   };
 
-  const handleFileChange = (e) => {
-    const files = e.target.files;
-    if (files.length > 5) {
-      alert("You can only upload up to five images."); //error will come in here later..
-      return;
-    }
-    setSelectedFiles(Array.from(files));
-  };
 
   const params = useParams();
 
@@ -108,14 +92,15 @@ export default function EditListing() {
     fetchListing();
   }, [nav, params.listingId]);
 
-  async function editListing(e) {
+  async function updateListing(e) {
     e.preventDefault();
     setIsUpdating(true);
     let geolocation = {
-      lat: 37.7749, // Replace with desired latitude
-      lng: -122.4194,
+      lat: parseFloat(latitude), 
+      lng: parseFloat(longitude),
     };
     try {
+      //This right here is for using Google Api Map Paid version
       // if (geoPoint) {
       //   const response = await fetch(
       //     `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
@@ -137,79 +122,26 @@ export default function EditListing() {
       //   geolocation.lat = latitude;
       //   geolocation.lng = longitude;
       // }
-
-      if (selectedFiles.length > 0) {
-        await uploadImages(selectedFiles, geolocation);
+        const formDataCopy = {
+          ...formData,
+          geolocation,
+          timestamp: serverTimestamp(),
+          userRef: auth.currentUser.uid,
+        };
+        await updateDoc(
+          doc(db, "listings", params.listingId),
+          formDataCopy
+        );
+        setIsLoading(false);
+        toast.success("Listing updated successfully!");
+        nav("/profile");
+      } catch (error) {
+        setIsLoading(false);
+        toast.error("Error updating listing");
+        throw error;
       }
-    } catch (error) {
-      setIsUpdating(false);
-      return;
-    }
   }
 
-  // Image Upload Functions
-  async function uploadImages(files, geolocation) {
-    try {
-      const storage = getStorage();
-      const imageUrls = [];
-
-      for (const file of files) {
-        const filename = `${auth.currentUser.uid}-${file.name}-${uuidv4()}`;
-        const storageRef = ref(storage, filename);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-
-        await new Promise((resolve, reject) => {
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log("Upload is " + progress + "% done");
-            },
-            (error) => {
-              reject(error);
-            },
-            async () => {
-              try {
-                const downloadURL = await getDownloadURL(
-                  uploadTask.snapshot.ref
-                );
-                imageUrls.push(downloadURL);
-                resolve();
-              } catch (error) {
-                reject(error);
-              }
-            }
-          );
-        });
-      }
-
-      console.log("Image URLs:", imageUrls);
-
-      const formDataCopy = {
-        ...formData,
-        images: imageUrls,
-        geolocation,
-        timestamp: serverTimestamp(),
-        userRef: auth.currentUser.uid,
-      };
-      const docRef = await updateDoc(
-        doc(db, "listings", params.listingId),
-        formDataCopy
-      );
-      console.log("Document added:", docRef);
-      setIsLoading(false);
-      toast.success("Listing updated successfully!");
-      nav("/profile");
-      // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
-    } catch (error) {
-      setIsLoading(false);
-      console.error("Error updating listing:", error);
-      throw error;
-      // Handle the image upload error by displaying a message to the user later.
-      // setError("Image upload failed. Please try again later.");
-    }
-  }
 
   return (
     <div className="newList flex justify-center relative">
@@ -230,7 +162,7 @@ export default function EditListing() {
               <p className="letter-text font-bold top-10">Loading....</p>
             </div>
           ) : (
-            <form onSubmit={editListing}>
+            <form onSubmit={updateListing}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full md:mx-auto items-start">
                 {/* Property Information */}
                 <div className="listForm">
@@ -375,11 +307,11 @@ export default function EditListing() {
                   </div>
 
                   <div className="col">
-                    <span className="inline-block">Zonning</span>
+                    <span className="inline-block">Zoning</span>
                     <textarea
-                      name="zonning"
-                      id="zonning"
-                      value={zonning}
+                      name="zoning"
+                      id="zoning"
+                      value={zoning}
                       className="block"
                       onChange={handleChange}
                       placeholder="Enter regulations"
@@ -432,8 +364,6 @@ export default function EditListing() {
                       name="latitude"
                       id="latitude"
                       value={latitude}
-                      min="-90"
-                      max="90"
                       onChange={handleChange}
                       placeholder="Latitude"
                     />
@@ -445,37 +375,9 @@ export default function EditListing() {
                       name="longitude"
                       id="longitude"
                       value={longitude}
-                      min="-180"
-                      max="180"
                       onChange={handleChange}
                       placeholder="Longitude"
                     />
-                  </div>
-
-                  <div className="col">
-                    <span className="label">
-                      Upload Images
-                      <span className="lowercase text-yellow-200">
-                        (max. 5)
-                      </span>
-                    </span>
-                    <input
-                      type="file"
-                      name="images"
-                      multiple
-                      // required
-                      accept=".jpg,.png,.jpeg"
-                      className="w-full"
-                      onChange={handleFileChange}
-                    />
-                    <div>
-                      <span>Images Selected:</span>
-                      <ul>
-                        {selectedFiles.map((file, index) => (
-                          <li key={index}>{file.name}</li>
-                        ))}
-                      </ul>
-                    </div>
                   </div>
                 </div>
 
@@ -526,16 +428,6 @@ export default function EditListing() {
                     ></textarea>
                   </div>
 
-                  <div className="col">
-                    <span className="label">Upload Video</span>
-                    <input
-                      type="file"
-                      multiple
-                      accept="video/*"
-                      className="w-full"
-                      // onChange={handleFileChange}
-                    />
-                  </div>
                 </div>
               </div>
 
