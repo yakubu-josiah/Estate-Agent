@@ -213,7 +213,7 @@ export default function Listing() {
               <div className="flex items-center">
                 <p className="font-semibold text-gray-600 mr-2">City:</p>
                 <p>
-                  {listing.city}, {listing.state}
+                  {listing.city}, {listing.state} State.
                 </p>
               </div>
               <div className="flex items-center ">
