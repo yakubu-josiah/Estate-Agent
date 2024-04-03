@@ -34,22 +34,6 @@ const validationRules = {
     rule: (value) => !!value && value.length > 5, 
     message: "Please give full address",
   },
-  // latitude: {
-  //   rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -90) && (value.trim() <= 90), 
-  //   message: "Latitude is required and must be a valid number between -90 and 90",
-  // },
-  // longitude: {
-  //   rule: (value) => !!value.trim() && !isNaN(value.trim()) && (value.trim() >= -180) && (value.trim() <= 180), 
-  //   message: "Longitude is required and must be a valid number between -180 and 180",
-  // },
-  // sale: {
-  //   rule: (value) => !!value.trim(), 
-  //   message: "Sale price must be a valid price",
-  // },
-  // lease: {
-  //   rule: (value) => !!value.trim(), 
-  //   message: "Lease price must be a valid price",
-  // },
   landmark: {
     rule: (value) => !!value.trim() && value.trim().length >= 6, 
     message: "Close landmark is required and should be well known",

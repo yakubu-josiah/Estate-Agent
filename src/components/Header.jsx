@@ -58,7 +58,7 @@ export default function Header() {
     <div
       className={`${showNavbar ? "sticky" : "hide"} ${
         isNavbarAtTop
-          ? "headbar border-b shadow-md top-0 z-50"
+          ? "headBar border-b shadow-md top-0 z-50"
           : "bg-transparent border-b shadow-md top-0 z-50"
       } head border-b shadow-md top-0 z-50 transition duration-500 ease-in-out`}
     >

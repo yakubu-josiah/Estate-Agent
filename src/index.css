@@ -10,11 +10,11 @@
 
 /* ============= HEADER SECTION STYLES ============= */
 .head {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background-color: #fff7d1;
+  transition: transform 0.3s;
 }
 
-.headbar {
+.headBar {
   background: hsl(50, 100%, 91%);
   transition: transform 0.3s;
 }
