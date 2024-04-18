@@ -3,7 +3,7 @@ import { collection, query, orderBy, limit, getDocs, startAfter, where } from "f
 import { db } from '../firebaseConfig';
 import { toast } from 'react-toastify';
 import { FiChevronsDown } from "react-icons/fi";
-import ListingItem from '../components/ListingCard';
+import ListingCard from '../components/ListingCard';
 import { useParams } from 'react-router-dom';
 import Footer from '../components/Footer';
 
@@ -122,7 +122,7 @@ export default function ListingCategory() {
                 <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl-grid-cols-5 mt-6">
                   {listingsType !== null &&
                       listingsType.map((listing) => (
-                        <ListingItem
+                        <ListingCard
                           key={listing.id}
                           listingId={listing.id}
                           listing={listing.data}
