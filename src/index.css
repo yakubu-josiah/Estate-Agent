@@ -507,7 +507,12 @@ html {
   .auth div .form button {
     font-size: 15px;
   }
-
+  .forgotForm {
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
   /* ============= PROFILE PAGE STYLES ============ */
 
   .profileCont .imgCont .image {

@@ -1,5 +1,5 @@
-import { getAuth, signOut } from "firebase/auth";
 import React from "react";
+import { getAuth, signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStatus } from "../hooks/useAuthStatus";
