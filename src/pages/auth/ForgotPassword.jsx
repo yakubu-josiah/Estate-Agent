@@ -9,10 +9,10 @@ import { toast } from "react-toastify";
 export default function ForgotPassword() {
   const auth = getAuth();
   const [email, setEmail] = useState("");
-  const [form, setForm] = useState(false);
+  const [form, setForm] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [formSuccess, setFormSuccess] = useState(true);
+  const [formSuccess, setFormSuccess] = useState(false);
 
   function handleChange(e) {
     setEmail(e.target.value);
@@ -102,7 +102,7 @@ export default function ForgotPassword() {
 
       {formSuccess && (
         <div className="lg:flex-1 mx-auto md:flex-col w-full my-auto min-h-[250px]  sm:formCont">
-          <div className="form w-3/5 p-7 mx-auto md:my-auto text-green-900 font-semibold shadow-thick shadow-md min-w-[280px]">
+          <div className="form w-[80%] p-7 mx-auto md:my-auto text-green-900 font-semibold shadow-thick shadow-md min-w-[280px]">
             <div className="relative">
               <h1 className="text-3xl pb-3 mt-10">
                 Email Verified
