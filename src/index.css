@@ -363,6 +363,16 @@ footer div{
     color: #fff; /* Back to shining */
   }
 }
+.spin {
+  display: inline-block;
+  border: 4px solid #fffffffd; 
+  border-top: 4px solid #949292; 
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  margin-left: 6px;
+}
 
 .spinner {
   display: inline-block;
