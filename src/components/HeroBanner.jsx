@@ -15,7 +15,6 @@ export default function HeroBanner() {
     const nav = useNavigate();
     const [listings, setListings] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [agentName, setAgentName] = useState('');
     const [currentListingId, setCurrentListingId] = useState(null);
 
 
@@ -56,7 +55,6 @@ export default function HeroBanner() {
                 });
 
                 setListings(listingsWithOwners);
-                setAgentName(agentName);
                 setIsLoading(false);
                 
             } catch (error) {
@@ -64,7 +62,7 @@ export default function HeroBanner() {
             }
         }
         fetchListings();
-    }, [agentName]);
+    }, []);
 
     if (isLoading) {
         return  <div className="flex justify-center items-center bg-[#3a3a3a] h-[410px] ">
